@@ -63,7 +63,9 @@ function formatMessage(data: ConsultationData): string {
 ${data.message || '无'}
 
 ---
-来源：AttriKit 官网咨询表单`.trim();
+来源：AttriKit 官网咨询表单
+
+<at user_id="all">所有人</at>`.trim();
 }
 
 /**
