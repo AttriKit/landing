@@ -1,11 +1,18 @@
 ---
 import { getCollection } from 'astro:content';
 import '../../styles/global.css';
+import PostCard from '../../components/PostCard.astro';
+import BlogSearch from '../../components/BlogSearch.astro';
 
 const allPosts = await getCollection('blog');
 const posts = allPosts.sort((a, b) =>
   b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
+
+// Get all unique tags
+const allTags = Array.from(
+  new Set(allPosts.flatMap(post => post.data.tags || []))
+).sort();
 ---
 
 <!DOCTYPE html>
@@ -42,7 +49,7 @@ const posts = allPosts.sort((a, b) =>
         <span class="brand-name">AttriKit</span>
       </a>
       <ul class="nav-menu">
-        <li><a href="/blog/">博客</a></li>
+        <li><a href="/blog/" class="active">博客</a></li>
         <li><a href="/#features">产品功能</a></li>
         <li><a href="/#comparison">对比优势</a></li>
         <li><a href="/#pricing">价格方案</a></li>
@@ -59,37 +66,58 @@ const posts = allPosts.sort((a, b) =>
   <!-- Main Content -->
   <main class="blog-page section-lg">
     <div class="container">
+      <!-- Page Header -->
       <div class="page-header">
         <h1 class="page-title">博客</h1>
         <p class="page-subtitle">关于第一方归因、广告技术和产品更新</p>
       </div>
 
-      {posts.length === 0 ? (
-        <div class="empty-state">
-          <p>暂无文章，敬请期待...</p>
-        </div>
-      ) : (
-        <div class="posts-grid">
-          {posts.map((post) => (
-            <article class="post-card">
-              <a href={`/blog/${post.slug}/`} class="post-card-link">
-                <h2 class="post-title">{post.data.title}</h2>
-                <p class="post-description">{post.data.description}</p>
-                <div class="post-meta">
-                  <time datetime={post.data.pubDate.toISOString()}>
-                    {post.data.pubDate.toLocaleDateString('zh-CN', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric'
-                    })}
-                  </time>
-                  <span class="post-author">{post.data.author}</span>
-                </div>
-              </a>
-            </article>
+      <!-- Search -->
+      <BlogSearch />
+
+      <!-- Tags Filter -->
+      {allTags.length > 0 && (
+        <div class="tags-filter">
+          <button class="tag-filter-btn active" data-tag="all">
+            全部
+          </button>
+          {allTags.map(tag => (
+            <button class="tag-filter-btn" data-tag={tag}>
+              {tag}
+            </button>
           ))}
         </div>
       )}
+
+      <!-- Posts Grid -->
+      {posts.length === 0 ? (
+        <div class="empty-state">
+          <svg width="64" height="64" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" class="empty-icon">
+            <path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>
+          </svg>
+          <h3>暂无文章</h3>
+          <p>敬请期待更多精彩内容...</p>
+        </div>
+      ) : (
+        <div class="posts-grid" id="posts-grid">
+          {posts.map(post => (
+            <PostCard post={post} />
+          ))}
+        </div>
+      )}
+
+      <!-- No Results Message (hidden by default) -->
+      <div id="no-results" class="no-results" style="display: none;">
+        <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" class="no-results-icon">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="M21 21l-4.35-4.35"/>
+        </svg>
+        <h3>未找到相关文章</h3>
+        <p>尝试使用其他关键词或标签筛选</p>
+        <button id="clear-search" class="btn btn-secondary btn-sm">
+          清除筛选
+        </button>
+      </div>
     </div>
   </main>
 
@@ -138,7 +166,7 @@ const posts = allPosts.sort((a, b) =>
   </footer>
 
   <style>
-    /* Header Styles - Reused from index.astro */
+    /* Header Styles */
     .header {
       position: fixed;
       top: 0;
@@ -150,7 +178,7 @@ const posts = allPosts.sort((a, b) =>
       -webkit-backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--color-border);
       z-index: var(--z-fixed);
-      transition: background 300ms ease;
+      transition: background var(--transition-base);
     }
 
     .nav {
@@ -191,10 +219,11 @@ const posts = allPosts.sort((a, b) =>
       color: var(--color-text-muted);
       font-weight: 500;
       font-size: var(--font-size-sm);
-      transition: color 200ms ease;
+      transition: color var(--transition-fast);
     }
 
-    .nav-menu a:hover {
+    .nav-menu a:hover,
+    .nav-menu a.active {
       color: var(--color-accent-primary);
     }
 
@@ -218,7 +247,7 @@ const posts = allPosts.sort((a, b) =>
       height: 1.5px;
       background: var(--color-text-primary);
       border-radius: 2px;
-      transition: all 300ms ease;
+      transition: all var(--transition-base);
     }
 
     /* Blog Page Styles */
@@ -229,7 +258,7 @@ const posts = allPosts.sort((a, b) =>
 
     .page-header {
       text-align: center;
-      margin-bottom: var(--spacing-16);
+      margin-bottom: var(--spacing-12);
     }
 
     .page-title {
@@ -238,78 +267,122 @@ const posts = allPosts.sort((a, b) =>
       margin-bottom: var(--spacing-4);
       letter-spacing: -0.03em;
       color: var(--color-text-primary);
+      animation: fadeUp var(--transition-base) ease;
     }
 
     .page-subtitle {
       font-size: var(--font-size-lg);
       color: var(--color-text-muted);
       margin: 0;
+      animation: fadeUp var(--transition-base) ease 0.1s both;
     }
 
+    /* Tags Filter */
+    .tags-filter {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: var(--spacing-12);
+    }
+
+    .tag-filter-btn {
+      padding: 8px 16px;
+      background: var(--color-bg-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-sm);
+      font-weight: 500;
+      font-family: var(--font-family-body);
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .tag-filter-btn:hover {
+      border-color: var(--color-border-hover);
+      transform: translateY(-1px);
+    }
+
+    .tag-filter-btn.active {
+      background: var(--color-accent-primary);
+      color: #fff;
+      border-color: var(--color-accent-primary);
+    }
+
+    /* Empty State */
     .empty-state {
       text-align: center;
       padding: var(--spacing-16);
       color: var(--color-text-muted);
     }
 
+    .empty-icon {
+      color: var(--color-text-light);
+      margin: 0 auto var(--spacing-6);
+      opacity: 0.5;
+    }
+
+    .empty-state h3 {
+      font-size: var(--font-size-xl);
+      margin-bottom: var(--spacing-3);
+      color: var(--color-text-secondary);
+    }
+
+    .empty-state p {
+      font-size: var(--font-size-base);
+      margin: 0;
+    }
+
+    /* No Results */
+    .no-results {
+      text-align: center;
+      padding: var(--spacing-16);
+    }
+
+    .no-results-icon {
+      color: var(--color-text-light);
+      margin: 0 auto var(--spacing-6);
+      opacity: 0.5;
+    }
+
+    .no-results h3 {
+      font-size: var(--font-size-xl);
+      margin-bottom: var(--spacing-3);
+      color: var(--color-text-secondary);
+    }
+
+    .no-results p {
+      color: var(--color-text-muted);
+      margin-bottom: var(--spacing-6);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--color-accent-primary);
+      border: 1.5px solid var(--color-border);
+      padding: 16px 32px;
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+      font-size: var(--font-size-base);
+      font-weight: 500;
+      transition: all var(--transition-fast);
+    }
+
+    .btn-secondary:hover {
+      background: var(--color-accent-subtle);
+      border-color: var(--color-accent-primary);
+    }
+
+    /* Posts Grid */
     .posts-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
       gap: var(--spacing-8);
+      animation: fadeUp var(--transition-base) ease 0.2s both;
     }
 
-    .post-card {
-      background: var(--color-bg-surface);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-xl);
-      padding: var(--spacing-8);
-      transition: all 300ms ease;
-    }
-
-    .post-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--color-border-hover);
-      box-shadow: var(--shadow-md);
-    }
-
-    .post-card-link {
-      text-decoration: none;
-      color: inherit;
-      display: block;
-    }
-
-    .post-title {
-      font-size: var(--font-size-xl);
-      font-weight: 600;
-      margin-bottom: var(--spacing-3);
-      color: var(--color-text-primary);
-      line-height: 1.4;
-    }
-
-    .post-description {
-      color: var(--color-text-muted);
-      line-height: 1.6;
-      margin-bottom: var(--spacing-6);
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    .post-meta {
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-4);
-      font-size: var(--font-size-sm);
-      color: var(--color-text-light);
-    }
-
-    .post-author::before {
-      content: '·';
-      margin-right: var(--spacing-2);
-    }
-
-    /* Footer Styles - Reused from index.astro */
+    /* Footer Styles */
     .footer {
       background: var(--color-bg-surface);
       border-top: 1px solid var(--color-border);
@@ -376,7 +449,7 @@ const posts = allPosts.sort((a, b) =>
       color: var(--color-text-muted);
       font-size: var(--font-size-sm);
       text-decoration: none;
-      transition: color 200ms ease;
+      transition: color var(--transition-fast);
     }
 
     .footer-column a:hover {
@@ -419,6 +492,23 @@ const posts = allPosts.sort((a, b) =>
       .footer-links {
         grid-template-columns: 1fr;
       }
+
+      .tags-filter {
+        justify-content: flex-start;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding-bottom: var(--spacing-2);
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .tags-filter::-webkit-scrollbar {
+        height: 4px;
+      }
+
+      .tags-filter::-webkit-scrollbar-thumb {
+        background: var(--color-border);
+        border-radius: 2px;
+      }
     }
 
     @media (max-width: 480px) {
@@ -430,9 +520,101 @@ const posts = allPosts.sort((a, b) =>
         font-size: var(--font-size-base);
       }
     }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
   </style>
 
   <script>
+    // Tag filter functionality
+    const tagButtons = document.querySelectorAll('.tag-filter-btn');
+    const postCards = document.querySelectorAll('.post-card');
+    const noResults = document.getElementById('no-results');
+    const clearSearchBtn = document.getElementById('clear-search');
+    const postsGrid = document.getElementById('posts-grid');
+    let activeTag = 'all';
+
+    tagButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const tag = button.dataset.tag || 'all';
+        activeTag = tag;
+
+        // Update active state
+        tagButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+
+        // Filter posts
+        filterPosts();
+      });
+    });
+
+    clearSearchBtn?.addEventListener('click', () => {
+      // Clear search input
+      const searchInput = document.getElementById('blog-search-input');
+      if (searchInput) {
+        searchInput.value = '';
+        const searchClear = document.getElementById('search-clear');
+        if (searchClear) {
+          searchClear.style.display = 'none';
+        }
+      }
+
+      // Reset tag filter
+      tagButtons.forEach(btn => btn.classList.remove('active'));
+      document.querySelector('[data-tag="all"]')?.classList.add('active');
+      activeTag = 'all';
+
+      filterPosts();
+    });
+
+    function filterPosts() {
+      let visibleCount = 0;
+
+      postCards.forEach(card => {
+        const cardTags = Array.from(card.querySelectorAll('.tag-badge'))
+          .map(tag => tag.textContent?.trim());
+
+        const matchesTag = activeTag === 'all' || cardTags.includes(activeTag);
+
+        if (matchesTag) {
+          (card as HTMLElement).style.display = '';
+          visibleCount++;
+        } else {
+          (card as HTMLElement).style.display = 'none';
+        }
+      });
+
+      // Show/hide no results message
+      if (visibleCount === 0) {
+        noResults!.style.display = 'block';
+        postsGrid!.style.display = 'none';
+      } else {
+        noResults!.style.display = 'none';
+        postsGrid!.style.display = 'grid';
+      }
+    }
+
+    // Listen for search filtered events
+    window.addEventListener('blog-posts-filtered', (e: Event) => {
+      const detail = (e as CustomEvent).detail;
+      if (detail.visibleCount === 0) {
+        noResults!.style.display = 'block';
+        postsGrid!.style.display = 'none';
+      } else {
+        noResults!.style.display = 'none';
+        postsGrid!.style.display = 'grid';
+      }
+    });
+
     // Mobile menu toggle
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('.nav-menu');

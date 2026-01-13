@@ -1,0 +1,61 @@
+---
+/**
+ * ProgressBar Component
+ * Reading progress bar fixed at the top of the page
+ */
+---
+
+<div id="reading-progress" class="reading-progress">
+  <div class="progress-bar"></div>
+</div>
+
+<style>
+  .reading-progress {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: transparent;
+    z-index: calc(var(--z-fixed) - 1);
+  }
+
+  .progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(
+      90deg,
+      var(--color-accent-primary),
+      var(--color-accent-secondary)
+    );
+    transition: width 100ms linear;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+</style>
+
+<script>
+  // Calculate reading progress
+  const progressBar = document.querySelector('.progress-bar');
+  const readingProgress = document.querySelector('#reading-progress');
+
+  if (progressBar && readingProgress) {
+    readingProgress.style.opacity = '0';
+    readingProgress.style.transition = 'opacity 300ms ease';
+
+    window.addEventListener('scroll', () => {
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight - windowHeight;
+      const scrolled = window.scrollY;
+      const progress = (scrolled / documentHeight) * 100;
+
+      progressBar.style.width = `${Math.min(progress, 100)}%`;
+
+      // Show/hide progress bar based on scroll position
+      if (scrolled > 100) {
+        readingProgress.style.opacity = '1';
+      } else {
+        readingProgress.style.opacity = '0';
+      }
+    }, { passive: true });
+  }
+</script>
