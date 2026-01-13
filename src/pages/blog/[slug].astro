@@ -1,6 +1,12 @@
 ---
 import { getCollection } from 'astro:content';
 import '../../styles/global.css';
+import ProgressBar from '../../components/ProgressBar.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ShareButtons from '../../components/ShareButtons.astro';
+import TableOfContents from '../../components/TableOfContents.astro';
+import TagBadge from '../../components/TagBadge.astro';
+import RelatedPosts from '../../components/RelatedPosts.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -20,6 +26,19 @@ const formatDate = (date: Date) => {
     day: 'numeric'
   });
 };
+
+// Calculate reading time
+const wordCount = post.body?.split('').length || 0;
+const readTimeMinutes = Math.max(1, Math.ceil(wordCount / 400));
+
+// Breadcrumb items
+const breadcrumbItems = [
+  { label: '首页', href: '/' },
+  { label: '博客', href: '/blog/' },
+  { label: post.data.title }
+];
+
+const postUrl = `https://attrikit.com/blog/${post.slug}/`;
 ---
 
 <!DOCTYPE html>
@@ -38,12 +57,12 @@ const formatDate = (date: Date) => {
   <meta property="og:title" content={post.data.title} />
   <meta property="og:description" content={post.data.description} />
   <meta property="og:type" content="article" />
-  <meta property="og:url" content={`https://attrikit.com/blog/${post.slug}/`} />
+  <meta property="og:url" content={postUrl} />
   <meta property="og:locale" content="zh_CN" />
   <meta property="article:published_time" content={post.data.pubDate.toISOString()} />
 
   <!-- Canonical URL -->
-  <link rel="canonical" href={`https://attrikit.com/blog/${post.slug}/`} />
+  <link rel="canonical" href={postUrl} />
 
   <!-- Robots meta -->
   <meta name="robots" content="index, follow" />
@@ -71,32 +90,100 @@ const formatDate = (date: Date) => {
     </nav>
   </header>
 
+  <!-- Progress Bar -->
+  <ProgressBar />
+
   <!-- Article Content -->
   <article class="blog-post section-lg">
-    <div class="container-narrow">
-      <!-- Back Link -->
-      <a href="/blog/" class="back-link">
-        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path d="M19 12H5M12 19l-7-7 7-7"/>
-        </svg>
-        返回博客列表
-      </a>
+    <div class="container">
+      <div class="blog-layout">
+        <!-- Main Content -->
+        <div class="blog-main">
+          <!-- Breadcrumb -->
+          <Breadcrumb items={breadcrumbItems} />
 
-      <!-- Article Header -->
-      <header class="post-header">
-        <h1 class="post-title">{post.data.title}</h1>
-        <p class="post-description">{post.data.description}</p>
-        <div class="post-meta">
-          <time datetime={post.data.pubDate.toISOString()}>
-            {formatDate(post.data.pubDate)}
-          </time>
-          <span class="post-author">作者：{post.data.author}</span>
+          <!-- Article Header -->
+          <header class="post-header">
+            <div class="post-tags">
+              {(post.data.tags || []).map(tag => (
+                <TagBadge tag={tag} variant="primary" />
+              ))}
+            </div>
+
+            <h1 class="post-title">{post.data.title}</h1>
+            <p class="post-description">{post.data.description}</p>
+
+            <div class="post-meta-row">
+              <div class="post-meta">
+                <div class="meta-item">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                    <line x1="16" y1="2" x2="16" y2="6"/>
+                    <line x1="8" y1="2" x2="8" y2="6"/>
+                    <line x1="3" y1="10" x2="21" y2="10"/>
+                  </svg>
+                  <time datetime={post.data.pubDate.toISOString()}>
+                    {formatDate(post.data.pubDate)}
+                  </time>
+                </div>
+
+                <div class="meta-item">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                  </svg>
+                  <span>{post.data.author}</span>
+                </div>
+
+                <div class="meta-item">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 6v6l4 2"/>
+                  </svg>
+                  <span>{readTimeMinutes} 分钟阅读</span>
+                </div>
+              </div>
+
+              <ShareButtons title={post.data.title} url={postUrl} />
+            </div>
+
+            {post.data.image && (
+              <div class="post-hero-image">
+                <img src={post.data.image} alt={post.data.title} />
+              </div>
+            )}
+          </header>
+
+          <!-- Article Content -->
+          <div class="post-content">
+            <Content />
+          </div>
+
+          <!-- Article Footer -->
+          <footer class="post-footer">
+            <div class="post-footer-tags">
+              <span class="footer-tags-label">标签:</span>
+              <div class="footer-tags-list">
+                {(post.data.tags || []).map(tag => (
+                  <TagBadge tag={tag} />
+                ))}
+              </div>
+            </div>
+
+            <ShareButtons title={post.data.title} url={postUrl} />
+          </footer>
+
+          <!-- Related Posts -->
+          <RelatedPosts
+            currentTags={post.data.tags || []}
+            currentSlug={post.slug}
+          />
         </div>
-      </header>
 
-      <!-- Article Content -->
-      <div class="post-content">
-        <Content />
+        <!-- Sidebar -->
+        <aside class="blog-sidebar">
+          <TableOfContents />
+        </aside>
       </div>
     </div>
   </article>
@@ -146,7 +233,7 @@ const formatDate = (date: Date) => {
   </footer>
 
   <style>
-    /* Header Styles - Reused from index.astro */
+    /* Header Styles */
     .header {
       position: fixed;
       top: 0;
@@ -158,7 +245,7 @@ const formatDate = (date: Date) => {
       -webkit-backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--color-border);
       z-index: var(--z-fixed);
-      transition: background 300ms ease;
+      transition: background var(--transition-base);
     }
 
     .nav {
@@ -199,7 +286,7 @@ const formatDate = (date: Date) => {
       color: var(--color-text-muted);
       font-weight: 500;
       font-size: var(--font-size-sm);
-      transition: color 200ms ease;
+      transition: color var(--transition-fast);
     }
 
     .nav-menu a:hover {
@@ -226,39 +313,42 @@ const formatDate = (date: Date) => {
       height: 1.5px;
       background: var(--color-text-primary);
       border-radius: 2px;
-      transition: all 300ms ease;
+      transition: all var(--transition-base);
     }
 
-    /* Blog Post Styles */
+    /* Blog Post Layout */
     .blog-post {
       padding-top: calc(var(--header-height) + var(--spacing-12));
       padding-bottom: var(--spacing-16);
     }
 
-    .back-link {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--spacing-2);
-      color: var(--color-accent-primary);
-      text-decoration: none;
-      margin-bottom: var(--spacing-10);
-      font-weight: 500;
-      font-size: var(--font-size-sm);
-      transition: opacity 200ms ease;
+    .blog-layout {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: var(--spacing-12);
+      position: relative;
     }
 
-    .back-link:hover {
-      opacity: 0.8;
+    .blog-main {
+      min-width: 0;
     }
 
-    .back-link svg {
-      flex-shrink: 0;
+    .blog-sidebar {
+      position: relative;
     }
 
+    /* Post Header */
     .post-header {
       margin-bottom: var(--spacing-12);
       padding-bottom: var(--spacing-8);
       border-bottom: 1px solid var(--color-border);
+    }
+
+    .post-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: var(--spacing-6);
     }
 
     .post-title {
@@ -268,6 +358,7 @@ const formatDate = (date: Date) => {
       line-height: 1.2;
       letter-spacing: -0.03em;
       color: var(--color-text-primary);
+      font-family: var(--font-family-display);
     }
 
     .post-description {
@@ -277,26 +368,56 @@ const formatDate = (date: Date) => {
       margin-bottom: var(--spacing-6);
     }
 
+    .post-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: var(--spacing-8);
+    }
+
     .post-meta {
       display: flex;
       flex-wrap: wrap;
-      gap: var(--spacing-6);
+      gap: 24px;
+    }
+
+    .meta-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
       font-size: var(--font-size-sm);
       color: var(--color-text-muted);
+      font-weight: 500;
     }
 
-    .post-author::before {
-      content: '·';
-      margin-right: var(--spacing-2);
+    .meta-item svg {
+      flex-shrink: 0;
+      opacity: 0.6;
     }
 
-    /* Markdown Content Styles */
+    .post-hero-image {
+      width: 100%;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      background: var(--color-bg-secondary);
+    }
+
+    .post-hero-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Post Content */
     .post-content {
       font-size: var(--font-size-lg);
       line-height: 1.8;
       color: var(--color-text-secondary);
     }
 
+    /* Markdown Styles - Enhanced */
     .post-content :global(h2) {
       font-size: var(--font-size-3xl);
       font-weight: 600;
@@ -304,6 +425,8 @@ const formatDate = (date: Date) => {
       margin-bottom: var(--spacing-4);
       letter-spacing: -0.02em;
       color: var(--color-text-primary);
+      font-family: var(--font-family-display);
+      scroll-margin-top: calc(var(--header-height) + 20px);
     }
 
     .post-content :global(h3) {
@@ -312,6 +435,17 @@ const formatDate = (date: Date) => {
       margin-top: var(--spacing-10);
       margin-bottom: var(--spacing-4);
       color: var(--color-text-primary);
+      font-family: var(--font-family-display);
+      scroll-margin-top: calc(var(--header-height) + 20px);
+    }
+
+    .post-content :global(h4) {
+      font-size: var(--font-size-xl);
+      font-weight: 600;
+      margin-top: var(--spacing-8);
+      margin-bottom: 12px;
+      color: var(--color-text-primary);
+      font-family: var(--font-family-display);
     }
 
     .post-content :global(p) {
@@ -322,6 +456,7 @@ const formatDate = (date: Date) => {
       color: var(--color-accent-primary);
       text-decoration: underline;
       text-underline-offset: 2px;
+      transition: opacity var(--transition-fast);
     }
 
     .post-content :global(a:hover) {
@@ -335,7 +470,7 @@ const formatDate = (date: Date) => {
     }
 
     .post-content :global(li) {
-      margin-bottom: var(--spacing-2);
+      margin-bottom: 8px;
     }
 
     .post-content :global(blockquote) {
@@ -344,6 +479,9 @@ const formatDate = (date: Date) => {
       margin: var(--spacing-8) 0;
       color: var(--color-text-muted);
       font-style: italic;
+      background: var(--color-accent-subtle);
+      padding: var(--spacing-6);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
     }
 
     .post-content :global(code) {
@@ -352,6 +490,7 @@ const formatDate = (date: Date) => {
       border-radius: var(--radius-sm);
       font-size: 0.9em;
       font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+      color: var(--color-accent-secondary);
     }
 
     .post-content :global(pre) {
@@ -367,6 +506,7 @@ const formatDate = (date: Date) => {
     .post-content :global(pre code) {
       background: none;
       padding: 0;
+      color: inherit;
     }
 
     .post-content :global(img) {
@@ -374,6 +514,7 @@ const formatDate = (date: Date) => {
       height: auto;
       border-radius: var(--radius-lg);
       margin: var(--spacing-8) 0;
+      box-shadow: var(--shadow-md);
     }
 
     .post-content :global(hr) {
@@ -382,7 +523,38 @@ const formatDate = (date: Date) => {
       margin: var(--spacing-12) 0;
     }
 
-    /* Footer Styles - Reused from index.astro */
+    /* Post Footer */
+    .post-footer {
+      margin-top: var(--spacing-16);
+      padding-top: var(--spacing-8);
+      border-top: 1px solid var(--color-border);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .post-footer-tags {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .footer-tags-label {
+      font-size: var(--font-size-sm);
+      font-weight: 600;
+      color: var(--color-text-secondary);
+    }
+
+    .footer-tags-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* Footer Styles */
     .footer {
       background: var(--color-bg-surface);
       border-top: 1px solid var(--color-border);
@@ -449,7 +621,7 @@ const formatDate = (date: Date) => {
       color: var(--color-text-muted);
       font-size: var(--font-size-sm);
       text-decoration: none;
-      transition: color 200ms ease;
+      transition: color var(--transition-fast);
     }
 
     .footer-column a:hover {
@@ -470,6 +642,14 @@ const formatDate = (date: Date) => {
 
     /* Responsive Styles */
     @media (max-width: 1024px) {
+      .blog-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .blog-sidebar {
+        display: none;
+      }
+
       .footer-content {
         grid-template-columns: 1fr;
         gap: var(--spacing-8);
@@ -493,8 +673,9 @@ const formatDate = (date: Date) => {
         font-size: var(--font-size-lg);
       }
 
-      .footer-links {
-        grid-template-columns: 1fr;
+      .post-meta-row {
+        flex-direction: column;
+        align-items: flex-start;
       }
 
       .post-content :global(h2) {
@@ -503,6 +684,15 @@ const formatDate = (date: Date) => {
 
       .post-content :global(h3) {
         font-size: var(--font-size-xl);
+      }
+
+      .post-footer {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .footer-links {
+        grid-template-columns: 1fr;
       }
     }
 
@@ -517,6 +707,11 @@ const formatDate = (date: Date) => {
 
       .post-description {
         font-size: var(--font-size-base);
+      }
+
+      .post-meta {
+        flex-direction: column;
+        gap: 12px;
       }
     }
   </style>

@@ -1,0 +1,169 @@
+---
+/**
+ * TableOfContents Component
+ * Auto-generated table of contents with scroll spy
+ */
+---
+
+<aside class="toc-container">
+  <div class="toc-header">
+    <h3>目录</h3>
+  </div>
+  <nav class="toc-nav">
+    <ul id="toc-list" class="toc-list"></ul>
+  </nav>
+</aside>
+
+<style>
+  .toc-container {
+    position: sticky;
+    top: calc(var(--header-height) + var(--spacing-8));
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-6);
+    max-height: calc(100vh - var(--header-height) - var(--spacing-12));
+    overflow-y: auto;
+  }
+
+  .toc-header {
+    margin-bottom: var(--spacing-4);
+    padding-bottom: var(--spacing-3);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .toc-header h3 {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .toc-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .toc-list li {
+    margin-bottom: 4px;
+  }
+
+  .toc-link {
+    display: block;
+    padding: 8px 12px;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+    border-radius: var(--radius-sm);
+    border-left: 2px solid transparent;
+    transition: all var(--transition-fast);
+  }
+
+  .toc-link:hover {
+    color: var(--color-accent-primary);
+    background: var(--color-bg-secondary);
+  }
+
+  .toc-link.active {
+    color: var(--color-accent-primary);
+    background: var(--color-accent-subtle);
+    border-left-color: var(--color-accent-primary);
+    font-weight: 500;
+  }
+
+  .toc-link.level-2 {
+    padding-left: 24px;
+    font-size: var(--font-size-xs);
+  }
+
+  .toc-link.level-3 {
+    padding-left: 36px;
+    font-size: var(--font-size-xs);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .toc-container {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  // Generate TOC from headings
+  const tocList = document.querySelector('#toc-list');
+  const headings = document.querySelectorAll('.post-content h2, .post-content h3');
+
+  if (tocList && headings.length > 0) {
+    headings.forEach((heading, index) => {
+      // Add ID to heading if it doesn't have one
+      if (!heading.id) {
+        heading.id = `heading-${index}`;
+      }
+
+      const level = parseInt(heading.tagName.charAt(1));
+      const li = document.createElement('li');
+
+      const link = document.createElement('a');
+      link.href = `#${heading.id}`;
+      link.textContent = heading.textContent || '';
+      link.className = `toc-link level-${level}`;
+      (link as any).dataset.target = heading.id;
+
+      li.appendChild(link);
+      tocList.appendChild(li);
+    });
+
+    // Scroll spy for active heading
+    const tocLinks = document.querySelectorAll('.toc-link');
+    const headingElements = Array.from(headings);
+
+    const observerOptions = {
+      rootMargin: '-100px 0px -70% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          tocLinks.forEach(link => {
+            link.classList.remove('active');
+            if ((link as any).dataset.target === id) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    headingElements.forEach(heading => observer.observe(heading));
+
+    // Smooth scroll to heading
+    tocLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = (link as any).dataset.target;
+        const targetHeading = document.getElementById(targetId);
+
+        if (targetHeading) {
+          const headerHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-height')) || 80;
+          const offsetTop = targetHeading.getBoundingClientRect().top + window.scrollY - headerHeight - 20;
+          window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  } else if (tocList && headings.length === 0) {
+    // Hide TOC container if no headings
+    const tocContainer = document.querySelector('.toc-container');
+    if (tocContainer) {
+      (tocContainer as HTMLElement).style.display = 'none';
+    }
+  }
+</script>
