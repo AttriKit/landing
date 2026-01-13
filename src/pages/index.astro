@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { organizationSchema, webSiteSchema, softwareApplicationSchema } from '../data/structured-data';
+import ConsultationModal from '../components/ConsultationModal.astro';
 
 const currentYear = new Date().getFullYear();
 ---
@@ -56,7 +57,7 @@ const currentYear = new Date().getFullYear();
         <li><a href="#features">产品功能</a></li>
         <li><a href="#comparison">对比优势</a></li>
         <li><a href="#pricing">价格方案</a></li>
-        <li><a href="#contact" class="btn btn-primary btn-sm">立即咨询</a></li>
+        <li><button data-open-modal class="btn btn-primary btn-sm">立即咨询</button></li>
       </ul>
       <button class="nav-toggle" aria-label="Toggle menu">
         <span></span>
@@ -509,7 +510,7 @@ const currentYear = new Date().getFullYear();
               优先技术支持
             </li>
           </ul>
-          <a href="#contact" class="btn btn-primary">立即咨询</a>
+          <button data-open-modal class="btn btn-primary">立即咨询</button>
         </div>
 
         <!-- Enterprise Plan -->
@@ -569,9 +570,9 @@ const currentYear = new Date().getFullYear();
           数据掌控，从选择第一方归因开始
         </p>
         <div class="cta-actions">
-          <a href="#contact" class="btn btn-primary btn-lg">
+          <button data-open-modal class="btn btn-primary btn-lg">
             立即咨询
-          </a>
+          </button>
           <a href="#features" class="btn btn-secondary btn-lg">
             了解详情
           </a>
@@ -1636,5 +1637,8 @@ const currentYear = new Date().getFullYear();
       observer.observe(el);
     });
   </script>
+
+  <!-- Consultation Modal -->
+  <ConsultationModal />
 </body>
 </html>
