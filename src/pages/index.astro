@@ -1,0 +1,1515 @@
+---
+import '../styles/global.css';
+
+const currentYear = new Date().getFullYear();
+---
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AttriKit - 您的第一方广告归因系统</title>
+  <meta name="description" content="AttriKit 是面向国内广告主的第一方广告归因系统，帮助您快速搭建属于自己的归因能力，摆脱对广告平台和第三方归因服务的依赖，获得数据的完全掌控权。" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="AttriKit - 您的第一方广告归因系统" />
+  <meta property="og:description" content="完全掌控数据，开箱即用，成本降低80%+" />
+  <meta property="og:type" content="website" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <nav class="nav container">
+      <div class="nav-brand">
+        <img src="/favicon.svg" alt="AttriKit Logo" class="logo" />
+        <span class="brand-name">AttriKit</span>
+      </div>
+      <ul class="nav-menu">
+        <li><a href="#features">产品功能</a></li>
+        <li><a href="#comparison">对比优势</a></li>
+        <li><a href="#pricing">价格方案</a></li>
+        <li><a href="#contact" class="btn btn-primary btn-sm">立即咨询</a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero grid-background">
+    <div class="hero-content container">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        第一方归因解决方案
+      </div>
+      <h1 class="hero-title">
+        第一方归因<br />
+        <span class="gradient-text">= 数据主权</span>
+      </h1>
+      <p class="hero-subtitle">
+        AttriKit 帮助您快速搭建属于自己的广告归因能力<br />
+        摆脱依赖，完全掌控数据，成本降低 80%+
+      </p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn btn-primary btn-lg">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+          立即开始
+        </a>
+        <a href="#features" class="btn btn-secondary btn-lg">了解更多</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-value">80%+</div>
+          <div class="stat-label">成本降低</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">100%</div>
+          <div class="stat-label">数据掌控</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">&lt; 1小时</div>
+          <div class="stat-label">快速部署</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="data-node node-1"></div>
+      <div class="data-node node-2"></div>
+      <div class="data-node node-3"></div>
+      <div class="connection-line line-1"></div>
+      <div class="connection-line line-2"></div>
+      <div class="connection-line line-3"></div>
+    </div>
+  </section>
+
+  <!-- Core Values Section -->
+  <section class="values section" id="values">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">核心价值</h2>
+        <p class="section-subtitle">为什么选择第一方归因？</p>
+      </div>
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-icon">
+            <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+            </svg>
+          </div>
+          <h3 class="value-title">数据完全掌控</h3>
+          <p class="value-description">
+            所有归因数据存储在您自己的服务器，不依赖第三方，数据不流转外泄，归因逻辑透明，结果可审计
+          </p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">
+            <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+          </div>
+          <h3 class="value-title">开箱即用</h3>
+          <p class="value-description">
+            无需专业开发团队即可部署，完整的管理后台和配置界面，详细的使用文档和部署指南
+          </p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">
+            <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <h3 class="value-title">成本优势明显</h3>
+          <p class="value-description">
+            一次性部署，长期使用，无需按数据量或广告主数量付费，相比第三方归因服务，成本降低 80%+
+          </p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">
+            <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+          </div>
+          <h3 class="value-title">合规无忧</h3>
+          <p class="value-description">
+            数据不流出您的服务器，符合隐私保护和数据合规要求，适合对数据安全敏感的行业
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features section-lg grid-background" id="features">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">产品功能</h2>
+        <p class="section-subtitle">完整的第一方归因解决方案</p>
+      </div>
+      <div class="features-content">
+        <div class="feature-group">
+          <div class="feature-header">
+            <div class="feature-icon-lg">
+              <svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="feature-title">归因能力</h3>
+              <p class="feature-subtitle">精准、灵活、多渠道</p>
+            </div>
+          </div>
+          <ul class="feature-list">
+            <li>
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              多渠道归因支持：巨量广告（字节跳动），后续支持腾讯广告、快手广告等
+            </li>
+            <li>
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              灵活归因窗口：支持 7 天、30 天等多种归因窗口配置
+            </li>
+            <li>
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              多种归因模式：点击归因、曝光归因等
+            </li>
+            <li>
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              精准设备匹配：基于 OAID、IDFA、Android ID 等设备标识
+            </li>
+          </ul>
+        </div>
+
+        <div class="feature-group">
+          <div class="feature-header">
+            <div class="feature-icon-lg">
+              <svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="feature-title">管理后台</h3>
+              <p class="feature-subtitle">可视化数据分析</p>
+            </div>
+          </div>
+          <ul class="feature-list">
+            <li>
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              数据看板：实时查看归因数据、转化趋势
+            </li>
+            <li>
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              广告效果分析：按广告、创意、投放计划维度分析
+            </li>
+            <li>
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              归因配置：灵活配置归因规则和参数
+            </li>
+            <li>
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              数据导出：支持导出归因数据，便于深度分析
+            </li>
+          </ul>
+        </div>
+
+        <div class="feature-group">
+          <div class="feature-header">
+            <div class="feature-icon-lg">
+              <svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="feature-title">集成便捷</h3>
+              <p class="feature-subtitle">快速上手，轻松集成</p>
+            </div>
+          </div>
+          <ul class="feature-list">
+            <li>
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              简单 SDK 集成：几分钟内完成 SDK 集成
+            </li>
+            <li>
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              API 上报：提供 API 接口，适合已有系统的广告主
+            </li>
+            <li>
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              自动回传：归因结果自动回传至广告平台
+            </li>
+            <li>
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              Docker 一键部署：快速部署到您的服务器
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparison Section -->
+  <section class="comparison section" id="comparison">
+    <div class="container-narrow">
+      <div class="section-header">
+        <h2 class="section-title">与第三方归因的对比</h2>
+        <p class="section-subtitle">为什么选择第一方归因</p>
+      </div>
+      <div class="comparison-table">
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>对比维度</th>
+                <th>第三方归因服务</th>
+                <th class="highlight">AttriKit（第一方归因）</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="dimension">数据掌控</td>
+                <td>
+                  <span class="badge badge-warning">数据流转第三方</span>
+                </td>
+                <td class="highlight">
+                  <span class="badge badge-success">数据完全自己掌控</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="dimension">成本</td>
+                <td>
+                  <span class="badge badge-warning">按量付费，费用高昂</span>
+                </td>
+                <td class="highlight">
+                  <span class="badge badge-success">一次性部署，无额外费用</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="dimension">透明度</td>
+                <td>
+                  <span class="badge badge-warning">归因逻辑不透明</span>
+                </td>
+                <td class="highlight">
+                  <span class="badge badge-success">归因逻辑完全透明</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="dimension">合规性</td>
+                <td>
+                  <span class="badge badge-warning">数据流出服务器</span>
+                </td>
+                <td class="highlight">
+                  <span class="badge badge-success">数据不出服务器</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="dimension">可定制性</td>
+                <td>
+                  <span class="badge badge-neutral">功能固定</span>
+                </td>
+                <td class="highlight">
+                  <span class="badge badge-success">可自定义扩展</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="dimension">依赖性</td>
+                <td>
+                  <span class="badge badge-warning">依赖第三方服务</span>
+                </td>
+                <td class="highlight">
+                  <span class="badge badge-success">完全自主可控</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Use Cases Section -->
+  <section class="use-cases section-lg grid-background">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">适用场景</h2>
+        <p class="section-subtitle">哪些广告主适合使用 AttriKit</p>
+      </div>
+      <div class="use-cases-grid">
+        <div class="use-case-card">
+          <div class="use-case-icon">🎯</div>
+          <h3 class="use-case-title">希望获得数据掌控权</h3>
+          <p class="use-case-description">
+            不满足广告平台归因的透明度，担心第三方归因的数据安全问题
+          </p>
+        </div>
+        <div class="use-case-card">
+          <div class="use-case-icon">💰</div>
+          <h3 class="use-case-title">追求成本优化</h3>
+          <p class="use-case-description">
+            第三方归因服务费用高昂，希望一次性投入长期受益
+          </p>
+        </div>
+        <div class="use-case-card">
+          <div class="use-case-icon">🔗</div>
+          <h3 class="use-case-title">需要多渠道归因</h3>
+          <p class="use-case-description">
+            在多个广告平台投放广告，希望统一管理和分析归因数据
+          </p>
+        </div>
+        <div class="use-case-card">
+          <div class="use-case-icon">🏦</div>
+          <h3 class="use-case-title">对数据合规敏感</h3>
+          <p class="use-case-description">
+            金融、医疗等对数据安全要求高的行业，需要符合严格数据合规要求
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section class="pricing section-lg" id="pricing">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">价格方案</h2>
+        <p class="section-subtitle">选择最适合您的方案</p>
+      </div>
+      <div class="pricing-grid">
+        <!-- Standard Plan -->
+        <div class="pricing-card">
+          <div class="pricing-header">
+            <h3 class="pricing-title">标准版</h3>
+            <div class="pricing-badge">开源免费</div>
+          </div>
+          <div class="pricing-price">
+            <span class="price-value">免费</span>
+          </div>
+          <ul class="pricing-features">
+            <li>
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              完整的第一方归因能力
+            </li>
+            <li>
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              单广告平台支持
+            </li>
+            <li>
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              基础数据看板
+            </li>
+            <li>
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              社区支持
+            </li>
+          </ul>
+          <a href="#contact" class="btn btn-secondary">了解更多</a>
+        </div>
+
+        <!-- Professional Plan -->
+        <div class="pricing-card featured">
+          <div class="pricing-badge-featured">推荐</div>
+          <div class="pricing-header">
+            <h3 class="pricing-title">专业版</h3>
+            <div class="pricing-badge">付费</div>
+          </div>
+          <div class="pricing-price">
+            <span class="price-value">联系咨询</span>
+          </div>
+          <ul class="pricing-features">
+            <li>
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              包含标准版所有功能
+            </li>
+            <li>
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              多广告平台支持
+            </li>
+            <li>
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              高级数据分析和报表
+            </li>
+            <li>
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              归因模型自定义
+            </li>
+            <li>
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              优先技术支持
+            </li>
+          </ul>
+          <a href="#contact" class="btn btn-primary">立即咨询</a>
+        </div>
+
+        <!-- Enterprise Plan -->
+        <div class="pricing-card">
+          <div class="pricing-header">
+            <h3 class="pricing-title">企业版</h3>
+            <div class="pricing-badge">定制</div>
+          </div>
+          <div class="pricing-price">
+            <span class="price-value">定制报价</span>
+          </div>
+          <ul class="pricing-features">
+            <li>
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              包含专业版所有功能
+            </li>
+            <li>
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              完全定制化功能
+            </li>
+            <li>
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              专属技术顾问
+            </li>
+            <li>
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              现场部署和培训
+            </li>
+            <li>
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              7×24 小时技术支持
+            </li>
+          </ul>
+          <a href="#contact" class="btn btn-secondary">联系我们</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta section-lg grid-background" id="contact">
+    <div class="container">
+      <div class="cta-content">
+        <h2 class="cta-title">准备好开始了吗？</h2>
+        <p class="cta-subtitle">
+          立即部署 AttriKit，开始构建属于您自己的第一方归因系统<br />
+          数据掌控，从选择第一方归因开始
+        </p>
+        <div class="cta-actions">
+          <a href="#contact" class="btn btn-primary btn-lg">
+            立即咨询
+          </a>
+          <a href="#features" class="btn btn-secondary btn-lg">
+            了解详情
+          </a>
+        </div>
+        <div class="cta-info">
+          <div class="info-item">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" clip-rule="evenodd"/>
+              <path fill-rule="evenodd" d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" clip-rule="evenodd"/>
+            </svg>
+            contact@attrikit.com
+          </div>
+          <div class="info-item">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"/>
+            </svg>
+            attrikit.com
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <img src="/favicon.svg" alt="AttriKit" />
+            <span>AttriKit</span>
+          </div>
+          <p class="footer-tagline">让每个广告主都能轻松构建第一方归因系统</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-column">
+            <h4>产品</h4>
+            <ul>
+              <li><a href="#features">产品功能</a></li>
+              <li><a href="#comparison">对比优势</a></li>
+              <li><a href="#pricing">价格方案</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>资源</h4>
+            <ul>
+              <li><a href="#">文档</a></li>
+              <li><a href="#">API 参考</a></li>
+              <li><a href="#">部署指南</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>支持</h4>
+            <ul>
+              <li><a href="#">帮助中心</a></li>
+              <li><a href="#contact">联系我们</a></li>
+              <li><a href="#">社区</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; {currentYear} AttriKit. 保留所有权利。</p>
+        <div class="footer-meta">
+          <span>v0.1</span>
+          <span>数据掌控，从选择第一方归因开始</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <style>
+    /* Header Styles */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--header-height);
+      background: rgba(10, 22, 40, 0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0, 217, 255, 0.1);
+      z-index: var(--z-fixed);
+      transition: all var(--transition-base);
+    }
+
+    .nav {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-3);
+    }
+
+    .logo {
+      width: 40px;
+      height: 40px;
+    }
+
+    .brand-name {
+      font-size: var(--font-size-xl);
+      font-weight: 700;
+      color: var(--color-white);
+      letter-spacing: -0.01em;
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-8);
+      list-style: none;
+    }
+
+    .nav-menu a {
+      color: var(--color-text);
+      font-weight: 500;
+      transition: color var(--transition-fast);
+    }
+
+    .nav-menu a:hover {
+      color: var(--color-primary);
+    }
+
+    .btn-sm {
+      padding: var(--spacing-3) var(--spacing-5);
+      font-size: var(--font-size-sm);
+    }
+
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: var(--spacing-2);
+    }
+
+    .nav-toggle span {
+      width: 24px;
+      height: 2px;
+      background: var(--color-white);
+      transition: all var(--transition-base);
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: var(--header-height);
+      overflow: hidden;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      padding: var(--spacing-12) 0;
+      animation: fadeInUp 0.8s ease;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--spacing-2);
+      padding: var(--spacing-2) var(--spacing-4);
+      background: rgba(0, 217, 255, 0.1);
+      border: 1px solid rgba(0, 217, 255, 0.3);
+      border-radius: 999px;
+      color: var(--color-cyan-300);
+      font-size: var(--font-size-sm);
+      font-weight: 600;
+      margin-bottom: var(--spacing-6);
+      animation: fadeIn 0.8s ease 0.2s backwards;
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--color-primary);
+      border-radius: 50%;
+      animation: pulse 2s ease infinite;
+    }
+
+    .hero-title {
+      font-size: var(--font-size-6xl);
+      margin-bottom: var(--spacing-6);
+      line-height: 1.1;
+      animation: fadeInUp 0.8s ease 0.3s backwards;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, var(--color-cyan-500), var(--color-cyan-300));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: var(--font-size-xl);
+      color: var(--color-text-muted);
+      line-height: 1.6;
+      margin-bottom: var(--spacing-8);
+      max-width: 650px;
+      animation: fadeInUp 0.8s ease 0.4s backwards;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: var(--spacing-4);
+      flex-wrap: wrap;
+      margin-bottom: var(--spacing-10);
+      animation: fadeInUp 0.8s ease 0.5s backwards;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: var(--spacing-8);
+      flex-wrap: wrap;
+      animation: fadeInUp 0.8s ease 0.6s backwards;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-1);
+    }
+
+    .stat-value {
+      font-size: var(--font-size-3xl);
+      font-weight: 800;
+      color: var(--color-primary);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-muted);
+    }
+
+    /* Hero Visual Effects */
+    .hero-visual {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 50%;
+      height: 100%;
+      pointer-events: none;
+      opacity: 0.3;
+    }
+
+    .data-node {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      border: 2px solid var(--color-cyan-500);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 217, 255, 0.1), transparent);
+    }
+
+    .node-1 {
+      top: 20%;
+      right: 15%;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .node-2 {
+      top: 50%;
+      right: 30%;
+      animation: float 5s ease-in-out infinite 0.5s;
+    }
+
+    .node-3 {
+      top: 70%;
+      right: 10%;
+      animation: float 6s ease-in-out infinite 1s;
+    }
+
+    .connection-line {
+      position: absolute;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--color-cyan-500), transparent);
+      opacity: 0.5;
+    }
+
+    .line-1 {
+      top: 30%;
+      right: 20%;
+      width: 200px;
+      transform: rotate(45deg);
+      animation: pulse 3s ease-in-out infinite;
+    }
+
+    .line-2 {
+      top: 55%;
+      right: 25%;
+      width: 150px;
+      transform: rotate(-30deg);
+      animation: pulse 3s ease-in-out infinite 1s;
+    }
+
+    .line-3 {
+      top: 65%;
+      right: 18%;
+      width: 180px;
+      transform: rotate(60deg);
+      animation: pulse 3s ease-in-out infinite 2s;
+    }
+
+    /* Section Styles */
+    .section-header {
+      text-align: center;
+      margin-bottom: var(--spacing-10);
+    }
+
+    .section-title {
+      margin-bottom: var(--spacing-4);
+    }
+
+    .section-subtitle {
+      font-size: var(--font-size-lg);
+      color: var(--color-text-muted);
+      margin: 0;
+    }
+
+    /* Values Section */
+    .values {
+      background: var(--color-surface);
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--spacing-6);
+    }
+
+    .value-card {
+      background: var(--color-surface-light);
+      border: 1px solid rgba(0, 217, 255, 0.1);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-6);
+      transition: all var(--transition-base);
+    }
+
+    .value-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--color-cyan-500);
+      box-shadow: 0 8px 24px rgba(0, 217, 255, 0.15);
+    }
+
+    .value-icon {
+      width: 64px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 217, 255, 0.1);
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--spacing-4);
+      color: var(--color-primary);
+    }
+
+    .value-title {
+      font-size: var(--font-size-xl);
+      margin-bottom: var(--spacing-3);
+    }
+
+    .value-description {
+      color: var(--color-text-muted);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* Features Section */
+    .features-content {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-8);
+    }
+
+    .feature-group {
+      background: var(--color-surface);
+      border: 1px solid rgba(0, 217, 255, 0.1);
+      border-radius: var(--radius-2xl);
+      padding: var(--spacing-8);
+      transition: all var(--transition-base);
+    }
+
+    .feature-group:hover {
+      border-color: var(--color-cyan-500);
+    }
+
+    .feature-header {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--spacing-5);
+      margin-bottom: var(--spacing-6);
+    }
+
+    .feature-icon-lg {
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, rgba(0, 217, 255, 0.2), rgba(0, 217, 255, 0.05));
+      border: 2px solid var(--color-cyan-500);
+      border-radius: var(--radius-xl);
+      color: var(--color-primary);
+      flex-shrink: 0;
+    }
+
+    .feature-title {
+      font-size: var(--font-size-2xl);
+      margin-bottom: var(--spacing-2);
+    }
+
+    .feature-subtitle {
+      color: var(--color-text-muted);
+      margin: 0;
+    }
+
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-4);
+    }
+
+    .feature-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--spacing-3);
+      color: var(--color-text);
+      line-height: 1.6;
+    }
+
+    .feature-list svg {
+      color: var(--color-primary);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* Comparison Table */
+    .comparison {
+      background: var(--color-surface);
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(0, 217, 255, 0.1);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--color-surface-light);
+    }
+
+    thead {
+      background: rgba(0, 217, 255, 0.05);
+    }
+
+    th {
+      padding: var(--spacing-4) var(--spacing-5);
+      text-align: left;
+      font-weight: 600;
+      color: var(--color-white);
+      border-bottom: 2px solid rgba(0, 217, 255, 0.2);
+    }
+
+    td {
+      padding: var(--spacing-5);
+      border-bottom: 1px solid rgba(0, 217, 255, 0.05);
+    }
+
+    td.dimension {
+      font-weight: 600;
+      color: var(--color-white);
+    }
+
+    td.highlight,
+    th.highlight {
+      background: rgba(0, 217, 255, 0.05);
+      border-left: 2px solid var(--color-cyan-500);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: var(--spacing-2) var(--spacing-3);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-sm);
+      font-weight: 500;
+    }
+
+    .badge-success {
+      background: rgba(0, 217, 255, 0.1);
+      color: var(--color-primary);
+      border: 1px solid var(--color-cyan-500);
+    }
+
+    .badge-warning {
+      background: rgba(255, 184, 0, 0.1);
+      color: var(--color-amber-500);
+      border: 1px solid var(--color-amber-500);
+    }
+
+    .badge-neutral {
+      background: rgba(139, 155, 179, 0.1);
+      color: var(--color-gray-400);
+      border: 1px solid var(--color-gray-500);
+    }
+
+    /* Use Cases Section */
+    .use-cases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: var(--spacing-6);
+    }
+
+    .use-case-card {
+      background: var(--color-surface);
+      border: 1px solid rgba(0, 217, 255, 0.1);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-6);
+      text-align: center;
+      transition: all var(--transition-base);
+    }
+
+    .use-case-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--color-cyan-500);
+      box-shadow: 0 8px 24px rgba(0, 217, 255, 0.15);
+    }
+
+    .use-case-icon {
+      font-size: 48px;
+      margin-bottom: var(--spacing-4);
+    }
+
+    .use-case-title {
+      font-size: var(--font-size-lg);
+      margin-bottom: var(--spacing-3);
+    }
+
+    .use-case-description {
+      color: var(--color-text-muted);
+      margin: 0;
+    }
+
+    /* Pricing Section */
+    .pricing {
+      background: var(--color-surface);
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--spacing-6);
+      align-items: start;
+    }
+
+    .pricing-card {
+      background: var(--color-surface-light);
+      border: 2px solid rgba(0, 217, 255, 0.1);
+      border-radius: var(--radius-2xl);
+      padding: var(--spacing-8);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: all var(--transition-base);
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--color-cyan-500);
+    }
+
+    .pricing-card.featured {
+      border-color: var(--color-cyan-500);
+      box-shadow: 0 0 40px rgba(0, 217, 255, 0.2);
+    }
+
+    .pricing-badge-featured {
+      position: absolute;
+      top: -12px;
+      right: var(--spacing-6);
+      background: linear-gradient(135deg, var(--color-cyan-500), var(--color-cyan-400));
+      color: var(--color-deep-navy);
+      padding: var(--spacing-2) var(--spacing-4);
+      border-radius: 999px;
+      font-size: var(--font-size-sm);
+      font-weight: 700;
+    }
+
+    .pricing-header {
+      margin-bottom: var(--spacing-5);
+    }
+
+    .pricing-title {
+      font-size: var(--font-size-2xl);
+      margin-bottom: var(--spacing-3);
+    }
+
+    .pricing-badge {
+      display: inline-block;
+      padding: var(--spacing-1) var(--spacing-3);
+      background: rgba(0, 217, 255, 0.1);
+      border: 1px solid var(--color-cyan-500);
+      border-radius: 999px;
+      font-size: var(--font-size-xs);
+      font-weight: 600;
+      color: var(--color-primary);
+    }
+
+    .pricing-price {
+      margin-bottom: var(--spacing-6);
+    }
+
+    .price-value {
+      font-size: var(--font-size-4xl);
+      font-weight: 800;
+      color: var(--color-white);
+    }
+
+    .pricing-features {
+      list-style: none;
+      margin-bottom: var(--spacing-6);
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-4);
+    }
+
+    .pricing-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--spacing-3);
+      color: var(--color-text);
+    }
+
+    .pricing-features svg {
+      color: var(--color-primary);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* CTA Section */
+    .cta {
+      text-align: center;
+    }
+
+    .cta-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .cta-title {
+      font-size: var(--font-size-5xl);
+      margin-bottom: var(--spacing-5);
+    }
+
+    .cta-subtitle {
+      font-size: var(--font-size-xl);
+      color: var(--color-text-muted);
+      line-height: 1.7;
+      margin-bottom: var(--spacing-8);
+    }
+
+    .cta-actions {
+      display: flex;
+      justify-content: center;
+      gap: var(--spacing-4);
+      flex-wrap: wrap;
+      margin-bottom: var(--spacing-8);
+    }
+
+    .cta-info {
+      display: flex;
+      justify-content: center;
+      gap: var(--spacing-6);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-2);
+      color: var(--color-text-muted);
+      font-size: var(--font-size-sm);
+    }
+
+    .info-item svg {
+      color: var(--color-primary);
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--color-surface);
+      border-top: 1px solid rgba(0, 217, 255, 0.1);
+      padding: var(--spacing-12) 0 var(--spacing-6);
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: 2fr 3fr;
+      gap: var(--spacing-10);
+      margin-bottom: var(--spacing-8);
+    }
+
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-4);
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-3);
+      font-size: var(--font-size-xl);
+      font-weight: 700;
+      color: var(--color-white);
+    }
+
+    .footer-logo img {
+      width: 36px;
+      height: 36px;
+    }
+
+    .footer-tagline {
+      color: var(--color-text-muted);
+      max-width: 350px;
+      margin: 0;
+    }
+
+    .footer-links {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--spacing-6);
+    }
+
+    .footer-column h4 {
+      font-size: var(--font-size-base);
+      margin-bottom: var(--spacing-4);
+      color: var(--color-white);
+    }
+
+    .footer-column ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-3);
+    }
+
+    .footer-column a {
+      color: var(--color-text-muted);
+      font-size: var(--font-size-sm);
+      transition: color var(--transition-fast);
+    }
+
+    .footer-column a:hover {
+      color: var(--color-primary);
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: var(--spacing-6);
+      border-top: 1px solid rgba(0, 217, 255, 0.1);
+      color: var(--color-text-muted);
+      font-size: var(--font-size-sm);
+    }
+
+    .footer-bottom p {
+      margin: 0;
+    }
+
+    .footer-meta {
+      display: flex;
+      gap: var(--spacing-4);
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 1024px) {
+      .hero-visual {
+        opacity: 0.2;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-8);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none;
+      }
+
+      .nav-toggle {
+        display: flex;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .hero-title {
+        font-size: var(--font-size-4xl);
+      }
+
+      .hero-cta {
+        flex-direction: column;
+      }
+
+      .hero-cta .btn {
+        width: 100%;
+      }
+
+      .values-grid,
+      .features-content,
+      .use-cases-grid,
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .feature-header {
+        flex-direction: column;
+      }
+
+      .footer-links {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: var(--spacing-4);
+        text-align: center;
+      }
+
+      .table-wrapper {
+        font-size: var(--font-size-sm);
+      }
+
+      th, td {
+        padding: var(--spacing-3);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title {
+        font-size: var(--font-size-3xl);
+      }
+
+      .hero-subtitle {
+        font-size: var(--font-size-base);
+      }
+
+      .cta-title {
+        font-size: var(--font-size-3xl);
+      }
+
+      .cta-subtitle {
+        font-size: var(--font-size-base);
+      }
+
+      .hero-stats {
+        justify-content: space-between;
+        width: 100%;
+      }
+
+      .stat-value {
+        font-size: var(--font-size-2xl);
+      }
+    }
+  </style>
+
+  <script>
+    // Mobile menu toggle
+    const navToggle = document.querySelector('.nav-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+
+    if (navToggle && navMenu) {
+      navToggle.addEventListener('click', () => {
+        navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+      });
+    }
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          const headerOffset = 80;
+          const elementPosition = target.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+
+          // Close mobile menu if open
+          if (window.innerWidth <= 768 && navMenu) {
+            navMenu.style.display = 'none';
+          }
+        }
+      });
+    });
+
+    // Header background on scroll
+    const header = document.querySelector('.header');
+    let lastScroll = 0;
+
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.pageYOffset;
+
+      if (currentScroll > 100) {
+        header.style.background = 'rgba(10, 22, 40, 0.95)';
+        header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.3)';
+      } else {
+        header.style.background = 'rgba(10, 22, 40, 0.9)';
+        header.style.boxShadow = 'none';
+      }
+
+      lastScroll = currentScroll;
+    });
+
+    // Intersection Observer for fade-in animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    // Observe elements for animation
+    document.querySelectorAll('.value-card, .feature-group, .use-case-card, .pricing-card').forEach((el) => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
