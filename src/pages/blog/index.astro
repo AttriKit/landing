@@ -8,11 +8,6 @@ const allPosts = await getCollection('blog');
 const posts = allPosts.sort((a, b) =>
   b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
-
-// Get all unique tags
-const allTags = Array.from(
-  new Set(allPosts.flatMap(post => post.data.tags || []))
-).sort();
 ---
 
 <!DOCTYPE html>
@@ -74,20 +69,6 @@ const allTags = Array.from(
 
       <!-- Search -->
       <BlogSearch />
-
-      <!-- Tags Filter -->
-      {allTags.length > 0 && (
-        <div class="tags-filter">
-          <button class="tag-filter-btn active" data-tag="all">
-            全部
-          </button>
-          {allTags.map(tag => (
-            <button class="tag-filter-btn" data-tag={tag}>
-              {tag}
-            </button>
-          ))}
-        </div>
-      )}
 
       <!-- Posts Grid -->
       {posts.length === 0 ? (
@@ -277,39 +258,6 @@ const allTags = Array.from(
       animation: fadeUp var(--transition-base) ease 0.1s both;
     }
 
-    /* Tags Filter */
-    .tags-filter {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      justify-content: center;
-      margin-bottom: var(--spacing-12);
-    }
-
-    .tag-filter-btn {
-      padding: 8px 16px;
-      background: var(--color-bg-surface);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-md);
-      font-size: var(--font-size-sm);
-      font-weight: 500;
-      font-family: var(--font-family-body);
-      color: var(--color-text-secondary);
-      cursor: pointer;
-      transition: all var(--transition-fast);
-    }
-
-    .tag-filter-btn:hover {
-      border-color: var(--color-border-hover);
-      transform: translateY(-1px);
-    }
-
-    .tag-filter-btn.active {
-      background: var(--color-accent-primary);
-      color: #fff;
-      border-color: var(--color-accent-primary);
-    }
-
     /* Empty State */
     .empty-state {
       text-align: center;
@@ -492,23 +440,6 @@ const allTags = Array.from(
       .footer-links {
         grid-template-columns: 1fr;
       }
-
-      .tags-filter {
-        justify-content: flex-start;
-        overflow-x: auto;
-        flex-wrap: nowrap;
-        padding-bottom: var(--spacing-2);
-        -webkit-overflow-scrolling: touch;
-      }
-
-      .tags-filter::-webkit-scrollbar {
-        height: 4px;
-      }
-
-      .tags-filter::-webkit-scrollbar-thumb {
-        background: var(--color-border);
-        border-radius: 2px;
-      }
     }
 
     @media (max-width: 480px) {
@@ -535,75 +466,10 @@ const allTags = Array.from(
   </style>
 
   <script>
-    // Tag filter functionality
-    const tagButtons = document.querySelectorAll('.tag-filter-btn');
-    const postCards = document.querySelectorAll('.post-card');
-    const noResults = document.getElementById('no-results');
-    const clearSearchBtn = document.getElementById('clear-search');
-    const postsGrid = document.getElementById('posts-grid');
-    let activeTag = 'all';
-
-    tagButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const tag = button.dataset.tag || 'all';
-        activeTag = tag;
-
-        // Update active state
-        tagButtons.forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
-
-        // Filter posts
-        filterPosts();
-      });
-    });
-
-    clearSearchBtn?.addEventListener('click', () => {
-      // Clear search input
-      const searchInput = document.getElementById('blog-search-input');
-      if (searchInput) {
-        searchInput.value = '';
-        const searchClear = document.getElementById('search-clear');
-        if (searchClear) {
-          searchClear.style.display = 'none';
-        }
-      }
-
-      // Reset tag filter
-      tagButtons.forEach(btn => btn.classList.remove('active'));
-      document.querySelector('[data-tag="all"]')?.classList.add('active');
-      activeTag = 'all';
-
-      filterPosts();
-    });
-
-    function filterPosts() {
-      let visibleCount = 0;
-
-      postCards.forEach(card => {
-        const cardTags = Array.from(card.querySelectorAll('.tag-badge'))
-          .map(tag => tag.textContent?.trim());
-
-        const matchesTag = activeTag === 'all' || cardTags.includes(activeTag);
-
-        if (matchesTag) {
-          (card as HTMLElement).style.display = '';
-          visibleCount++;
-        } else {
-          (card as HTMLElement).style.display = 'none';
-        }
-      });
-
-      // Show/hide no results message
-      if (visibleCount === 0) {
-        noResults!.style.display = 'block';
-        postsGrid!.style.display = 'none';
-      } else {
-        noResults!.style.display = 'none';
-        postsGrid!.style.display = 'grid';
-      }
-    }
-
     // Listen for search filtered events
+    const noResults = document.getElementById('no-results');
+    const postsGrid = document.getElementById('posts-grid');
+
     window.addEventListener('blog-posts-filtered', (e: Event) => {
       const detail = (e as CustomEvent).detail;
       if (detail.visibleCount === 0) {
