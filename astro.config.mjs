@@ -11,4 +11,18 @@ export default defineConfig({
     // Disable session management (not needed for this project)
     imageService: 'compile',
   }),
+  env: {
+    schema: {
+      FEISHU_WEBHOOK_URL: {
+        type: 'string',
+        access: 'secret',
+        context: 'server',
+      },
+      FEISHU_SIGN_KEY: {
+        type: 'string',
+        access: 'secret',
+        context: 'server',
+      },
+    },
+  },
 });
