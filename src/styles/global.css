@@ -1,5 +1,5 @@
-/* Import Outfit and Plus Jakarta Sans fonts from Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+/* Import Manrope and Plus Jakarta Sans fonts from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
 
 /* CSS Reset and Base Styles */
 *,
@@ -11,65 +11,46 @@
 }
 
 :root {
-  /* Color System - Bright & Professional Theme */
-  --color-white: #FFFFFF;
-  --color-gray-25: #FAFBFC;
-  --color-gray-50: #F5F8FA;
-  --color-gray-100: #EEF2F6;
-  --color-gray-200: #E3E8EF;
-  --color-gray-300: #D1D9E6;
-  --color-gray-400: #9CAAB9;
-  --color-gray-500: #7A8A9E;
-  --color-gray-600: #5A6B7E;
-  --color-gray-700: #3E4C5E;
-  --color-gray-800: #2B3646;
-  --color-gray-900: #1A222E;
+  /* Backgrounds - Warm whites */
+  --color-bg-primary: #FAFAF9;
+  --color-bg-secondary: #F5F5F4;
+  --color-bg-surface: #FFFFFF;
 
-  /* Brand Colors - Cyan/Blue Primary with Purple Accent */
-  --color-cyan-50: #F0FDFF;
-  --color-cyan-100: #C0F7FE;
-  --color-cyan-200: #89EAF8;
-  --color-cyan-300: #4DDBF0;
-  --color-cyan-400: #1CC9E6;
-  --color-cyan-500: #08B0C9;
-  --color-cyan-600: #0091A8;
-  --color-cyan-700: #007588;
-  --color-cyan-800: #005C6A;
+  /* Text - Warm grays */
+  --color-text-primary: #1C1917;
+  --color-text-secondary: #44403C;
+  --color-text-muted: #78716C;
+  --color-text-light: #A8A29E;
 
-  --color-blue-500: #3B82F6;
-  --color-blue-600: #2563EB;
-  --color-blue-700: #1D4ED8;
+  /* Accents */
+  --color-accent-primary: #0EA5E9;
+  --color-accent-primary-hover: #0284C7;
+  --color-accent-secondary: #F97316;
+  --color-accent-secondary-hover: #EA580C;
+  --color-accent-subtle: #E0F2FE;
+  --color-accent-bg: #FEF3C7;
 
-  --color-purple-100: #F3E8FF;
-  --color-purple-400: #C084FC;
-  --color-purple-500: #A855F7;
-  --color-purple-600: #9333EA;
+  /* Semantic Colors */
+  --color-success: #10B981;
+  --color-success-bg: #D1FAE5;
+  --color-warning: #F59E0B;
+  --color-warning-bg: #FEF3C7;
+  --color-error: #EF4444;
+  --color-error-bg: #FEE2E2;
 
-  --color-emerald-500: #10B981;
-  --color-emerald-600: #059669;
+  /* Borders */
+  --color-border: #E7E5E4;
+  --color-border-hover: #D6D3D1;
 
-  --color-amber-500: #F59E0B;
-  --color-orange-500: #F97316;
+  /* Shadows - Soft and subtle */
+  --shadow-sm: 0 1px 2px rgba(28, 25, 23, 0.04);
+  --shadow-md: 0 4px 12px rgba(28, 25, 23, 0.06);
+  --shadow-lg: 0 12px 24px rgba(28, 25, 23, 0.06);
+  --shadow-subtle: 0 1px 3px rgba(28, 25, 23, 0.04);
 
-  /* Semantic Colors - Bright Light Theme */
-  --color-primary: var(--color-cyan-600);
-  --color-primary-light: var(--color-cyan-500);
-  --color-primary-lighter: var(--color-cyan-400);
-  --color-secondary: var(--color-purple-500);
-  --color-accent: var(--color-orange-500);
-  --color-background: #FDFDFE;
-  --color-surface: var(--color-white);
-  --color-surface-alt: var(--color-gray-25);
-  --color-surface-elevated: var(--color-white);
-  --color-text: var(--color-gray-900);
-  --color-text-muted: var(--color-gray-600);
-  --color-text-light: var(--color-gray-500);
-  --color-border: var(--color-gray-200);
-  --color-border-light: var(--color-gray-100);
-
-  /* Typography - Outfit for headings, Plus Jakarta Sans for body */
-  --font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-family-display: 'Outfit', sans-serif;
+  /* Typography - Plus Jakarta Sans for headings, Manrope for body */
+  --font-family-display: 'Plus Jakarta Sans', sans-serif;
+  --font-family-body: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
   --font-size-xs: 0.75rem;    /* 12px */
   --font-size-sm: 0.875rem;   /* 14px */
@@ -138,12 +119,11 @@ html {
 }
 
 body {
-  font-family: var(--font-family);
+  font-family: var(--font-family-body);
   font-size: var(--font-size-base);
-  line-height: 1.7;
-  color: var(--color-text);
-  background: linear-gradient(135deg, #FDFDFE 0%, #F5F8FA 50%, #F0FDFF 100%);
-  background-attachment: fixed;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  background: var(--color-bg-primary);
   overflow-x: hidden;
 }
 
@@ -152,8 +132,8 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-family-display);
   font-weight: 700;
   line-height: 1.15;
-  letter-spacing: -0.025em;
-  color: var(--color-text);
+  letter-spacing: -0.03em;
+  color: var(--color-text-primary);
 }
 
 h1 {
@@ -232,7 +212,7 @@ a:hover {
   justify-content: center;
   gap: var(--spacing-2);
   padding: var(--spacing-4) var(--spacing-6);
-  font-family: var(--font-family);
+  font-family: var(--font-family-body);
   font-size: var(--font-size-base);
   font-weight: 600;
   line-height: 1;
@@ -240,37 +220,20 @@ a:hover {
   border: none;
   border-radius: var(--radius-lg);
   cursor: pointer;
-  transition: all var(--transition-base);
+  transition: all 300ms ease;
   white-space: nowrap;
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--color-cyan-600), var(--color-cyan-500));
-  color: var(--color-white);
-  box-shadow: 0 4px 16px rgba(0, 145, 168, 0.3), 0 2px 4px rgba(0, 145, 168, 0.2);
-  position: relative;
-  overflow: hidden;
-}
-
-.btn-primary::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, var(--color-cyan-500), var(--color-cyan-400));
-  opacity: 0;
-  transition: opacity var(--transition-base);
+  background: var(--color-accent-primary);
+  color: #FFFFFF;
+  box-shadow: var(--shadow-md);
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 145, 168, 0.35), 0 4px 8px rgba(0, 145, 168, 0.2);
-}
-
-.btn-primary:hover::before {
-  opacity: 1;
+  background: var(--color-accent-primary-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-lg);
 }
 
 .btn-primary span {
@@ -280,14 +243,13 @@ a:hover {
 
 .btn-secondary {
   background: transparent;
-  color: var(--color-primary);
-  border: 2px solid var(--color-primary);
+  color: var(--color-accent-primary);
+  border: 1.5px solid var(--color-border);
 }
 
 .btn-secondary:hover {
-  background: rgba(0, 145, 168, 0.08);
-  border-color: var(--color-cyan-700);
-  color: var(--color-cyan-700);
+  background: var(--color-accent-subtle);
+  border-color: var(--color-accent-primary);
 }
 
 .btn-lg {
@@ -334,11 +296,11 @@ a:hover {
   z-index: -1;
 }
 
-/* Fade-in Animation */
-@keyframes fadeInUp {
+/* Fade-in Animation - Subtle only */
+@keyframes fadeUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
@@ -352,35 +314,6 @@ a:hover {
   }
   to {
     opacity: 1;
-  }
-}
-
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
   }
 }
 
