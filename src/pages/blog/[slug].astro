@@ -5,8 +5,6 @@ import ProgressBar from '../../components/ProgressBar.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import ShareButtons from '../../components/ShareButtons.astro';
 import TableOfContents from '../../components/TableOfContents.astro';
-import TagBadge from '../../components/TagBadge.astro';
-import RelatedPosts from '../../components/RelatedPosts.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -104,12 +102,6 @@ const postUrl = `https://attrikit.com/blog/${post.slug}/`;
 
           <!-- Article Header -->
           <header class="post-header">
-            <div class="post-tags">
-              {(post.data.tags || []).map(tag => (
-                <TagBadge tag={tag} variant="primary" />
-              ))}
-            </div>
-
             <h1 class="post-title">{post.data.title}</h1>
             <p class="post-description">{post.data.description}</p>
 
@@ -146,12 +138,6 @@ const postUrl = `https://attrikit.com/blog/${post.slug}/`;
 
               <ShareButtons title={post.data.title} url={postUrl} />
             </div>
-
-            {post.data.image && (
-              <div class="post-hero-image">
-                <img src={post.data.image} alt={post.data.title} />
-              </div>
-            )}
           </header>
 
           <!-- Article Content -->
@@ -161,23 +147,8 @@ const postUrl = `https://attrikit.com/blog/${post.slug}/`;
 
           <!-- Article Footer -->
           <footer class="post-footer">
-            <div class="post-footer-tags">
-              <span class="footer-tags-label">标签:</span>
-              <div class="footer-tags-list">
-                {(post.data.tags || []).map(tag => (
-                  <TagBadge tag={tag} />
-                ))}
-              </div>
-            </div>
-
             <ShareButtons title={post.data.title} url={postUrl} />
           </footer>
-
-          <!-- Related Posts -->
-          <RelatedPosts
-            currentTags={post.data.tags || []}
-            currentSlug={post.slug}
-          />
         </div>
 
         <!-- Sidebar -->
@@ -344,13 +315,6 @@ const postUrl = `https://attrikit.com/blog/${post.slug}/`;
       border-bottom: 1px solid var(--color-border);
     }
 
-    .post-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: var(--spacing-6);
-    }
-
     .post-title {
       font-size: clamp(32px, 5vw, 48px);
       font-weight: 700;
@@ -395,19 +359,6 @@ const postUrl = `https://attrikit.com/blog/${post.slug}/`;
     .meta-item svg {
       flex-shrink: 0;
       opacity: 0.6;
-    }
-
-    .post-hero-image {
-      width: 100%;
-      border-radius: var(--radius-xl);
-      overflow: hidden;
-      background: var(--color-bg-secondary);
-    }
-
-    .post-hero-image img {
-      width: 100%;
-      height: auto;
-      display: block;
     }
 
     /* Post Content */
@@ -529,29 +480,7 @@ const postUrl = `https://attrikit.com/blog/${post.slug}/`;
       padding-top: var(--spacing-8);
       border-top: 1px solid var(--color-border);
       display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 24px;
-    }
-
-    .post-footer-tags {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .footer-tags-label {
-      font-size: var(--font-size-sm);
-      font-weight: 600;
-      color: var(--color-text-secondary);
-    }
-
-    .footer-tags-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
+      justify-content: flex-end;
     }
 
     /* Footer Styles */
