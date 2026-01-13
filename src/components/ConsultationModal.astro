@@ -1,0 +1,410 @@
+---
+// Consultation Modal Component
+---
+
+<div id="consultation-modal" class="modal" data-open="false">
+  <!-- Modal Overlay -->
+  <div class="modal-overlay" data-close-modal></div>
+
+  <!-- Modal Content -->
+  <div class="modal-container">
+    <div class="modal-header">
+      <h3>立即咨询</h3>
+      <button class="modal-close" data-close-modal aria-label="关闭">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <!-- Success Message -->
+      <div id="success-message" class="status-message success-message" style="display: none;">
+        <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        <h4>提交成功</h4>
+        <p>我们已收到您的咨询，将在24小时内与您联系。</p>
+      </div>
+
+      <!-- Error Message -->
+      <div id="error-message" class="status-message error-message" style="display: none;">
+        <h4>提交失败</h4>
+        <p>抱歉，提交过程中出现错误，请稍后重试或直接发送邮件至 contact@attrikit.com</p>
+        <button class="btn btn-secondary btn-sm" data-retry>重试</button>
+      </div>
+
+      <!-- Form -->
+      <form id="consultation-form" class="consultation-form">
+        <!-- Name Field -->
+        <div class="form-field">
+          <label for="name">姓名 <span class="required">*</span></label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            placeholder="请输入您的姓名"
+          />
+        </div>
+
+        <!-- Company Field -->
+        <div class="form-field">
+          <label for="company">公司名称</label>
+          <input
+            type="text"
+            id="company"
+            name="company"
+            placeholder="请输入公司名称"
+          />
+        </div>
+
+        <!-- Email Field -->
+        <div class="form-field">
+          <label for="email">邮箱 <span class="required">*</span></label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            placeholder="your@email.com"
+          />
+        </div>
+
+        <!-- Phone Field -->
+        <div class="form-field">
+          <label for="phone">联系电话 <span class="required">*</span></label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            required
+            placeholder="请输入您的手机号"
+            pattern="[0-9]{11}"
+          />
+        </div>
+
+        <!-- Message Field -->
+        <div class="form-field">
+          <label for="message">咨询内容</label>
+          <textarea
+            id="message"
+            name="message"
+            rows="4"
+            placeholder="请简要描述您的需求或问题"
+          ></textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <button
+          type="submit"
+          class="btn btn-primary btn-lg btn-block"
+          id="submit-btn"
+        >
+          提交咨询
+        </button>
+
+        <p class="form-notice">
+          提交即表示您同意我们的隐私政策，我们将严格保护您的个人信息。
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Modal styles */
+  .modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .modal[data-open="true"] {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(26, 34, 46, 0.6);
+    backdrop-filter: blur(4px);
+  }
+
+  .modal-container {
+    position: relative;
+    z-index: 1;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    max-width: 540px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+  }
+
+  .modal[data-open="true"] .modal-container {
+    transform: scale(1);
+  }
+
+  .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .modal-header h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #1f2937;
+  }
+
+  .modal-close {
+    background: none;
+    border: none;
+    color: #6b7280;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-close:hover {
+    background: #f3f4f6;
+    color: #1f2937;
+  }
+
+  .modal-body {
+    padding: 1.5rem;
+  }
+
+  /* Form styles */
+  .consultation-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .form-field label {
+    font-weight: 600;
+    color: #1f2937;
+    font-size: 0.875rem;
+  }
+
+  .form-field .required {
+    color: #f97316;
+  }
+
+  .form-field input,
+  .form-field textarea {
+    padding: 0.75rem 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    color: #1f2937;
+    background: white;
+    transition: all 0.2s;
+    box-sizing: border-box;
+  }
+
+  .form-field input:focus,
+  .form-field textarea:focus {
+    outline: none;
+    border-color: #0091a8;
+    box-shadow: 0 0 0 3px rgba(0, 145, 168, 0.1);
+  }
+
+  .form-field input::placeholder,
+  .form-field textarea::placeholder {
+    color: #9ca3af;
+  }
+
+  .btn-block {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+
+  .btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .form-notice {
+    font-size: 0.75rem;
+    color: #6b7280;
+    text-align: center;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* Status messages */
+  .status-message {
+    text-align: center;
+    padding: 2rem 1.5rem;
+  }
+
+  .success-message {
+    color: #059669;
+  }
+
+  .success-message svg {
+    color: #10b981;
+    margin: 0 auto 1rem;
+  }
+
+  .success-message h4,
+  .error-message h4 {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .success-message p,
+  .error-message p {
+    color: #6b7280;
+    margin: 0 0 1rem 0;
+  }
+
+  .error-message {
+    color: #f97316;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .modal-container {
+      width: 95%;
+      max-height: 95vh;
+    }
+
+    .modal-header,
+    .modal-body {
+      padding: 1rem;
+    }
+  }
+</style>
+
+<script>
+  // Modal state and functions
+  const modal = document.querySelector('#consultation-modal');
+  const overlay = document.querySelector('.modal-overlay');
+
+  function openModal() {
+    modal?.setAttribute('data-open', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modal?.setAttribute('data-open', 'false');
+    document.body.style.overflow = '';
+
+    // Reset form after animation
+    setTimeout(() => {
+      const form = document.querySelector('#consultation-form');
+      const successMessage = document.querySelector('#success-message');
+      const errorMessage = document.querySelector('#error-message');
+      if (form) {
+        form.style.display = 'flex';
+        form.reset();
+      }
+      if (successMessage) successMessage.style.display = 'none';
+      if (errorMessage) errorMessage.style.display = 'none';
+    }, 300);
+  }
+
+  // Attach event listeners for modal open
+  document.querySelectorAll('[data-open-modal]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      openModal();
+    });
+  });
+
+  // Attach event listeners for modal close
+  document.querySelectorAll('[data-close-modal]').forEach(btn => {
+    btn.addEventListener('click', closeModal);
+  });
+
+  overlay?.addEventListener('click', closeModal);
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal?.getAttribute('data-open') === 'true') {
+      closeModal();
+    }
+  });
+
+  // Form submission
+  const form = document.querySelector('#consultation-form');
+  const submitBtn = document.querySelector('#submit-btn');
+  const successMessage = document.querySelector('#success-message');
+  const errorMessage = document.querySelector('#error-message');
+  const retryBtn = document.querySelector('[data-retry]');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const data = {
+      name: formData.get('name'),
+      company: formData.get('company'),
+      email: formData.get('email'),
+      phone: formData.get('phone'),
+      message: formData.get('message')
+    };
+
+    submitBtn!.disabled = true;
+    submitBtn!.textContent = '提交中...';
+
+    try {
+      const response = await fetch('/api/consultation', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        form.style.display = 'none';
+        successMessage!.style.display = 'block';
+      } else {
+        throw new Error(result.error || 'Submission failed');
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      form.style.display = 'none';
+      errorMessage!.style.display = 'block';
+    } finally {
+      submitBtn!.disabled = false;
+      submitBtn!.textContent = '提交咨询';
+    }
+  });
+
+  // Retry button
+  retryBtn?.addEventListener('click', () => {
+    errorMessage!.style.display = 'none';
+    form.style.display = 'flex';
+  });
+</script>
