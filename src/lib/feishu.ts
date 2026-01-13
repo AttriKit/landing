@@ -80,12 +80,10 @@ ${data.message || "无"}
  */
 export async function sendToFeishu(
   data: ConsultationData,
+  webhookUrl: string,
+  signKey: string,
 ): Promise<FeishuWebhookResponse> {
   try {
-    // Get environment variables
-    const webhookUrl = import.meta.env.FEISHU_WEBHOOK_URL;
-    const signKey = import.meta.env.FEISHU_SIGN_KEY;
-
     if (!webhookUrl || !signKey) {
       console.error("Missing Feishu configuration");
       return {

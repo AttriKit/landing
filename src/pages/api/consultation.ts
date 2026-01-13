@@ -4,7 +4,11 @@ import type { ConsultationData } from '../../lib/types';
 
 export const prerender = false;
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, locals }) => {
+  // Get env vars from Cloudflare runtime
+  const env = (locals as any).runtime?.env || {};
+  const webhookUrl = env.FEISHU_WEBHOOK_URL || import.meta.env.FEISHU_WEBHOOK_URL;
+  const signKey = env.FEISHU_SIGN_KEY || import.meta.env.FEISHU_SIGN_KEY;
   try {
     const body = await request.json() as ConsultationData;
 
@@ -52,8 +56,8 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // Send to Feishu
-    const feishuResult = await sendToFeishu(body);
+    // Send to Feishu with env vars
+    const feishuResult = await sendToFeishu(body, webhookUrl, signKey);
 
     if (!feishuResult.success) {
       throw new Error(feishuResult.error);
