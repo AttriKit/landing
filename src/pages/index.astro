@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { organizationSchema, webSiteSchema, softwareApplicationSchema } from '../data/structured-data';
 
 const currentYear = new Date().getFullYear();
 ---
@@ -20,6 +21,27 @@ const currentYear = new Date().getFullYear();
   <meta property="og:title" content="AttriKit - 您的第一方广告归因系统" />
   <meta property="og:description" content="完全掌控数据，开箱即用，成本降低80%+" />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://attrikit.com/" />
+  <meta property="og:locale" content="zh_CN" />
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://attrikit.com/" />
+
+  <!-- Robots meta -->
+  <meta name="robots" content="index, follow" />
+  <meta name="googlebot" content="index, follow" />
+  <meta name="baiduspider" content="index, follow" />
+
+  <!-- Keywords (for Baidu SEO) -->
+  <meta name="keywords" content="第一方归因,广告归因,移动归因,attrikit,数据归因,归因系统,广告效果分析,转化追踪" />
+
+  <!-- Twitter Card (reserved for future use) -->
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)}></script>
+  <script type="application/ld+json" set:html={JSON.stringify(webSiteSchema)}></script>
+  <script type="application/ld+json" set:html={JSON.stringify(softwareApplicationSchema)}></script>
 </head>
 <body>
 
