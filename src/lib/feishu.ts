@@ -1,4 +1,4 @@
-import type { ConsultationData } from './types';
+import type { ConsultationData } from "./types";
 
 interface FeishuWebhookResponse {
   success: boolean;
@@ -8,29 +8,38 @@ interface FeishuWebhookResponse {
 /**
  * Calculate signature for Feishu webhook using Web Crypto API
  * Compatible with Cloudflare Workers runtime
+ *
+ * According to Feishu documentation:
+ * - Use `timestamp + "\n" + key` as the HMAC key
+ * - Sign an empty string
  */
-async function calculateSignature(timestamp: number, key: string): Promise<string> {
+async function calculateSignature(
+  timestamp: number,
+  key: string,
+): Promise<string> {
   const stringToSign = `${timestamp}\n${key}`;
   const encoder = new TextEncoder();
-  const keyData = encoder.encode(stringToSign);
 
+  // Use timestamp + "\n" + key as HMAC key (as per Feishu docs)
+  const keyData = encoder.encode(stringToSign);
   const cryptoKey = await crypto.subtle.importKey(
-    'raw',
+    "raw",
     keyData,
-    { name: 'HMAC', hash: 'SHA-256' },
+    { name: "HMAC", hash: "SHA-256" },
     false,
-    ['sign']
+    ["sign"],
   );
 
+  // Sign empty data
   const signature = await crypto.subtle.sign(
-    'HMAC',
+    "HMAC",
     cryptoKey,
-    encoder.encode('')
+    encoder.encode(""),
   );
 
   // Convert to base64
   const bytes = new Uint8Array(signature);
-  let binary = '';
+  let binary = "";
   for (const byte of bytes) {
     binary += String.fromCharCode(byte);
   }
@@ -41,38 +50,36 @@ async function calculateSignature(timestamp: number, key: string): Promise<strin
  * Format consultation data into Feishu message
  */
 function formatMessage(data: ConsultationData): string {
-  const timestamp = new Date().toLocaleString('zh-CN', {
-    timeZone: 'Asia/Shanghai',
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-    hour12: false
+  const timestamp = new Date().toLocaleString("zh-CN", {
+    timeZone: "Asia/Shanghai",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
   });
 
-  return `📝 新的咨询请求
+  return `📝 新的咨询请求 <at user_id="all">所有人</at>
 
 ⏰ 提交时间：${timestamp}
 👤 姓名：${data.name}
-🏢 公司名称：${data.company || '未填写'}
+🏢 公司名称：${data.company || "未填写"}
 📧 邮箱：${data.email}
 📱 联系电话：${data.phone}
 💬 咨询内容：
-${data.message || '无'}
+${data.message || "无"}
 
 ---
-来源：AttriKit 官网咨询表单
-
-<at user_id="all">所有人</at>`.trim();
+来源：AttriKit 官网咨询表单`.trim();
 }
 
 /**
  * Send consultation data to Feishu webhook
  */
 export async function sendToFeishu(
-  data: ConsultationData
+  data: ConsultationData,
 ): Promise<FeishuWebhookResponse> {
   try {
     // Get environment variables
@@ -80,10 +87,10 @@ export async function sendToFeishu(
     const signKey = import.meta.env.FEISHU_SIGN_KEY;
 
     if (!webhookUrl || !signKey) {
-      console.error('Missing Feishu configuration');
+      console.error("Missing Feishu configuration");
       return {
         success: false,
-        error: 'Server configuration error'
+        error: "Server configuration error",
       };
     }
 
@@ -98,27 +105,27 @@ export async function sendToFeishu(
     const payload = {
       timestamp: timestamp.toString(),
       sign,
-      msg_type: 'text',
+      msg_type: "text",
       content: {
-        text: message
-      }
+        text: message,
+      },
     };
 
     // Send webhook request
     const response = await fetch(webhookUrl, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
     });
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('Feishu webhook error:', errorText);
+      console.error("Feishu webhook error:", errorText);
       return {
         success: false,
-        error: `Webhook request failed: ${response.status}`
+        error: `Webhook request failed: ${response.status}`,
       };
     }
 
@@ -126,20 +133,19 @@ export async function sendToFeishu(
 
     // Check if Feishu accepted the message
     if (result.code !== 0) {
-      console.error('Feishu API error:', result);
+      console.error("Feishu API error:", result);
       return {
         success: false,
-        error: result.msg || 'Unknown Feishu API error'
+        error: result.msg || "Unknown Feishu API error",
       };
     }
 
     return { success: true };
-
   } catch (error) {
-    console.error('Error sending to Feishu:', error);
+    console.error("Error sending to Feishu:", error);
     return {
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error'
+      error: error instanceof Error ? error.message : "Unknown error",
     };
   }
 }
