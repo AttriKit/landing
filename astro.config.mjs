@@ -7,10 +7,7 @@ import cloudflare from '@astrojs/cloudflare';
 export default defineConfig({
   site: 'https://attrikit.com',
   integrations: [
-    sitemap({
-      // Single page site, only one sitemap file needed
-      entryLimit: 1,
-    })
+    sitemap()
   ],
   adapter: cloudflare({
     // Disable session management (not needed for this project)
