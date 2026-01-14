@@ -399,6 +399,17 @@ const postUrl = `https://attrikit.com/blog/${post.slug}/`;
       .post-content :global(h3) {
         font-size: var(--font-size-xl);
       }
+
+      .post-content :global(pre) {
+        font-size: var(--font-size-mobile-xs);
+        padding: var(--spacing-4);
+        overflow-x: auto;
+        border-radius: var(--radius-md);
+      }
+
+      .post-content :global(code) {
+        font-size: var(--font-size-mobile-xs);
+      }
     }
 
     @media (max-width: 480px) {

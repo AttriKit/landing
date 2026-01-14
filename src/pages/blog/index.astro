@@ -139,9 +139,10 @@ const posts = allPosts.sort((a, b) =>
     }
 
     /* Responsive Styles */
-    @media (max-width: 768px) {
+    @media (max-width: 640px) {
       .posts-grid {
         grid-template-columns: 1fr;
+        gap: var(--spacing-5);
       }
     }
 
