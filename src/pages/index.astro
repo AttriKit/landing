@@ -88,14 +88,6 @@ import Footer from '../components/Footer.astro';
         </div>
       </div>
     </div>
-    <div class="hero-visual">
-      <div class="data-node node-1"></div>
-      <div class="data-node node-2"></div>
-      <div class="data-node node-3"></div>
-      <div class="connection-line line-1"></div>
-      <div class="connection-line line-2"></div>
-      <div class="connection-line line-3"></div>
-    </div>
   </section>
 
   <!-- Core Values Section -->
@@ -685,110 +677,6 @@ import Footer from '../components/Footer.astro';
       color: var(--color-text-muted);
     }
 
-    /* Hero Visual Effects - Subtle ambient gradient */
-    .hero-visual {
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 50%;
-      height: 100%;
-      pointer-events: none;
-      opacity: 0.4;
-    }
-
-    .hero-visual::before {
-      content: '';
-      position: absolute;
-      top: 20%;
-      right: 10%;
-      width: 400px;
-      height: 400px;
-      background: radial-gradient(circle, var(--color-accent-subtle), transparent 60%);
-      border-radius: 50%;
-      filter: blur(80px);
-    }
-
-    /* Breathing node animation */
-    @keyframes nodePulse {
-      0%, 100% {
-        transform: scale(1);
-        opacity: 0.6;
-      }
-      50% {
-        transform: scale(1.08);
-        opacity: 1;
-      }
-    }
-
-    .data-node {
-      position: absolute;
-      width: 12px;
-      height: 12px;
-      background: var(--color-accent-primary);
-      border-radius: 50%;
-      animation: nodePulse 3.5s ease-in-out infinite;
-    }
-
-    .data-node.node-1 {
-      top: 30%;
-      right: 15%;
-      animation-delay: 0s;
-    }
-
-    .data-node.node-2 {
-      top: 50%;
-      right: 25%;
-      animation-delay: 1s;
-    }
-
-    .data-node.node-3 {
-      top: 40%;
-      right: 35%;
-      animation-delay: 2s;
-    }
-
-    /* Connection line flow animation */
-    @keyframes lineFlow {
-      0%, 100% {
-        opacity: 0.3;
-      }
-      50% {
-        opacity: 0.6;
-      }
-    }
-
-    .connection-line {
-      position: absolute;
-      height: 2px;
-      background: linear-gradient(90deg, var(--color-accent-primary), transparent);
-      animation: lineFlow 2.5s ease-in-out infinite;
-      transform-origin: left center;
-    }
-
-    .connection-line.line-1 {
-      top: 35%;
-      right: 15%;
-      width: 100px;
-      transform: rotate(15deg);
-      animation-delay: 0.5s;
-    }
-
-    .connection-line.line-2 {
-      top: 48%;
-      right: 22%;
-      width: 120px;
-      transform: rotate(-10deg);
-      animation-delay: 1.5s;
-    }
-
-    .connection-line.line-3 {
-      top: 42%;
-      right: 30%;
-      width: 80px;
-      transform: rotate(25deg);
-      animation-delay: 2.5s;
-    }
-
     /* Section Styles */
     .section-header {
       text-align: center;
@@ -1204,10 +1092,6 @@ import Footer from '../components/Footer.astro';
 
     /* Responsive Styles */
     @media (max-width: 1024px) {
-      .hero-visual {
-        opacity: 0.2;
-      }
-
       .footer-content {
         grid-template-columns: 1fr;
         gap: var(--spacing-8);
