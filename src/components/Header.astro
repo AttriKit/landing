@@ -12,7 +12,7 @@
       <li><a href="/#features">产品功能</a></li>
       <li><a href="/#comparison">对比优势</a></li>
       <li><a href="/#pricing">价格方案</a></li>
-      <li><a href="/#contact" class="btn btn-primary btn-sm">立即咨询</a></li>
+      <li><button class="btn btn-primary btn-sm" data-open-modal>立即咨询</button></li>
     </ul>
     <button class="nav-toggle" aria-label="Toggle menu">
       <span></span>
@@ -51,21 +51,22 @@
   .nav-brand {
     display: flex;
     align-items: center;
-    gap: var(--spacing-3);
+    gap: 8px;
     text-decoration: none;
   }
 
   .logo {
-    width: 36px;
-    height: 36px;
+    width: 28px;
+    height: 28px;
   }
 
   .brand-name {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-base);
     font-weight: 700;
     font-family: var(--font-family-display);
     color: var(--color-text-primary);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
+    line-height: 1;
   }
 
   .nav-menu {
