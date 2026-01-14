@@ -27,7 +27,7 @@ const formatDate = (date: Date) => {
 };
 ---
 
-<article class="post-card" data-post-id={post.slug} data-content={post.body}>
+<article class="post-card">
   <a href={`/blog/${post.slug}/`} class="post-card-link">
     <div class="post-card-content">
       <h2 class="post-title">{title}</h2>
@@ -109,22 +109,6 @@ const formatDate = (date: Date) => {
   .post-author::before {
     content: '·';
     margin-right: 4px;
-  }
-
-  /* Fade in animation for search filtering */
-  .post-card[data-post-id] {
-    animation: fadeIn var(--transition-base) ease;
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(8px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
   }
 
   @media (max-width: 640px) {

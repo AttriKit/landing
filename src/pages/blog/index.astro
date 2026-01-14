@@ -1,8 +1,7 @@
----
+ ---
 import { getCollection } from 'astro:content';
 import '../../styles/global.css';
 import PostCard from '../../components/PostCard.astro';
-import BlogSearch from '../../components/BlogSearch.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 
@@ -57,9 +56,6 @@ const posts = allPosts.sort((a, b) =>
         <p class="page-subtitle">关于第一方归因、广告技术和产品更新</p>
       </div>
 
-      <!-- Search -->
-      <BlogSearch />
-
       <!-- Posts Grid -->
       {posts.length === 0 ? (
         <div class="empty-state">
@@ -70,25 +66,12 @@ const posts = allPosts.sort((a, b) =>
           <p>敬请期待更多精彩内容...</p>
         </div>
       ) : (
-        <div class="posts-grid" id="posts-grid">
+        <div class="posts-grid">
           {posts.map(post => (
             <PostCard post={post} />
           ))}
         </div>
       )}
-
-      <!-- No Results Message (hidden by default) -->
-      <div id="no-results" class="no-results" style="display: none;">
-        <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" class="no-results-icon">
-          <circle cx="11" cy="11" r="8"/>
-          <path d="M21 21l-4.35-4.35"/>
-        </svg>
-        <h3>未找到相关文章</h3>
-        <p>尝试使用其他关键词搜索</p>
-        <button id="clear-search" class="btn btn-secondary btn-sm">
-          清除搜索
-        </button>
-      </div>
     </div>
   </main>
 
@@ -147,46 +130,6 @@ const posts = allPosts.sort((a, b) =>
       margin: 0;
     }
 
-    /* No Results */
-    .no-results {
-      text-align: center;
-      padding: var(--spacing-16);
-    }
-
-    .no-results-icon {
-      color: var(--color-text-light);
-      margin: 0 auto var(--spacing-6);
-      opacity: 0.5;
-    }
-
-    .no-results h3 {
-      font-size: var(--font-size-xl);
-      margin-bottom: var(--spacing-3);
-      color: var(--color-text-secondary);
-    }
-
-    .no-results p {
-      color: var(--color-text-muted);
-      margin-bottom: var(--spacing-6);
-    }
-
-    .btn-secondary {
-      background: transparent;
-      color: var(--color-accent-primary);
-      border: 1.5px solid var(--color-border);
-      padding: 16px 32px;
-      border-radius: var(--radius-lg);
-      cursor: pointer;
-      font-size: var(--font-size-base);
-      font-weight: 500;
-      transition: all var(--transition-fast);
-    }
-
-    .btn-secondary:hover {
-      background: var(--color-accent-subtle);
-      border-color: var(--color-accent-primary);
-    }
-
     /* Posts Grid */
     .posts-grid {
       display: grid;
@@ -224,38 +167,6 @@ const posts = allPosts.sort((a, b) =>
       }
     }
   </style>
-
-  <script>
-    // Listen for search filtered events
-    const noResults = document.getElementById('no-results');
-    const postsGrid = document.getElementById('posts-grid');
-    const clearSearchBtn = document.getElementById('clear-search');
-    const searchInput = document.getElementById('blog-search-input') as HTMLInputElement;
-    const searchClear = document.getElementById('search-clear') as HTMLElement;
-
-    window.addEventListener('blog-posts-filtered', (e: Event) => {
-      const detail = (e as CustomEvent).detail;
-      if (detail.visibleCount === 0) {
-        noResults!.style.display = 'block';
-        postsGrid!.style.display = 'none';
-      } else {
-        noResults!.style.display = 'none';
-        postsGrid!.style.display = 'grid';
-      }
-    });
-
-    // Clear search button handler
-    clearSearchBtn?.addEventListener('click', () => {
-      if (searchInput) {
-        searchInput.value = '';
-        searchInput.dispatchEvent(new Event('input'));
-      }
-      if (searchClear) {
-        searchClear.style.display = 'none';
-      }
-      noResults!.style.display = 'none';
-      postsGrid!.style.display = 'grid';
-    });
-  </script>
 </body>
 </html>
+
