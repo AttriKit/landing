@@ -7,6 +7,8 @@ const blog = defineCollection({
     description: z.string(),
     pubDate: z.coerce.date(),
     author: z.string().default("AttriKit Team"),
+    // SEO: canonical URL for custom normalization
+    canonical: z.string().optional(),
   }),
 });
 
