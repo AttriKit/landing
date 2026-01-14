@@ -3,8 +3,6 @@ title: "第一方归因完全指南：数据主权时代的广告归因新选择
 description: "深入了解第一方广告归因系统的工作原理、核心优势以及为什么它正在成为数据主权时代广告主的首选方案。"
 pubDate: 2026-01-13
 author: "AttriKit Team"
-tags: ["第一方归因", "广告归因", "数据主权", "归因系统"]
-image: "/images/blog/first-party-attribution.jpg"
 ---
 
 ## 什么是第一方归因？

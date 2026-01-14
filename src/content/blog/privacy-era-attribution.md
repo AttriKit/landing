@@ -3,8 +3,6 @@ title: "隐私保护时代的广告归因：挑战、影响与应对策略"
 description: "深入分析 iOS ATT、SKAdNetwork 等隐私保护政策对广告归因的影响，以及广告主的应对策略。"
 pubDate: 2026-01-13
 author: "AttriKit Team"
-tags: ["隐私保护", "ATT", "SKAdNetwork", "归因挑战", "广告投放"]
-image: "/images/blog/privacy-attribution.jpg"
 ---
 
 数字广告行业正在经历一场前所未有的变革。随着用户隐私保护意识的提升和监管政策的收紧，广告归因面临着前所未有的挑战。
