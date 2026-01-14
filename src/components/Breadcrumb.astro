@@ -77,4 +77,38 @@ const { items } = Astro.props;
     color: var(--color-text-light);
     font-size: var(--font-size-sm);
   }
+
+  /* Mobile responsive */
+  @media (max-width: 640px) {
+    .breadcrumb {
+      margin-bottom: var(--spacing-4);
+    }
+
+    .breadcrumb-list {
+      gap: var(--spacing-2);
+    }
+
+    .breadcrumb-item {
+      gap: var(--spacing-2);
+    }
+
+    .breadcrumb-link,
+    .breadcrumb-current,
+    .breadcrumb-separator {
+      font-size: var(--font-size-mobile-sm);
+    }
+
+    .breadcrumb-link {
+      max-width: 120px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  @media (max-width: 375px) {
+    .breadcrumb-link {
+      max-width: 80px;
+    }
+  }
 </style>

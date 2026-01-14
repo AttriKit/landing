@@ -101,6 +101,22 @@ const shareLinks = {
   .share-btn svg {
     flex-shrink: 0;
   }
+
+  /* Mobile responsive */
+  @media (max-width: 640px) {
+    .share-buttons {
+      gap: var(--spacing-3);
+    }
+
+    .share-btn {
+      width: var(--touch-target-min);
+      height: var(--touch-target-min);
+    }
+
+    .share-label {
+      display: none;
+    }
+  }
 </style>
 
 <script>

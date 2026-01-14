@@ -159,4 +159,50 @@ const currentYear = new Date().getFullYear();
       gap: var(--spacing-8);
     }
   }
+
+  /* Mobile phones */
+  @media (max-width: 768px) {
+    .footer {
+      padding: var(--spacing-10) 0 var(--spacing-6);
+    }
+
+    .footer-content {
+      gap: var(--spacing-8);
+    }
+
+    .footer-links {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-6);
+    }
+
+    .footer-column {
+      text-align: center;
+    }
+
+    .footer-column ul {
+      align-items: center;
+    }
+
+    .footer-bottom {
+      flex-direction: column;
+      gap: var(--spacing-4);
+      text-align: center;
+    }
+
+    .footer-meta {
+      flex-direction: column;
+      gap: var(--spacing-3);
+    }
+  }
+
+  /* Small phones */
+  @media (max-width: 480px) {
+    .footer-logo img {
+      height: 40px;
+    }
+
+    .footer-tagline {
+      font-size: var(--font-size-mobile-sm);
+    }
+  }
 </style>

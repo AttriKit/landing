@@ -107,33 +107,128 @@
   /* Responsive */
   @media (max-width: 768px) {
     .nav-menu {
-      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: white;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      padding: var(--spacing-4) 0;
+      border-top: 1px solid var(--color-border);
+      box-shadow: var(--shadow-lg);
+
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: opacity var(--transition-base),
+                  visibility var(--transition-base),
+                  transform var(--transition-base);
+    }
+
+    .nav-menu.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      display: flex;
+    }
+
+    .nav-menu li {
+      padding: 0 var(--spacing-6);
+    }
+
+    .nav-menu a {
+      display: block;
+      padding: var(--spacing-3) 0;
+      width: 100%;
+      text-align: left;
+    }
+
+    /* Keep button styling in mobile menu */
+    .nav-menu button {
+      margin: var(--spacing-3) var(--spacing-6);
+      width: calc(100% - var(--spacing-12));
+      text-align: center;
     }
 
     .nav-toggle {
       display: flex;
     }
+
+    .nav-toggle span {
+      transition: all var(--transition-base);
+      transform-origin: center;
+    }
+
+    .nav-toggle.active span:nth-child(1) {
+      transform: translateY(5px) rotate(45deg);
+    }
+
+    .nav-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .nav-toggle.active span:nth-child(3) {
+      transform: translateY(-5px) rotate(-45deg);
+    }
   }
 </style>
 
 <script>
-  // Mobile menu toggle
   const navToggle = document.querySelector('.nav-toggle');
   const navMenu = document.querySelector('.nav-menu');
 
   if (navToggle && navMenu) {
+    // Toggle menu on button click
     navToggle.addEventListener('click', () => {
-      const isFlex = navMenu.style.display === 'flex';
-      navMenu.style.display = isFlex ? 'none' : 'flex';
-      if (!isFlex) {
-        navMenu.style.position = 'absolute';
-        navMenu.style.top = '100%';
-        navMenu.style.left = '0';
-        navMenu.style.right = '0';
-        navMenu.style.background = 'white';
-        navMenu.style.padding = 'var(--spacing-6)';
-        navMenu.style.flexDirection = 'column';
-        navMenu.style.borderTop = '1px solid var(--color-border)';
+      const isActive = navToggle.classList.contains('active');
+      navToggle.classList.toggle('active');
+      navMenu.classList.toggle('active');
+
+      // Prevent body scroll when menu is open
+      if (!isActive) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
+    });
+
+    // Close menu on link click
+    navMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navToggle.classList.remove('active');
+        navMenu.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // Close menu on button click (for "立即咨询" button)
+    navMenu.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        navToggle.classList.remove('active');
+        navMenu.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // Close menu on ESC key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+        navToggle.classList.remove('active');
+        navMenu.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!navToggle.contains(e.target) && !navMenu.contains(e.target)) {
+        if (navMenu.classList.contains('active')) {
+          navToggle.classList.remove('active');
+          navMenu.classList.remove('active');
+          document.body.style.overflow = '';
+        }
       }
     });
   }

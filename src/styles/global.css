@@ -102,6 +102,31 @@
   --transition-base: 300ms ease;
   --transition-slow: 500ms ease;
 
+  /* Unified Breakpoints */
+  --breakpoint-xs: 375px;
+  --breakpoint-sm: 480px;
+  --breakpoint-md: 640px;
+  --breakpoint-lg: 768px;
+  --breakpoint-xl: 1024px;
+
+  /* Mobile-optimized Spacing */
+  --spacing-mobile-3: 0.5rem;     /* 8px */
+  --spacing-mobile-4: 0.75rem;    /* 12px */
+  --spacing-mobile-5: 1rem;       /* 16px */
+  --spacing-mobile-6: 1.5rem;     /* 24px */
+
+  /* Mobile Typography */
+  --font-size-mobile-xs: 0.6875rem;   /* 11px */
+  --font-size-mobile-sm: 0.75rem;     /* 12px */
+  --font-size-mobile-base: 0.875rem;  /* 14px */
+  --font-size-mobile-lg: 1rem;        /* 16px */
+  --font-size-mobile-xl: 1.125rem;    /* 18px */
+  --font-size-mobile-2xl: 1.25rem;    /* 20px */
+  --font-size-mobile-3xl: 1.5rem;     /* 24px */
+
+  /* Touch Target */
+  --touch-target-min: 44px;
+
   /* Z-index */
   --z-base: 0;
   --z-dropdown: 1000;
@@ -327,6 +352,17 @@ a:hover {
     --font-size-3xl: 1.5rem;   /* 24px */
   }
 
+  .section {
+    padding: var(--spacing-8) 0;
+  }
+
+  .section-lg {
+    padding: var(--spacing-10) 0;
+  }
+}
+
+/* Medium phones (640px) */
+@media (max-width: 640px) {
   .section {
     padding: var(--spacing-8) 0;
   }

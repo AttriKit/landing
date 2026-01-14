@@ -1142,18 +1142,46 @@ import Footer from '../components/Footer.astro';
     @media (max-width: 768px) {
       .hero {
         min-height: auto;
+        padding-bottom: var(--spacing-16);
+      }
+
+      .hero-content {
+        padding: var(--spacing-12) 0;
+      }
+
+      .hero-badge {
+        font-size: var(--font-size-mobile-sm);
+        padding: var(--spacing-1) var(--spacing-3);
+        margin-bottom: var(--spacing-6);
       }
 
       .hero-title {
         font-size: var(--font-size-4xl);
+        margin-bottom: var(--spacing-5);
+      }
+
+      .hero-subtitle {
+        font-size: var(--font-size-mobile-base);
+        line-height: 1.6;
+        margin-bottom: var(--spacing-8);
+        padding: 0 var(--spacing-4);
       }
 
       .hero-cta {
         flex-direction: column;
+        gap: var(--spacing-3);
+        margin-bottom: var(--spacing-10);
+        padding: 0 var(--spacing-4);
       }
 
       .hero-cta .btn {
         width: 100%;
+        min-width: unset;
+      }
+
+      .hero-stats {
+        gap: var(--spacing-8);
+        padding: 0 var(--spacing-4);
       }
 
       .values-grid,
@@ -1187,12 +1215,53 @@ import Footer from '../components/Footer.astro';
     }
 
     @media (max-width: 480px) {
+      .hero {
+        padding-bottom: var(--spacing-12);
+      }
+
+      .hero-content {
+        padding: var(--spacing-10) 0;
+      }
+
+      .hero-badge {
+        font-size: 11px;
+        padding: 4px 10px;
+        margin-bottom: var(--spacing-5);
+      }
+
       .hero-title {
         font-size: var(--font-size-3xl);
+        margin-bottom: var(--spacing-4);
       }
 
       .hero-subtitle {
-        font-size: var(--font-size-base);
+        font-size: var(--font-size-mobile-sm);
+        line-height: 1.5;
+        margin-bottom: var(--spacing-6);
+      }
+
+      .hero-cta {
+        gap: var(--spacing-2);
+        margin-bottom: var(--spacing-8);
+      }
+
+      .hero-cta .btn {
+        font-size: var(--font-size-mobile-sm);
+        padding: 10px 16px;
+      }
+
+      .hero-stats {
+        flex-direction: column;
+        gap: var(--spacing-4);
+        align-items: center;
+      }
+
+      .stat-value {
+        font-size: var(--font-size-mobile-3xl);
+      }
+
+      .stat-label {
+        font-size: var(--font-size-mobile-xs);
       }
 
       .cta-title {
@@ -1201,15 +1270,6 @@ import Footer from '../components/Footer.astro';
 
       .cta-subtitle {
         font-size: var(--font-size-base);
-      }
-
-      .hero-stats {
-        justify-content: space-between;
-        width: 100%;
-      }
-
-      .stat-value {
-        font-size: var(--font-size-2xl);
       }
     }
   </style>
