@@ -161,19 +161,19 @@
     align-items: center;
     justify-content: space-between;
     padding: 1.5rem;
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 1px solid var(--color-border);
   }
 
   .modal-header h3 {
     margin: 0;
     font-size: 1.5rem;
-    color: #1f2937;
+    color: var(--color-text-primary);
   }
 
   .modal-close {
     background: none;
     border: none;
-    color: #6b7280;
+    color: var(--color-text-muted);
     cursor: pointer;
     padding: 0.5rem;
     border-radius: 8px;
@@ -184,8 +184,8 @@
   }
 
   .modal-close:hover {
-    background: #f3f4f6;
-    color: #1f2937;
+    background: var(--color-bg-secondary);
+    color: var(--color-text-primary);
   }
 
   .modal-body {
@@ -207,22 +207,22 @@
 
   .form-field label {
     font-weight: 600;
-    color: #1f2937;
+    color: var(--color-text-primary);
     font-size: 0.875rem;
   }
 
   .form-field .required {
-    color: #f97316;
+    color: var(--color-accent-secondary);
   }
 
   .form-field input,
   .form-field textarea {
     padding: 0.75rem 1rem;
-    border: 2px solid #e5e7eb;
+    border: 2px solid var(--color-border);
     border-radius: 8px;
     font-size: 1rem;
     font-family: inherit;
-    color: #1f2937;
+    color: var(--color-text-primary);
     background: white;
     transition: all 0.2s;
     box-sizing: border-box;
@@ -231,13 +231,13 @@
   .form-field input:focus,
   .form-field textarea:focus {
     outline: none;
-    border-color: #0091a8;
-    box-shadow: 0 0 0 3px rgba(0, 145, 168, 0.1);
+    border-color: var(--color-accent-primary);
+    box-shadow: 0 0 0 3px var(--color-accent-subtle);
   }
 
   .form-field input::placeholder,
   .form-field textarea::placeholder {
-    color: #9ca3af;
+    color: var(--color-text-light);
   }
 
   .btn-block {
@@ -252,7 +252,7 @@
 
   .form-notice {
     font-size: 0.75rem;
-    color: #6b7280;
+    color: var(--color-text-muted);
     text-align: center;
     margin: 0;
     line-height: 1.5;
@@ -265,11 +265,11 @@
   }
 
   .success-message {
-    color: #059669;
+    color: var(--color-success);
   }
 
   .success-message svg {
-    color: #10b981;
+    color: var(--color-success);
     margin: 0 auto 1rem;
   }
 
@@ -281,12 +281,12 @@
 
   .success-message p,
   .error-message p {
-    color: #6b7280;
+    color: var(--color-text-muted);
     margin: 0 0 1rem 0;
   }
 
   .error-message {
-    color: #f97316;
+    color: var(--color-error);
   }
 
   /* Responsive */

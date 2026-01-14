@@ -11,24 +11,24 @@
 }
 
 :root {
-  /* Backgrounds - Warm whites */
-  --color-bg-primary: #FAFAF9;
-  --color-bg-secondary: #F5F5F4;
+  /* Backgrounds - Clean whites with subtle cool tint */
+  --color-bg-primary: #FAFBFC;
+  --color-bg-secondary: #F0F4F8;
   --color-bg-surface: #FFFFFF;
 
-  /* Text - Warm grays */
-  --color-text-primary: #1C1917;
-  --color-text-secondary: #44403C;
-  --color-text-muted: #78716C;
-  --color-text-light: #A8A29E;
+  /* Text - Professional dark grays */
+  --color-text-primary: #1A1F2C;
+  --color-text-secondary: #3D4659;
+  --color-text-muted: #6B7280;
+  --color-text-light: #9CA3AF;
 
-  /* Accents */
-  --color-accent-primary: #0EA5E9;
-  --color-accent-primary-hover: #0284C7;
-  --color-accent-secondary: #F97316;
-  --color-accent-secondary-hover: #EA580C;
-  --color-accent-subtle: #E0F2FE;
-  --color-accent-bg: #FEF3C7;
+  /* Accents - Deep sea blue to teal gradient system */
+  --color-accent-primary: #0A5F8F;
+  --color-accent-primary-hover: #084D73;
+  --color-accent-secondary: #00B4A6;
+  --color-accent-secondary-hover: #009689;
+  --color-accent-subtle: #E8F4F8;
+  --color-accent-bg: #E0F5F4;
 
   /* Semantic Colors */
   --color-success: #10B981;
@@ -39,14 +39,14 @@
   --color-error-bg: #FEE2E2;
 
   /* Borders */
-  --color-border: #E7E5E4;
-  --color-border-hover: #D6D3D1;
+  --color-border: #E5E7EB;
+  --color-border-hover: #D1D5DB;
 
-  /* Shadows - Soft and subtle */
-  --shadow-sm: 0 1px 2px rgba(28, 25, 23, 0.04);
-  --shadow-md: 0 4px 12px rgba(28, 25, 23, 0.06);
-  --shadow-lg: 0 12px 24px rgba(28, 25, 23, 0.06);
-  --shadow-subtle: 0 1px 3px rgba(28, 25, 23, 0.04);
+  /* Shadows - Cool-toned for modern look */
+  --shadow-sm: 0 1px 2px rgba(10, 95, 143, 0.04);
+  --shadow-md: 0 4px 12px rgba(10, 95, 143, 0.08);
+  --shadow-lg: 0 12px 24px rgba(10, 95, 143, 0.10);
+  --shadow-subtle: 0 1px 3px rgba(10, 95, 143, 0.04);
 
   /* Typography - Plus Jakarta Sans for headings, Manrope for body */
   --font-family-display: 'Plus Jakarta Sans', sans-serif;
@@ -394,9 +394,9 @@ a:hover {
   background: linear-gradient(
     135deg,
     transparent 0%,
-    rgba(14, 165, 233, 0.5) 20%,
-    rgba(14, 165, 233, 0.3) 50%,
-    rgba(14, 165, 233, 0.5) 80%,
+    rgba(10, 95, 143, 0.4) 20%,
+    rgba(10, 95, 143, 0.25) 50%,
+    rgba(10, 95, 143, 0.4) 80%,
     transparent 100%
   );
   animation: aurora-wave-1 20s ease-in-out infinite;
@@ -409,9 +409,9 @@ a:hover {
   background: linear-gradient(
     -45deg,
     transparent 0%,
-    rgba(249, 115, 22, 0.3) 15%,
-    rgba(249, 115, 22, 0.15) 50%,
-    rgba(249, 115, 22, 0.3) 85%,
+    rgba(0, 180, 166, 0.3) 15%,
+    rgba(0, 180, 166, 0.15) 50%,
+    rgba(0, 180, 166, 0.3) 85%,
     transparent 100%
   );
   animation: aurora-wave-2 24s ease-in-out infinite;
@@ -424,9 +424,9 @@ a:hover {
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(14, 165, 233, 0.4) 25%,
-    rgba(14, 165, 233, 0.2) 50%,
-    rgba(14, 165, 233, 0.4) 75%,
+    rgba(10, 95, 143, 0.35) 25%,
+    rgba(0, 180, 166, 0.2) 50%,
+    rgba(10, 95, 143, 0.35) 75%,
     transparent 100%
   );
   animation: aurora-wave-3 18s ease-in-out infinite;
