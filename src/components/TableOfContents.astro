@@ -48,44 +48,57 @@
   }
 
   .toc-list li {
-    margin-bottom: 4px;
+    margin-bottom: 1px;
   }
 
   /* Use :global() for dynamically created links without data-astro-cid */
   :global(.toc-link) {
-    display: block;
-    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+    padding: 0;
     color: var(--color-text-muted);
     opacity: 0.4;
     text-decoration: none;
-    font-size: var(--font-size-sm);
-    border-radius: var(--radius-sm);
-    border-left: 2px solid transparent;
+    font-size: var(--font-size-base);
     transition: all var(--transition-fast);
   }
 
   :global(.toc-link:hover) {
     color: var(--color-accent-primary);
     opacity: 0.7;
-    background: var(--color-bg-secondary);
   }
 
   :global(.toc-link.active) {
     color: var(--color-accent-primary);
     opacity: 1;
-    background: var(--color-accent-subtle);
-    border-left-color: var(--color-accent-primary);
     font-weight: 500;
   }
 
-  :global(.toc-link.level-2) {
-    padding-left: 24px;
-    font-size: var(--font-size-xs);
+  /* Indicator - fixed width container */
+  :global(.toc-link-indicator) {
+    display: flex;
+    align-items: center;
+    width: 16px;
+    flex-shrink: 0;
   }
 
-  :global(.toc-link.level-3) {
-    padding-left: 36px;
-    font-size: var(--font-size-xs);
+  /* H2 indicator - 16px length, 4px height */
+  :global(.toc-link.level-2 .toc-link-indicator::before) {
+    content: '';
+    width: 16px;
+    height: 4px;
+    background: currentColor;
+    border-radius: 2px;
+  }
+
+  /* H3 indicator - 12px length, 4px height */
+  :global(.toc-link.level-3 .toc-link-indicator::before) {
+    content: '';
+    width: 12px;
+    height: 4px;
+    background: currentColor;
+    border-radius: 2px;
   }
 
   /* Responsive */
@@ -113,9 +126,18 @@
 
       const link = document.createElement('a');
       link.href = `#${heading.id}`;
-      link.textContent = heading.textContent || '';
       link.className = `toc-link level-${level}`;
       (link as any).dataset.target = heading.id;
+
+      // Add indicator span
+      const indicator = document.createElement('span');
+      indicator.className = 'toc-link-indicator';
+      link.appendChild(indicator);
+
+      // Add text span
+      const textSpan = document.createElement('span');
+      textSpan.textContent = heading.textContent || '';
+      link.appendChild(textSpan);
 
       li.appendChild(link);
       tocList.appendChild(li);
