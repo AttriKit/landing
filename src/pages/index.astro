@@ -51,6 +51,19 @@ import Footer from '../components/Footer.astro';
 
   <!-- Hero Section -->
   <section class="hero grid-background">
+    <!-- Aurora Background -->
+    <div class="aurora-background">
+      <div class="aurora-blob-wrapper" data-speed="0.03">
+        <div class="aurora-blob"></div>
+      </div>
+      <div class="aurora-blob-wrapper" data-speed="-0.02">
+        <div class="aurora-blob"></div>
+      </div>
+      <div class="aurora-blob-wrapper" data-speed="0.025">
+        <div class="aurora-blob"></div>
+      </div>
+    </div>
+
     <div class="hero-content container">
       <div class="hero-badge">
         <span class="badge-dot"></span>
@@ -1174,6 +1187,36 @@ import Footer from '../components/Footer.astro';
   </style>
 
   <script>
+    // Aurora mouse follow effect
+    const auroraBg = document.querySelector('.aurora-background');
+    const blobWrappers = auroraBg?.querySelectorAll('.aurora-blob-wrapper');
+
+    if (blobWrappers && blobWrappers.length > 0) {
+      let mouseX = 0, mouseY = 0;
+      let currentX = 0, currentY = 0;
+
+      document.addEventListener('mousemove', (e) => {
+        mouseX = (e.clientX - window.innerWidth / 2);
+        mouseY = (e.clientY - window.innerHeight / 2);
+      });
+
+      function animateAurora() {
+        currentX += (mouseX - currentX) * 0.05;
+        currentY += (mouseY - currentY) * 0.05;
+
+        blobWrappers.forEach((wrapper) => {
+          const speed = parseFloat(wrapper.dataset.speed) || 0.02;
+          const offsetX = currentX * speed;
+          const offsetY = currentY * speed;
+          wrapper.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+        });
+
+        requestAnimationFrame(animateAurora);
+      }
+
+      animateAurora();
+    }
+
     // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
