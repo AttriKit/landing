@@ -77,9 +77,9 @@ const posts = allPosts.sort((a, b) =>
           <path d="M21 21l-4.35-4.35"/>
         </svg>
         <h3>未找到相关文章</h3>
-        <p>尝试使用其他关键词或标签筛选</p>
+        <p>尝试使用其他关键词搜索</p>
         <button id="clear-search" class="btn btn-secondary btn-sm">
-          清除筛选
+          清除搜索
         </button>
       </div>
     </div>
@@ -222,6 +222,9 @@ const posts = allPosts.sort((a, b) =>
     // Listen for search filtered events
     const noResults = document.getElementById('no-results');
     const postsGrid = document.getElementById('posts-grid');
+    const clearSearchBtn = document.getElementById('clear-search');
+    const searchInput = document.getElementById('blog-search-input') as HTMLInputElement;
+    const searchClear = document.getElementById('search-clear') as HTMLElement;
 
     window.addEventListener('blog-posts-filtered', (e: Event) => {
       const detail = (e as CustomEvent).detail;
@@ -232,6 +235,19 @@ const posts = allPosts.sort((a, b) =>
         noResults!.style.display = 'none';
         postsGrid!.style.display = 'grid';
       }
+    });
+
+    // Clear search button handler
+    clearSearchBtn?.addEventListener('click', () => {
+      if (searchInput) {
+        searchInput.value = '';
+        searchInput.dispatchEvent(new Event('input'));
+      }
+      if (searchClear) {
+        searchClear.style.display = 'none';
+      }
+      noResults!.style.display = 'none';
+      postsGrid!.style.display = 'grid';
     });
   </script>
 </body>
