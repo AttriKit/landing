@@ -378,28 +378,44 @@ import Footer from '../components/Footer.astro';
       </div>
       <div class="use-cases-grid">
         <div class="use-case-card">
-          <div class="use-case-icon">🎯</div>
+          <div class="use-case-icon">
+            <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+          </div>
           <h3 class="use-case-title">希望获得数据掌控权</h3>
           <p class="use-case-description">
             不满足广告平台归因的透明度，担心第三方归因的数据安全问题
           </p>
         </div>
         <div class="use-case-card">
-          <div class="use-case-icon">💰</div>
+          <div class="use-case-icon">
+            <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
           <h3 class="use-case-title">追求成本优化</h3>
           <p class="use-case-description">
             第三方归因服务费用高昂，希望一次性投入长期受益
           </p>
         </div>
         <div class="use-case-card">
-          <div class="use-case-icon">🔗</div>
+          <div class="use-case-icon">
+            <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
+            </svg>
+          </div>
           <h3 class="use-case-title">需要多渠道归因</h3>
           <p class="use-case-description">
             在多个广告平台投放广告，希望统一管理和分析归因数据
           </p>
         </div>
         <div class="use-case-card">
-          <div class="use-case-icon">🏦</div>
+          <div class="use-case-icon">
+            <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+            </svg>
+          </div>
           <h3 class="use-case-title">对数据合规敏感</h3>
           <p class="use-case-description">
             金融、医疗等对数据安全要求高的行业，需要符合严格数据合规要求
@@ -932,8 +948,19 @@ import Footer from '../components/Footer.astro';
     }
 
     .use-case-icon {
-      font-size: 40px;
-      margin-bottom: var(--spacing-4);
+      width: 56px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--color-accent-subtle);
+      border-radius: var(--radius-lg);
+      margin: 0 auto var(--spacing-4);
+      color: var(--color-accent-primary);
+    }
+
+    .use-case-icon svg {
+      flex-shrink: 0;
     }
 
     .use-case-title {
