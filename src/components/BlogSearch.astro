@@ -126,13 +126,10 @@
   });
 
   searchClear?.addEventListener('click', () => {
-    searchInput!.value = '';
-    searchClear!.style.display = 'none';
+    (searchInput as HTMLInputElement).value = '';
+    (searchClear as HTMLElement).style.display = 'none';
     filterPosts('');
-    searchInput!.focus();
-
-    // Trigger tag filter reset event
-    window.dispatchEvent(new CustomEvent('blog-search-cleared'));
+    searchInput?.focus();
   });
 
   function filterPosts(query: string) {
@@ -144,13 +141,8 @@
 
       const title = card.querySelector('.post-title')?.textContent?.toLowerCase() || '';
       const description = card.querySelector('.post-description')?.textContent?.toLowerCase() || '';
-      const tags = Array.from(card.querySelectorAll('.tag-badge'))
-        .map(tag => tag.textContent?.toLowerCase() || '')
-        .join(' ');
 
-      const matches = title.includes(query) ||
-                     description.includes(query) ||
-                     tags.includes(query);
+      const matches = title.includes(query) || description.includes(query);
 
       (card as HTMLElement).style.display = matches ? '' : 'none';
     });

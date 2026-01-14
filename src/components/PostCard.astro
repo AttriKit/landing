@@ -27,7 +27,7 @@ const formatDate = (date: Date) => {
 };
 ---
 
-<article class="post-card" data-post-id={post.slug}>
+<article class="post-card" data-post-id={post.slug} data-content={post.body}>
   <a href={`/blog/${post.slug}/`} class="post-card-link">
     <div class="post-card-content">
       <h2 class="post-title">{title}</h2>
