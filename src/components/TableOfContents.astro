@@ -55,6 +55,7 @@
     display: block;
     padding: 8px 12px;
     color: var(--color-text-muted);
+    opacity: 0.4;
     text-decoration: none;
     font-size: var(--font-size-sm);
     border-radius: var(--radius-sm);
@@ -64,11 +65,13 @@
 
   .toc-link:hover {
     color: var(--color-accent-primary);
+    opacity: 0.7;
     background: var(--color-bg-secondary);
   }
 
   .toc-link.active {
     color: var(--color-accent-primary);
+    opacity: 1;
     background: var(--color-accent-subtle);
     border-left-color: var(--color-accent-primary);
     font-weight: 500;
@@ -98,8 +101,8 @@
   const headings = document.querySelectorAll('.post-content h2, .post-content h3');
 
   if (tocList && headings.length > 0) {
+    // Add IDs to headings and create TOC links
     headings.forEach((heading, index) => {
-      // Add ID to heading if it doesn't have one
       if (!heading.id) {
         heading.id = `heading-${index}`;
       }
@@ -117,32 +120,50 @@
       tocList.appendChild(li);
     });
 
-    // Scroll spy for active heading
     const tocLinks = document.querySelectorAll('.toc-link');
     const headingElements = Array.from(headings);
 
-    const observerOptions = {
-      rootMargin: '-100px 0px -70% 0px',
-      threshold: 0
-    };
+    // Update active TOC link based on scroll position
+    let ticking = false;
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const id = entry.target.id;
-          tocLinks.forEach(link => {
-            link.classList.remove('active');
-            if ((link as any).dataset.target === id) {
-              link.classList.add('active');
-            }
-          });
+    const updateActiveLink = () => {
+      const scrollY = window.scrollY;
+      const headerHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-height')) || 80;
+      const offset = headerHeight + 40; // Threshold for activation
+
+      // Find the last heading that is above the current scroll position
+      let activeHeading: HTMLElement | null = null;
+
+      for (const heading of headingElements) {
+        const headingTop = (heading as HTMLElement).offsetTop;
+        if (scrollY >= headingTop - offset) {
+          activeHeading = heading as HTMLElement;
+        }
+      }
+
+      // Update active class on all TOC links
+      tocLinks.forEach(link => {
+        link.classList.remove('active');
+        if (activeHeading && (link as any).dataset.target === activeHeading.id) {
+          link.classList.add('active');
         }
       });
-    }, observerOptions);
 
-    headingElements.forEach(heading => observer.observe(heading));
+      ticking = false;
+    };
 
-    // Smooth scroll to heading
+    // Throttled scroll event listener
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateActiveLink);
+        ticking = true;
+      }
+    }, { passive: true });
+
+    // Initial update
+    updateActiveLink();
+
+    // Smooth scroll to heading on click
     tocLinks.forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();

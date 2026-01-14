@@ -3,8 +3,6 @@ title: "AttriKit：让每个广告主都能轻松构建第一方归因系统"
 description: "深入了解 AttriKit 如何帮助广告主快速搭建自建归因能力，获得数据的完全掌控权。"
 pubDate: 2026-01-13
 author: "AttriKit Team"
-tags: ["AttriKit", "第一方归因", "产品介绍", "归因系统"]
-image: "/images/blog/attrikit-intro.jpg"
 ---
 
 在数字广告投放中，归因数据是优化效果、提升 ROI 的关键。但长期以来，精准的归因能力似乎只是头部广告主的"专利"——他们拥有专业团队和充足预算，可以自建归因系统或采购昂贵的第三方服务。
