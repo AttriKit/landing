@@ -5,6 +5,8 @@ import ProgressBar from '../../components/ProgressBar.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import ShareButtons from '../../components/ShareButtons.astro';
 import TableOfContents from '../../components/TableOfContents.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -67,26 +69,7 @@ const postUrl = `https://attrikit.com/blog/${post.slug}/`;
 </head>
 <body>
   <!-- Header -->
-  <header class="header">
-    <nav class="nav container">
-      <a href="/" class="nav-brand">
-        <img src="/favicon.svg" alt="AttriKit Logo" class="logo" />
-        <span class="brand-name">AttriKit</span>
-      </a>
-      <ul class="nav-menu">
-        <li><a href="/blog/">博客</a></li>
-        <li><a href="/#features">产品功能</a></li>
-        <li><a href="/#comparison">对比优势</a></li>
-        <li><a href="/#pricing">价格方案</a></li>
-        <li><a href="/#contact" class="btn btn-primary btn-sm">立即咨询</a></li>
-      </ul>
-      <button class="nav-toggle" aria-label="Toggle menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-    </nav>
-  </header>
+  <Header />
 
   <!-- Progress Bar -->
   <ProgressBar />
@@ -160,133 +143,9 @@ const postUrl = `https://attrikit.com/blog/${post.slug}/`;
   </article>
 
   <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-brand">
-          <div class="footer-logo">
-            <img src="/favicon.svg" alt="AttriKit" />
-            <span>AttriKit</span>
-          </div>
-          <p class="footer-tagline">让每个广告主都能轻松构建第一方归因系统</p>
-        </div>
-        <div class="footer-links">
-          <div class="footer-column">
-            <h4>产品</h4>
-            <ul>
-              <li><a href="/#features">产品功能</a></li>
-              <li><a href="/#comparison">对比优势</a></li>
-              <li><a href="/#pricing">价格方案</a></li>
-            </ul>
-          </div>
-          <div class="footer-column">
-            <h4>资源</h4>
-            <ul>
-              <li><a href="/blog/">博客</a></li>
-              <li><a href="#">文档</a></li>
-              <li><a href="#">API 参考</a></li>
-            </ul>
-          </div>
-          <div class="footer-column">
-            <h4>支持</h4>
-            <ul>
-              <li><a href="#">帮助中心</a></li>
-              <li><a href="/#contact">联系我们</a></li>
-              <li><a href="#">社区</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; {new Date().getFullYear()} AttriKit. 保留所有权利。</p>
-      </div>
-    </div>
-  </footer>
+  <Footer />
 
   <style>
-    /* Header Styles */
-    .header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: var(--header-height);
-      background: rgba(255, 255, 255, 0.8);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--color-border);
-      z-index: var(--z-fixed);
-      transition: background var(--transition-base);
-    }
-
-    .nav {
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .nav-brand {
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-3);
-      text-decoration: none;
-    }
-
-    .logo {
-      width: 36px;
-      height: 36px;
-    }
-
-    .brand-name {
-      font-size: var(--font-size-lg);
-      font-weight: 700;
-      font-family: var(--font-family-display);
-      color: var(--color-text-primary);
-      letter-spacing: -0.02em;
-    }
-
-    .nav-menu {
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-10);
-      list-style: none;
-    }
-
-    .nav-menu a {
-      color: var(--color-text-muted);
-      font-weight: 500;
-      font-size: var(--font-size-sm);
-      transition: color var(--transition-fast);
-    }
-
-    .nav-menu a:hover {
-      color: var(--color-accent-primary);
-    }
-
-    .btn-sm {
-      padding: var(--spacing-2) var(--spacing-4);
-      font-size: var(--font-size-sm);
-    }
-
-    .nav-toggle {
-      display: none;
-      flex-direction: column;
-      gap: 4px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: var(--spacing-2);
-    }
-
-    .nav-toggle span {
-      width: 24px;
-      height: 1.5px;
-      background: var(--color-text-primary);
-      border-radius: 2px;
-      transition: all var(--transition-base);
-    }
-
     /* Blog Post Layout */
     .blog-post {
       padding-top: calc(var(--header-height) + var(--spacing-12));
@@ -483,92 +342,6 @@ const postUrl = `https://attrikit.com/blog/${post.slug}/`;
       justify-content: flex-end;
     }
 
-    /* Footer Styles */
-    .footer {
-      background: var(--color-bg-surface);
-      border-top: 1px solid var(--color-border);
-      padding: var(--spacing-16) 0 var(--spacing-8);
-    }
-
-    .footer-content {
-      display: grid;
-      grid-template-columns: 2fr 3fr;
-      gap: var(--spacing-12);
-      margin-bottom: var(--spacing-10);
-    }
-
-    .footer-brand {
-      display: flex;
-      flex-direction: column;
-      gap: var(--spacing-4);
-    }
-
-    .footer-logo {
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-3);
-      font-size: var(--font-size-base);
-      font-weight: 700;
-      font-family: var(--font-family-display);
-      color: var(--color-text-primary);
-      text-decoration: none;
-    }
-
-    .footer-logo img {
-      width: 32px;
-      height: 32px;
-    }
-
-    .footer-tagline {
-      color: var(--color-text-muted);
-      max-width: 320px;
-      margin: 0;
-      font-size: var(--font-size-sm);
-    }
-
-    .footer-links {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--spacing-8);
-    }
-
-    .footer-column h4 {
-      font-size: var(--font-size-sm);
-      margin-bottom: var(--spacing-4);
-      color: var(--color-text-primary);
-      font-weight: 600;
-    }
-
-    .footer-column ul {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: var(--spacing-3);
-    }
-
-    .footer-column a {
-      color: var(--color-text-muted);
-      font-size: var(--font-size-sm);
-      text-decoration: none;
-      transition: color var(--transition-fast);
-    }
-
-    .footer-column a:hover {
-      color: var(--color-accent-primary);
-    }
-
-    .footer-bottom {
-      text-align: center;
-      padding-top: var(--spacing-8);
-      border-top: 1px solid var(--color-border);
-      color: var(--color-text-muted);
-      font-size: var(--font-size-sm);
-    }
-
-    .footer-bottom p {
-      margin: 0;
-    }
-
     /* Responsive Styles */
     @media (max-width: 1024px) {
       .blog-layout {
@@ -578,22 +351,9 @@ const postUrl = `https://attrikit.com/blog/${post.slug}/`;
       .blog-sidebar {
         display: none;
       }
-
-      .footer-content {
-        grid-template-columns: 1fr;
-        gap: var(--spacing-8);
-      }
     }
 
     @media (max-width: 768px) {
-      .nav-menu {
-        display: none;
-      }
-
-      .nav-toggle {
-        display: flex;
-      }
-
       .post-title {
         font-size: var(--font-size-3xl);
       }
@@ -619,10 +379,6 @@ const postUrl = `https://attrikit.com/blog/${post.slug}/`;
         flex-direction: column;
         align-items: flex-start;
       }
-
-      .footer-links {
-        grid-template-columns: 1fr;
-      }
     }
 
     @media (max-width: 480px) {
@@ -644,28 +400,5 @@ const postUrl = `https://attrikit.com/blog/${post.slug}/`;
       }
     }
   </style>
-
-  <script>
-    // Mobile menu toggle
-    const navToggle = document.querySelector('.nav-toggle');
-    const navMenu = document.querySelector('.nav-menu');
-
-    if (navToggle && navMenu) {
-      navToggle.addEventListener('click', () => {
-        const isVisible = navMenu.style.display === 'flex';
-        navMenu.style.display = isVisible ? 'none' : 'flex';
-        if (!isVisible) {
-          navMenu.style.position = 'absolute';
-          navMenu.style.top = '100%';
-          navMenu.style.left = '0';
-          navMenu.style.right = '0';
-          navMenu.style.background = 'white';
-          navMenu.style.padding = 'var(--spacing-6)';
-          navMenu.style.flexDirection = 'column';
-          navMenu.style.borderTop = '1px solid var(--color-border)';
-        }
-      });
-    }
-  </script>
 </body>
 </html>

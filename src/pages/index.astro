@@ -2,8 +2,8 @@
 import '../styles/global.css';
 import { organizationSchema, webSiteSchema, softwareApplicationSchema } from '../data/structured-data';
 import ConsultationModal from '../components/ConsultationModal.astro';
-
-const currentYear = new Date().getFullYear();
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 ---
 
 <!DOCTYPE html>
@@ -47,26 +47,7 @@ const currentYear = new Date().getFullYear();
 <body>
 
   <!-- Header -->
-  <header class="header">
-    <nav class="nav container">
-      <a href="#top" class="nav-brand">
-        <img src="/favicon.svg" alt="AttriKit Logo" class="logo" />
-        <span class="brand-name">AttriKit</span>
-      </a>
-      <ul class="nav-menu">
-        <li><a href="/blog/">博客</a></li>
-        <li><a href="#features">产品功能</a></li>
-        <li><a href="#comparison">对比优势</a></li>
-        <li><a href="#pricing">价格方案</a></li>
-        <li><button data-open-modal class="btn btn-primary btn-sm">立即咨询</button></li>
-      </ul>
-      <button class="nav-toggle" aria-label="Toggle menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-    </nav>
-  </header>
+  <Header />
 
   <!-- Hero Section -->
   <section class="hero grid-background">
@@ -598,140 +579,9 @@ const currentYear = new Date().getFullYear();
   </section>
 
   <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-brand">
-          <div class="footer-logo">
-            <img src="/favicon.svg" alt="AttriKit" />
-            <span>AttriKit</span>
-          </div>
-          <p class="footer-tagline">让每个广告主都能轻松构建第一方归因系统</p>
-        </div>
-        <div class="footer-links">
-          <div class="footer-column">
-            <h4>产品</h4>
-            <ul>
-              <li><a href="#features">产品功能</a></li>
-              <li><a href="#comparison">对比优势</a></li>
-              <li><a href="#pricing">价格方案</a></li>
-            </ul>
-          </div>
-          <div class="footer-column">
-            <h4>资源</h4>
-            <ul>
-              <li><a href="#">文档</a></li>
-              <li><a href="#">API 参考</a></li>
-              <li><a href="#">部署指南</a></li>
-            </ul>
-          </div>
-          <div class="footer-column">
-            <h4>支持</h4>
-            <ul>
-              <li><a href="#">帮助中心</a></li>
-              <li><a href="#contact">联系我们</a></li>
-              <li><a href="#">社区</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; {currentYear} AttriKit. 保留所有权利。</p>
-        <div class="footer-meta">
-          <span>v0.1</span>
-          <span>数据掌控，从选择第一方归因开始</span>
-        </div>
-      </div>
-    </div>
-  </footer>
+  <Footer />
 
   <style>
-    /* Header Styles */
-    .header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: var(--header-height);
-      background: rgba(255, 255, 255, 0.8);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--color-border);
-      z-index: var(--z-fixed);
-      transition: background 300ms ease;
-    }
-
-    .header.scrolled {
-      background: rgba(255, 255, 255, 0.9);
-    }
-
-    .nav {
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .nav-brand {
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-3);
-    }
-
-    .logo {
-      width: 36px;
-      height: 36px;
-    }
-
-    .brand-name {
-      font-size: var(--font-size-lg);
-      font-weight: 700;
-      font-family: var(--font-family-display);
-      color: var(--color-text-primary);
-      letter-spacing: -0.02em;
-    }
-
-    .nav-menu {
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-10);
-      list-style: none;
-    }
-
-    .nav-menu a {
-      color: var(--color-text-muted);
-      font-weight: 500;
-      font-size: var(--font-size-sm);
-      transition: color 200ms ease;
-    }
-
-    .nav-menu a:hover {
-      color: var(--color-accent-primary);
-    }
-
-    .btn-sm {
-      padding: var(--spacing-2) var(--spacing-4);
-      font-size: var(--font-size-sm);
-    }
-
-    .nav-toggle {
-      display: none;
-      flex-direction: column;
-      gap: 4px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: var(--spacing-2);
-    }
-
-    .nav-toggle span {
-      width: 24px;
-      height: 1.5px;
-      background: var(--color-text-primary);
-      border-radius: 2px;
-      transition: all 300ms ease;
-    }
-
     /* Hero Section */
     .hero {
       position: relative;
@@ -856,6 +706,87 @@ const currentYear = new Date().getFullYear();
       background: radial-gradient(circle, var(--color-accent-subtle), transparent 60%);
       border-radius: 50%;
       filter: blur(80px);
+    }
+
+    /* Breathing node animation */
+    @keyframes nodePulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 0.6;
+      }
+      50% {
+        transform: scale(1.08);
+        opacity: 1;
+      }
+    }
+
+    .data-node {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: var(--color-accent-primary);
+      border-radius: 50%;
+      animation: nodePulse 3.5s ease-in-out infinite;
+    }
+
+    .data-node.node-1 {
+      top: 30%;
+      right: 15%;
+      animation-delay: 0s;
+    }
+
+    .data-node.node-2 {
+      top: 50%;
+      right: 25%;
+      animation-delay: 1s;
+    }
+
+    .data-node.node-3 {
+      top: 40%;
+      right: 35%;
+      animation-delay: 2s;
+    }
+
+    /* Connection line flow animation */
+    @keyframes lineFlow {
+      0%, 100% {
+        opacity: 0.3;
+      }
+      50% {
+        opacity: 0.6;
+      }
+    }
+
+    .connection-line {
+      position: absolute;
+      height: 2px;
+      background: linear-gradient(90deg, var(--color-accent-primary), transparent);
+      animation: lineFlow 2.5s ease-in-out infinite;
+      transform-origin: left center;
+    }
+
+    .connection-line.line-1 {
+      top: 35%;
+      right: 15%;
+      width: 100px;
+      transform: rotate(15deg);
+      animation-delay: 0.5s;
+    }
+
+    .connection-line.line-2 {
+      top: 48%;
+      right: 22%;
+      width: 120px;
+      transform: rotate(-10deg);
+      animation-delay: 1.5s;
+    }
+
+    .connection-line.line-3 {
+      top: 42%;
+      right: 30%;
+      width: 80px;
+      transform: rotate(25deg);
+      animation-delay: 2.5s;
     }
 
     /* Section Styles */
@@ -1271,97 +1202,6 @@ const currentYear = new Date().getFullYear();
       color: var(--color-accent-primary);
     }
 
-    /* Footer */
-    .footer {
-      background: var(--color-bg-surface);
-      border-top: 1px solid var(--color-border);
-      padding: var(--spacing-16) 0 var(--spacing-8);
-    }
-
-    .footer-content {
-      display: grid;
-      grid-template-columns: 2fr 3fr;
-      gap: var(--spacing-12);
-      margin-bottom: var(--spacing-10);
-    }
-
-    .footer-brand {
-      display: flex;
-      flex-direction: column;
-      gap: var(--spacing-4);
-    }
-
-    .footer-logo {
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-3);
-      font-size: var(--font-size-base);
-      font-weight: 700;
-      font-family: var(--font-family-display);
-      color: var(--color-text-primary);
-    }
-
-    .footer-logo img {
-      width: 32px;
-      height: 32px;
-    }
-
-    .footer-tagline {
-      color: var(--color-text-muted);
-      max-width: 320px;
-      margin: 0;
-      font-size: var(--font-size-sm);
-    }
-
-    .footer-links {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--spacing-8);
-    }
-
-    .footer-column h4 {
-      font-size: var(--font-size-sm);
-      margin-bottom: var(--spacing-4);
-      color: var(--color-text-primary);
-      font-weight: 600;
-    }
-
-    .footer-column ul {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: var(--spacing-3);
-    }
-
-    .footer-column a {
-      color: var(--color-text-muted);
-      font-size: var(--font-size-sm);
-      transition: color 200ms ease;
-    }
-
-    .footer-column a:hover {
-      color: var(--color-accent-primary);
-    }
-
-    .footer-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-top: var(--spacing-8);
-      border-top: 1px solid var(--color-border);
-      color: var(--color-text-muted);
-      font-size: var(--font-size-sm);
-    }
-
-    .footer-bottom p {
-      margin: 0;
-    }
-
-    .footer-meta {
-      display: flex;
-      gap: var(--spacing-6);
-    }
-
     /* Responsive Styles */
     @media (max-width: 1024px) {
       .hero-visual {
@@ -1375,14 +1215,6 @@ const currentYear = new Date().getFullYear();
     }
 
     @media (max-width: 768px) {
-      .nav-menu {
-        display: none;
-      }
-
-      .nav-toggle {
-        display: flex;
-      }
-
       .hero {
         min-height: auto;
       }
@@ -1458,16 +1290,6 @@ const currentYear = new Date().getFullYear();
   </style>
 
   <script>
-    // Mobile menu toggle
-    const navToggle = document.querySelector('.nav-toggle');
-    const navMenu = document.querySelector('.nav-menu');
-
-    if (navToggle && navMenu) {
-      navToggle.addEventListener('click', () => {
-        navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
-      });
-    }
-
     // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
@@ -1482,11 +1304,6 @@ const currentYear = new Date().getFullYear();
             top: offsetPosition,
             behavior: 'smooth'
           });
-
-          // Close mobile menu if open
-          if (window.innerWidth <= 768 && navMenu) {
-            navMenu.style.display = 'none';
-          }
         }
       });
     });
