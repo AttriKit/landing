@@ -1,0 +1,287 @@
+---
+/**
+ * Docs Index Page
+ * Main documentation landing page
+ */
+import { getCollection } from 'astro:content';
+import '../../styles/global.css';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+// Get all published docs
+const allDocs = await getCollection('docs');
+const publishedDocs = allDocs.filter(doc => !doc.data.draft);
+
+// Group by category
+const categoryMap = new Map<string, typeof publishedDocs>();
+
+for (const doc of publishedDocs) {
+  const category = doc.data.category;
+  if (!categoryMap.has(category)) {
+    categoryMap.set(category, []);
+  }
+  categoryMap.get(category)!.push(doc);
+}
+
+// Sort docs within each category by order
+for (const docs of categoryMap.values()) {
+  docs.sort((a, b) => a.data.order - b.data.order);
+}
+
+// Category metadata
+const categoryInfo: Record<string, { name: string; description: string; icon: string }> = {
+  'getting-started': {
+    name: '快速开始',
+    description: '了解 AttriKit 产品并快速完成集成',
+    icon: '🚀'
+  },
+  'guides': {
+    name: '使用指南',
+    description: '深入学习归因原理和最佳实践',
+    icon: '📖'
+  },
+  'api': {
+    name: 'API 参考',
+    description: '完整的 API 接口文档',
+    icon: '🔧'
+  },
+};
+
+// Category order
+const categoryOrder = ['getting-started', 'guides', 'api'];
+---
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>文档 - AttriKit</title>
+  <meta name="description" content="AttriKit 产品文档，包含快速开始、使用指南和 API 参考" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="文档 - AttriKit" />
+  <meta property="og:description" content="AttriKit 产品文档，包含快速开始、使用指南和 API 参考" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://attrikit.com/docs/" />
+  <meta property="og:image" content="https://attrikit.com/og.webp" />
+  <meta property="og:locale" content="zh_CN" />
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://attrikit.com/docs/" />
+
+  <!-- Robots meta -->
+  <meta name="robots" content="index, follow" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="文档 - AttriKit" />
+  <meta name="twitter:description" content="AttriKit 产品文档，包含快速开始、使用指南和 API 参考" />
+  <meta name="twitter:image" content="https://attrikit.com/og.webp" />
+</head>
+<body>
+  <!-- Header -->
+  <Header />
+
+  <!-- Main Content -->
+  <main class="docs-index-page">
+    <!-- Hero Section -->
+    <section class="docs-hero">
+      <div class="container">
+        <h1 class="docs-hero-title">产品文档</h1>
+        <p class="docs-hero-description">
+          快速了解 AttriKit 产品功能，掌握归因分析方法，提升广告投放 ROI
+        </p>
+      </div>
+    </section>
+
+    <!-- Docs Categories -->
+    <section class="docs-categories">
+      <div class="container">
+        {categoryOrder
+          .filter(cat => categoryMap.has(cat))
+          .map(category => {
+            const info = categoryInfo[category];
+            const docs = categoryMap.get(category)!;
+
+            return (
+              <div class="docs-category-section">
+                <div class="docs-category-header">
+                  <span class="docs-category-icon">{info?.icon || '📄'}</span>
+                  <div>
+                    <h2 class="docs-category-name">{info?.name || category}</h2>
+                    <p class="docs-category-description">{info?.description}</p>
+                  </div>
+                </div>
+
+                <div class="docs-grid">
+                  {docs.map(doc => (
+                    <a href={`/docs/${doc.slug}/`} class="doc-card">
+                      <h3 class="doc-card-title">{doc.data.title}</h3>
+                      <p class="doc-card-description">{doc.data.description}</p>
+                      <span class="doc-card-link">阅读更多 →</span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <Footer />
+
+<style>
+  .docs-index-page {
+    padding-top: var(--header-height);
+  }
+
+  /* Hero Section */
+  .docs-hero {
+    padding: var(--spacing-16) 0;
+    background: linear-gradient(135deg, rgba(10, 95, 143, 0.05) 0%, rgba(0, 180, 166, 0.05) 100%);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .docs-hero-title {
+    font-size: 48px;
+    font-weight: 700;
+    font-family: var(--font-family-display);
+    color: var(--color-text-primary);
+    margin: 0 0 var(--spacing-4) 0;
+    letter-spacing: -0.02em;
+  }
+
+  .docs-hero-description {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-muted);
+    max-width: 600px;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* Categories Section */
+  .docs-categories {
+    padding: var(--spacing-16) 0;
+  }
+
+  .docs-category-section {
+    margin-bottom: var(--spacing-16);
+  }
+
+  .docs-category-section:last-child {
+    margin-bottom: 0;
+  }
+
+  .docs-category-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+    margin-bottom: var(--spacing-8);
+  }
+
+  .docs-category-icon {
+    font-size: 40px;
+    line-height: 1;
+  }
+
+  .docs-category-name {
+    font-size: var(--font-size-2xl);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0 0 var(--spacing-1) 0;
+  }
+
+  .docs-category-description {
+    font-size: var(--font-size-base);
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  /* Docs Grid */
+  .docs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--spacing-6);
+  }
+
+  /* Doc Card */
+  .doc-card {
+    display: block;
+    padding: var(--spacing-8);
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition: all var(--transition-base);
+  }
+
+  .doc-card:hover {
+    border-color: var(--color-accent-primary);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  .doc-card-title {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0 0 var(--spacing-3) 0;
+  }
+
+  .doc-card-description {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin: 0 0 var(--spacing-4) 0;
+    line-height: 1.5;
+  }
+
+  .doc-card-link {
+    font-size: var(--font-size-sm);
+    color: var(--color-accent-primary);
+    font-weight: 500;
+  }
+
+  /* Mobile Responsive */
+  @media (max-width: 768px) {
+    .docs-hero-title {
+      font-size: 32px;
+    }
+
+    .docs-hero-description {
+      font-size: var(--font-size-base);
+    }
+
+    .docs-category-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--spacing-2);
+    }
+
+    .docs-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .doc-card {
+      padding: var(--spacing-6);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .docs-hero {
+      padding: var(--spacing-12) 0;
+    }
+
+    .docs-categories {
+      padding: var(--spacing-12) 0;
+    }
+  }
+</style>
+</body>
+</html>

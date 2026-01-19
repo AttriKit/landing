@@ -25,6 +25,14 @@ export default defineConfig({
           // Blog index page
           item.priority = 0.9;
           item.changefreq = 'weekly';
+        } else if (item.url.includes('/docs/') && !item.url.endsWith('/docs/')) {
+          // Individual doc pages
+          item.priority = 0.9;
+          item.changefreq = 'weekly';
+        } else if (item.url.endsWith('/docs/')) {
+          // Docs index page
+          item.priority = 0.95;
+          item.changefreq = 'weekly';
         } else {
           // Other pages
           item.priority = 0.7;
