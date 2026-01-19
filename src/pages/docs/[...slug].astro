@@ -135,6 +135,9 @@ const articleSchema = generateTechArticleSchema(doc);
   <!-- Consultation Modal -->
   <ConsultationModal />
 
+  <!-- Copy Code Button Script -->
+  <script src="../../scripts/copy-code-button.js"></script>
+
   <style>
     /* Docs Page Layout */
     .docs-page {
@@ -278,6 +281,62 @@ const articleSchema = generateTechArticleSchema(doc);
       background: none;
       padding: 0;
       color: inherit;
+    }
+
+    /* Code Block Wrapper & Copy Button */
+    .doc-content :global(.code-block-wrapper) {
+      position: relative;
+      margin-bottom: 1.5em;
+    }
+
+    .doc-content :global(.code-block-wrapper pre) {
+      margin-bottom: 0;
+    }
+
+    .doc-content :global(.copy-button) {
+      position: absolute;
+      top: var(--spacing-2);
+      right: var(--spacing-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      padding: 0;
+      background: var(--color-bg-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      opacity: 0;
+    }
+
+    .doc-content :global(.code-block-wrapper:hover .copy-button) {
+      opacity: 0.7;
+    }
+
+    .doc-content :global(.copy-button:hover) {
+      opacity: 1 !important;
+      background: var(--color-bg-secondary);
+      border-color: var(--color-accent-primary);
+      color: var(--color-accent-primary);
+    }
+
+    .doc-content :global(.copy-button.copied) {
+      background: var(--color-accent-primary) !important;
+      border-color: var(--color-accent-primary) !important;
+      color: white !important;
+      opacity: 1 !important;
+    }
+
+    .doc-content :global(.copy-button svg) {
+      width: 14px;
+      height: 14px;
+    }
+
+    .doc-content :global(.copy-button .copy-text) {
+      display: none;
     }
 
     .doc-content :global(img) {
