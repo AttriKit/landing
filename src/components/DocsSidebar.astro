@@ -1,0 +1,169 @@
+---
+/**
+ * DocsSidebar Component
+ * Navigation sidebar for documentation pages
+ */
+import { getCollection } from 'astro:content';
+
+interface Props {
+  currentSlug?: string;
+}
+
+const { currentSlug } = Astro.props;
+
+// Get all docs, filtered by draft status
+const allDocs = await getCollection('docs');
+const publishedDocs = allDocs.filter(doc => !doc.data.draft);
+
+// Group by category
+const categoryMap = new Map<string, typeof publishedDocs>();
+
+for (const doc of publishedDocs) {
+  const category = doc.data.category;
+  if (!categoryMap.has(category)) {
+    categoryMap.set(category, []);
+  }
+  categoryMap.get(category)!.push(doc);
+}
+
+// Sort docs within each category by order
+for (const docs of categoryMap.values()) {
+  docs.sort((a, b) => a.data.order - b.data.order);
+}
+
+// Category display names
+const categoryNames: Record<string, string> = {
+  'getting-started': '快速开始',
+  'guides': '使用指南',
+  'api': 'API 参考',
+};
+
+// Category order
+const categoryOrder = ['getting-started', 'guides', 'api'];
+
+// Helper to check if a doc is active
+const isActive = (slug: string) => {
+  if (!currentSlug) return false;
+  // Handle nested paths - match partial prefix
+  const currentPath = currentSlug.join('/');
+  return slug === currentPath || slug.startsWith(currentPath + '/');
+};
+---
+
+<aside class="docs-sidebar">
+  <nav class="docs-nav" aria-label="Documentation navigation">
+    {categoryOrder
+      .filter(cat => categoryMap.has(cat))
+      .map(category => (
+        <div class="docs-nav-section">
+          <h3 class="docs-nav-category">{categoryNames[category] || category}</h3>
+          <ul class="docs-nav-list">
+            {categoryMap.get(category)!.map(doc => (
+              <li class="docs-nav-item">
+                <a
+                  href={`/docs/${doc.slug}/`}
+                  class={`docs-nav-link ${isActive(doc.slug) ? 'active' : ''}`}
+                  aria-current={isActive(doc.slug) ? 'page' : undefined}
+                >
+                  {doc.data.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+  </nav>
+</aside>
+
+<style>
+  .docs-sidebar {
+    position: sticky;
+    top: calc(var(--header-height) + var(--spacing-6));
+    width: 260px;
+    flex-shrink: 0;
+    max-height: calc(100vh - var(--header-height) - var(--spacing-12));
+    overflow-y: auto;
+    padding-right: var(--spacing-4);
+  }
+
+  .docs-nav {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+  }
+
+  .docs-nav-section {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .docs-nav-category {
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 var(--spacing-3) 0;
+  }
+
+  .docs-nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .docs-nav-item {
+    margin: 0;
+  }
+
+  .docs-nav-link {
+    display: block;
+    padding: var(--spacing-2) var(--spacing-3);
+    color: var(--color-text-light);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+    border-left: 2px solid transparent;
+  }
+
+  .docs-nav-link:hover {
+    color: var(--color-text-primary);
+    background: var(--color-bg-muted);
+  }
+
+  .docs-nav-link.active {
+    color: var(--color-accent-primary);
+    background: rgba(10, 95, 143, 0.08);
+    border-left-color: var(--color-accent-primary);
+    font-weight: 500;
+  }
+
+  /* Scrollbar styling */
+  .docs-sidebar::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .docs-sidebar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .docs-sidebar::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 2px;
+  }
+
+  .docs-sidebar::-webkit-scrollbar-thumb:hover {
+    background: var(--color-text-muted);
+  }
+
+  /* Mobile responsive - hide sidebar */
+  @media (max-width: 1024px) {
+    .docs-sidebar {
+      display: none;
+    }
+  }
+</style>

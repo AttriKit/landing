@@ -1,0 +1,395 @@
+---
+/**
+ * Docs Detail Page
+ * Dynamic route for individual documentation pages
+ * Supports nested paths like /docs/guides/attribution-basics
+ */
+import { getCollection } from 'astro:content';
+import '../../styles/global.css';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import TableOfContents from '../../components/TableOfContents.astro';
+import DocsSidebar from '../../components/DocsSidebar.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { generateBreadcrumbSchema } from '../../data/blog-schema';
+import { generateTechArticleSchema } from '../../data/docs-schema';
+
+export async function getStaticPaths() {
+  const docs = await getCollection('docs');
+  return docs
+    .filter(doc => !doc.data.draft)
+    .map(doc => ({
+      params: { slug: doc.slug },
+      props: { doc },
+    }));
+}
+
+const { doc } = Astro.props;
+const { Content } = await doc.render();
+
+// Get current slug for sidebar active state
+const currentSlug = doc.slug.split('/');
+
+// Category display names
+const categoryNames: Record<string, string> = {
+  'getting-started': '快速开始',
+  'guides': '使用指南',
+  'api': 'API 参考',
+};
+
+// Breadcrumb items
+const breadcrumbItems = [
+  { label: '首页', href: '/' },
+  { label: '文档', href: '/docs/' },
+  { label: categoryNames[doc.data.category] || doc.data.category, href: `/docs/#${doc.data.category}` },
+  { label: doc.data.title },
+];
+
+const docUrl = `https://attrikit.com/docs/${doc.slug}/`;
+
+// Generate structured data
+const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbItems);
+const articleSchema = generateTechArticleSchema(doc);
+---
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{doc.data.title} - AttriKit 文档</title>
+  <meta name="description" content={doc.data.description} />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content={doc.data.title} />
+  <meta property="og:description" content={doc.data.description} />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content={docUrl} />
+  <meta property="og:image" content="https://attrikit.com/og.webp" />
+  <meta property="og:locale" content="zh_CN" />
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href={doc.data.canonical || docUrl} />
+
+  <!-- Robots meta -->
+  <meta name="robots" content="index, follow" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={doc.data.title} />
+  <meta name="twitter:description" content={doc.data.description} />
+  <meta name="twitter:image" content="https://attrikit.com/og.webp" />
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)}></script>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)}></script>
+</head>
+<body>
+  <!-- Header -->
+  <Header />
+
+  <!-- Docs Content -->
+  <article class="docs-page section-lg">
+    <div class="container">
+      <div class="docs-layout">
+        <!-- Sidebar Navigation -->
+        <DocsSidebar currentSlug={currentSlug} />
+
+        <!-- Main Content -->
+        <div class="docs-main">
+          <!-- Breadcrumb -->
+          <Breadcrumb items={breadcrumbItems} />
+
+          <!-- Doc Header -->
+          <header class="doc-header">
+            <h1 class="doc-title">{doc.data.title}</h1>
+            <p class="doc-description">{doc.data.description}</p>
+          </header>
+
+          <!-- Doc Content -->
+          <div class="doc-content post-content">
+            <Content />
+          </div>
+        </div>
+
+        <!-- Table of Contents -->
+        <aside class="docs-toc">
+          <TableOfContents />
+        </aside>
+      </div>
+    </div>
+  </article>
+
+  <!-- Footer -->
+  <Footer />
+
+  <style>
+    /* Docs Page Layout */
+    .docs-page {
+      padding-top: calc(var(--header-height) + var(--spacing-8));
+      padding-bottom: var(--spacing-16);
+    }
+
+    .docs-layout {
+      display: grid;
+      grid-template-columns: 260px 1fr 280px;
+      gap: var(--spacing-10);
+      position: relative;
+    }
+
+    .docs-main {
+      min-width: 0;
+    }
+
+    .docs-toc {
+      position: relative;
+    }
+
+    /* Doc Header */
+    .doc-header {
+      margin-bottom: var(--spacing-8);
+      padding-bottom: var(--spacing-6);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .doc-title {
+      font-size: clamp(32px, 4vw, 42px);
+      font-weight: 700;
+      margin-bottom: var(--spacing-3);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: var(--color-text-primary);
+      font-family: var(--font-family-display);
+    }
+
+    .doc-description {
+      font-size: var(--font-size-lg);
+      color: var(--color-text-muted);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* Doc Content - reuse blog styles */
+    .doc-content {
+      font-size: var(--font-size-base);
+      line-height: 1.7;
+      color: var(--color-text-secondary);
+    }
+
+    /* Markdown Styles */
+    .doc-content :global(h2) {
+      font-size: var(--font-size-2xl);
+      font-weight: 600;
+      margin-top: var(--spacing-10);
+      margin-bottom: var(--spacing-4);
+      letter-spacing: -0.02em;
+      color: var(--color-text-primary);
+      font-family: var(--font-family-display);
+      scroll-margin-top: calc(var(--header-height) + 20px);
+    }
+
+    .doc-content :global(h3) {
+      font-size: var(--font-size-xl);
+      font-weight: 600;
+      margin-top: var(--spacing-8);
+      margin-bottom: var(--spacing-3);
+      color: var(--color-text-primary);
+      font-family: var(--font-family-display);
+      scroll-margin-top: calc(var(--header-height) + 20px);
+    }
+
+    .doc-content :global(h4) {
+      font-size: var(--font-size-lg);
+      font-weight: 600;
+      margin-top: var(--spacing-6);
+      margin-bottom: var(--spacing-2);
+      color: var(--color-text-primary);
+      font-family: var(--font-family-display);
+    }
+
+    .doc-content :global(p) {
+      margin-bottom: 1em;
+    }
+
+    .doc-content :global(a) {
+      color: var(--color-accent-primary);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      transition: opacity var(--transition-fast);
+    }
+
+    .doc-content :global(a:hover) {
+      opacity: 0.8;
+    }
+
+    .doc-content :global(ul),
+    .doc-content :global(ol) {
+      margin-bottom: 1em;
+      padding-left: var(--spacing-6);
+    }
+
+    .doc-content :global(li) {
+      margin-bottom: 0.5em;
+    }
+
+    .doc-content :global(blockquote) {
+      border-left: 4px solid var(--color-accent-primary);
+      padding-left: var(--spacing-6);
+      margin: 1.5em 0;
+      color: var(--color-text-muted);
+      font-style: italic;
+      background: var(--color-accent-subtle);
+      padding: var(--spacing-6);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    }
+
+    .doc-content :global(code) {
+      background: var(--color-bg-secondary);
+      padding: 0.2em 0.5em;
+      border-radius: var(--radius-sm);
+      font-size: 0.9em;
+      font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+      color: var(--color-accent-secondary);
+    }
+
+    .doc-content :global(pre) {
+      background: var(--color-bg-secondary);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-6);
+      overflow-x: auto;
+      margin-bottom: 1.5em;
+      font-size: var(--font-size-sm);
+    }
+
+    .doc-content :global(pre code) {
+      background: none;
+      padding: 0;
+      color: inherit;
+    }
+
+    .doc-content :global(img) {
+      max-width: 100%;
+      height: auto;
+      border-radius: var(--radius-lg);
+      margin: 1.5em 0;
+      box-shadow: var(--shadow-md);
+    }
+
+    .doc-content :global(hr) {
+      border: none;
+      border-top: 1px solid var(--color-border);
+      margin: 2em 0;
+    }
+
+    .doc-content :global(table) {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5em 0;
+      font-size: var(--font-size-sm);
+      background: var(--color-bg-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .doc-content :global(th) {
+      background: var(--color-bg-secondary);
+      padding: var(--spacing-3) var(--spacing-4);
+      text-align: left;
+      font-weight: 600;
+      color: var(--color-text-primary);
+      border-bottom: 2px solid var(--color-border);
+      font-family: var(--font-family-display);
+    }
+
+    .doc-content :global(td) {
+      padding: var(--spacing-3) var(--spacing-4);
+      border-bottom: 1px solid var(--color-border);
+      color: var(--color-text-secondary);
+    }
+
+    .doc-content :global(tr:last-child td) {
+      border-bottom: none;
+    }
+
+    .doc-content :global(tr:nth-child(even)) {
+      background: var(--color-bg-secondary);
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 1280px) {
+      .docs-layout {
+        grid-template-columns: 240px 1fr 260px;
+        gap: var(--spacing-8);
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .docs-layout {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-8);
+      }
+
+      .docs-layout > :first-child {
+        display: none;
+      }
+
+      .docs-toc {
+        display: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .docs-page {
+        padding-top: calc(var(--header-height) + var(--spacing-6));
+      }
+
+      .doc-title {
+        font-size: var(--font-size-2xl);
+      }
+
+      .doc-description {
+        font-size: var(--font-size-base);
+      }
+
+      .doc-content :global(h2) {
+        font-size: var(--font-size-xl);
+      }
+
+      .doc-content :global(h3) {
+        font-size: var(--font-size-lg);
+      }
+
+      .doc-content :global(pre) {
+        font-size: var(--font-size-mobile-xs);
+        padding: var(--spacing-4);
+        border-radius: var(--radius-md);
+      }
+
+      .doc-content :global(code) {
+        font-size: var(--font-size-mobile-xs);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .doc-title {
+        font-size: var(--font-size-xl);
+      }
+
+      .doc-content :global(table) {
+        font-size: var(--font-size-mobile-xs);
+      }
+
+      .doc-content :global(th),
+      .doc-content :global(td) {
+        padding: var(--spacing-2) var(--spacing-3);
+      }
+    }
+  </style>
+</body>
+</html>
