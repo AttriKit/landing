@@ -6,6 +6,7 @@ import Breadcrumb from '../../components/Breadcrumb.astro';
 import TableOfContents from '../../components/TableOfContents.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import ConsultationModal from '../../components/ConsultationModal.astro';
 import {
   generateArticleSchema,
   generateBreadcrumbSchema,
@@ -162,6 +163,9 @@ const faqSchema = faqs.length > 0 ? generateFAQSchema(faqs) : null;
 
   <!-- Footer -->
   <Footer />
+
+  <!-- Consultation Modal -->
+  <ConsultationModal />
 
   <style>
     /* Blog Post Layout */

@@ -12,6 +12,7 @@ import DocsSidebar from '../../components/DocsSidebar.astro';
 import DocNavigation from '../../components/DocNavigation.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import ConsultationModal from '../../components/ConsultationModal.astro';
 import { generateBreadcrumbSchema } from '../../data/blog-schema';
 import { generateTechArticleSchema } from '../../data/docs-schema';
 
@@ -130,6 +131,9 @@ const articleSchema = generateTechArticleSchema(doc);
 
   <!-- Footer -->
   <Footer />
+
+  <!-- Consultation Modal -->
+  <ConsultationModal />
 
   <style>
     /* Docs Page Layout */
