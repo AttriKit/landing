@@ -9,22 +9,23 @@ import '../../styles/global.css';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import TableOfContents from '../../components/TableOfContents.astro';
 import DocsSidebar from '../../components/DocsSidebar.astro';
+import DocNavigation from '../../components/DocNavigation.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { generateBreadcrumbSchema } from '../../data/blog-schema';
 import { generateTechArticleSchema } from '../../data/docs-schema';
 
 export async function getStaticPaths() {
-  const docs = await getCollection('docs');
-  return docs
+  const allDocs = await getCollection('docs');
+  return allDocs
     .filter(doc => !doc.data.draft)
     .map(doc => ({
       params: { slug: doc.slug },
-      props: { doc },
+      props: { doc, allDocs },
     }));
 }
 
-const { doc } = Astro.props;
+const { doc, allDocs } = Astro.props;
 const { Content } = await doc.render();
 
 // Get current slug for sidebar active state
@@ -114,6 +115,9 @@ const articleSchema = generateTechArticleSchema(doc);
           <div class="doc-content post-content">
             <Content />
           </div>
+
+          <!-- Doc Navigation -->
+          <DocNavigation currentDoc={doc} allDocs={allDocs} />
         </div>
 
         <!-- Table of Contents -->

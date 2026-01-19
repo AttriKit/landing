@@ -1,0 +1,141 @@
+---
+/**
+ * DocNavigation Component
+ * Previous/Next page navigation for documentation
+ */
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  currentDoc: CollectionEntry<'docs'>;
+  allDocs: CollectionEntry<'docs'>[];
+}
+
+const { currentDoc, allDocs } = Astro.props;
+
+// Filter published docs and sort by order
+const publishedDocs = allDocs
+  .filter(doc => !doc.data.draft)
+  .sort((a, b) => {
+    // First sort by category order
+    const categoryOrder = ['getting-started', 'guides', 'api'];
+    const aCategoryIndex = categoryOrder.indexOf(a.data.category);
+    const bCategoryIndex = categoryOrder.indexOf(b.data.category);
+    const categoryDiff = (aCategoryIndex === -1 ? 99 : aCategoryIndex) -
+                        (bCategoryIndex === -1 ? 99 : bCategoryIndex);
+
+    if (categoryDiff !== 0) return categoryDiff;
+
+    // Then sort by order within category
+    return a.data.order - b.data.order;
+  });
+
+// Find current doc index
+const currentIndex = publishedDocs.findIndex(doc => doc.slug === currentDoc.slug);
+
+// Get previous and next docs
+const prevDoc = currentIndex > 0 ? publishedDocs[currentIndex - 1] : null;
+const nextDoc = currentIndex < publishedDocs.length - 1 ? publishedDocs[currentIndex + 1] : null;
+
+// Category display names
+const categoryNames: Record<string, string> = {
+  'getting-started': '快速开始',
+  'guides': '使用指南',
+  'api': 'API 参考',
+};
+---
+
+{(prevDoc || nextDoc) && (
+  <nav class="doc-nav" aria-label="Documentation navigation">
+    <div class="doc-nav-container">
+      {prevDoc && (
+        <a href={`/docs/${prevDoc.slug}/`} class="doc-nav-link doc-nav-prev">
+          <span class="doc-nav-label">上一篇</span>
+          <span class="doc-nav-title">{prevDoc.data.title}</span>
+        </a>
+      )}
+
+      {nextDoc && (
+        <a href={`/docs/${nextDoc.slug}/`} class="doc-nav-link doc-nav-next">
+          <span class="doc-nav-label">下一篇</span>
+          <span class="doc-nav-title">{nextDoc.data.title}</span>
+        </a>
+      )}
+    </div>
+  </nav>
+)}
+
+<style>
+  .doc-nav {
+    margin-top: var(--spacing-16);
+    padding-top: var(--spacing-8);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .doc-nav-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-6);
+  }
+
+  .doc-nav-link {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+    padding: var(--spacing-6);
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition: all var(--transition-base);
+  }
+
+  .doc-nav-link:hover {
+    border-color: var(--color-accent-primary);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  .doc-nav-prev {
+    text-align: left;
+  }
+
+  .doc-nav-next {
+    text-align: right;
+  }
+
+  .doc-nav-label {
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .doc-nav-title {
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    color: var(--color-text-primary);
+    line-height: 1.4;
+  }
+
+  .doc-nav-link:hover .doc-nav-title {
+    color: var(--color-accent-primary);
+  }
+
+  /* Single item layout */
+  .doc-nav-link:only-child {
+    grid-column: 1 / -1;
+    text-align: center;
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .doc-nav-container {
+      grid-template-columns: 1fr;
+    }
+
+    .doc-nav-next {
+      text-align: left;
+    }
+  }
+</style>
