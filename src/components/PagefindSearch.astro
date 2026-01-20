@@ -4,8 +4,9 @@
  * @param {string} type - Search type: 'blog' or 'docs'
  * @param {string} placeholder - Trigger input placeholder text
  * @param {string} resultLabel - Label for results count (e.g., '篇文章', '篇文档')
+ * @param {string} scope - Unique scope for multiple instances (e.g., 'sidebar', 'main')
  */
-const { type = 'blog', placeholder, resultLabel = '篇文章' } = Astro.props;
+const { type = 'blog', placeholder, resultLabel = '篇文章', scope = '' } = Astro.props;
 
 // Default placeholders
 const placeholders = {
@@ -15,11 +16,14 @@ const placeholders = {
 
 const triggerPlaceholder = placeholder || placeholders[type];
 const resultCountLabel = resultLabel;
+
+// Generate unique ID for each instance
+const instanceId = scope ? `${type}-${scope}` : `${type}-${Math.random().toString(36).substr(2, 9)}`;
 ---
 
 <!-- Search Trigger -->
 <div class="search-trigger-container">
-  <div class="search-trigger" id={`search-trigger-${type}`} role="button" tabIndex={0} aria-label="打开搜索">
+  <div class="search-trigger" id={`search-trigger-${instanceId}`} role="button" tabIndex={0} aria-label="打开搜索">
     <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="search-icon">
       <circle cx="11" cy="11" r="8"/>
       <path d="M21 21l-4.35-4.35"/>
@@ -30,8 +34,8 @@ const resultCountLabel = resultLabel;
 </div>
 
 <!-- Search Modal -->
-<div id={`search-modal-${type}`} class="search-modal" style="display: none;" aria-hidden="true">
-  <div class="search-modal-overlay" id={`search-modal-overlay-${type}`} aria-hidden="true"></div>
+<div id={`search-modal-${instanceId}`} class="search-modal" aria-hidden="true">
+  <div class="search-modal-overlay" id={`search-modal-overlay-${instanceId}`} aria-hidden="true" style="position: fixed; inset: 0; z-index: 1299;"></div>
   <div class="search-modal-content" role="dialog" aria-modal="true">
     <div class="search-modal-header">
       <div class="search-input-wrapper">
@@ -41,19 +45,19 @@ const resultCountLabel = resultLabel;
         </svg>
         <input
           type="text"
-          id={`search-input-${type}`}
+          id={`search-input-${instanceId}`}
           placeholder={triggerPlaceholder}
           class="search-input"
           autocomplete="off"
         />
-        <button id={`clear-search-${type}`} class="clear-btn" aria-label="清除搜索" style="display: none;">
+        <button id={`clear-search-${instanceId}`} class="clear-btn" aria-label="清除搜索" style="display: none;">
           <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <line x1="18" y1="6" x2="6" y2="18"/>
             <line x1="6" y1="6" x2="18" y2="18"/>
           </svg>
         </button>
       </div>
-      <button id={`close-modal-${type}`} class="modal-close-btn" aria-label="关闭搜索">
+      <button id={`close-modal-${instanceId}`} class="modal-close-btn" aria-label="关闭搜索">
         <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <line x1="18" y1="6" x2="6" y2="18"/>
           <line x1="6" y1="6" x2="18" y2="18"/>
@@ -61,7 +65,7 @@ const resultCountLabel = resultLabel;
         <span>ESC</span>
       </button>
     </div>
-    <div id={`search-results-${type}`} class="search-results-list"></div>
+    <div id={`search-results-${instanceId}`} class="search-results-list"></div>
     <div class="search-modal-footer">
       <span class="search-hints">
         <span class="search-hint"><kbd>↑↓</kbd> 导航</span>
@@ -72,18 +76,19 @@ const resultCountLabel = resultLabel;
   </div>
 </div>
 
-<script is:inline define:vars={{ type, resultCountLabel }}>
+<script is:inline define:vars={{ instanceId, type, resultCountLabel }}>
   (function() {
+    const searchId = instanceId;
     const searchType = type;
     const resultLabel = resultCountLabel;
 
-    const searchTrigger = document.getElementById(`search-trigger-${searchType}`);
-    const searchModal = document.getElementById(`search-modal-${searchType}`);
-    const modalOverlay = document.getElementById(`search-modal-overlay-${searchType}`);
-    const closeModalBtn = document.getElementById(`close-modal-${searchType}`);
-    const searchInput = document.getElementById(`search-input-${searchType}`);
-    const clearBtn = document.getElementById(`clear-search-${searchType}`);
-    const resultsContainer = document.getElementById(`search-results-${searchType}`);
+    const searchTrigger = document.getElementById(`search-trigger-${searchId}`);
+    const searchModal = document.getElementById(`search-modal-${searchId}`);
+    const modalOverlay = document.getElementById(`search-modal-overlay-${searchId}`);
+    const closeModalBtn = document.getElementById(`close-modal-${searchId}`);
+    const searchInput = document.getElementById(`search-input-${searchId}`);
+    const clearBtn = document.getElementById(`clear-search-${searchId}`);
+    const resultsContainer = document.getElementById(`search-results-${searchId}`);
 
     let pagefind = null;
     let selectedIndex = -1;
@@ -104,7 +109,10 @@ const resultCountLabel = resultLabel;
     // Open modal
     function openModal() {
       if (searchModal) {
+        // Move modal to body to avoid stacking context issues
+        document.body.appendChild(searchModal);
         searchModal.style.display = 'flex';
+        searchModal.setAttribute('data-open', 'true');
         searchModal.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
         // Focus input after modal opens
@@ -115,8 +123,14 @@ const resultCountLabel = resultLabel;
     // Close modal
     function closeModal() {
       if (searchModal) {
-        searchModal.style.display = 'none';
+        searchModal.setAttribute('data-open', 'false');
         searchModal.setAttribute('aria-hidden', 'true');
+        // Wait for animation to complete before hiding
+        setTimeout(() => {
+          if (searchModal?.getAttribute('data-open') === 'false') {
+            searchModal.style.display = 'none';
+          }
+        }, 300);
         document.body.style.overflow = '';
         // Clear search
         if (searchInput) searchInput.value = '';
@@ -296,7 +310,7 @@ const resultCountLabel = resultLabel;
       // Cmd/Ctrl + K to open search
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
-        if (searchModal && searchModal.style.display === 'flex') {
+        if (searchModal && searchModal.getAttribute('data-open') === 'true') {
           closeModal();
         } else {
           openModal();
@@ -305,7 +319,7 @@ const resultCountLabel = resultLabel;
       }
 
       // If modal is not open, don't handle other keys
-      if (!searchModal || searchModal.style.display !== 'flex') return;
+      if (!searchModal || searchModal.getAttribute('data-open') !== 'true') return;
 
       // Escape to close modal
       if (e.key === 'Escape') {
@@ -413,38 +427,44 @@ const resultCountLabel = resultLabel;
   /* Search Modal */
   .search-modal {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 1000;
-    display: none;
-    align-items: flex-start;
-    justify-content: center;
-    padding-top: 15vh;
+    inset: 0;
+    z-index: 1300;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .search-modal[data-open="true"] {
+    opacity: 1;
+    pointer-events: auto;
   }
 
   .search-modal-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(8px);
+    background: rgba(26, 34, 46, 0.6);
+    backdrop-filter: blur(4px);
   }
 
   .search-modal-content {
     position: relative;
+    z-index: 1300;
+    margin-top: 15vh;
+    align-self: center;
     width: 100%;
     max-width: 640px;
     max-height: 70vh;
     background: var(--color-bg-surface);
     border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-2xl);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     display: flex;
     flex-direction: column;
-    animation: modalIn var(--transition-base) ease;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+  }
+
+  .search-modal[data-open="true"] .search-modal-content {
+    transform: scale(1);
   }
 
   /* Modal Header */
@@ -749,17 +769,6 @@ const resultCountLabel = resultLabel;
     to {
       opacity: 1;
       transform: translateY(0);
-    }
-  }
-
-  @keyframes modalIn {
-    from {
-      opacity: 0;
-      transform: translateY(-20px) scale(0.98);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0) scale(1);
     }
   }
 </style>
