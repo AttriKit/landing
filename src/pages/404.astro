@@ -28,22 +28,6 @@ import Footer from '../components/Footer.astro';
         <!-- 404 Number -->
         <div class="error-code">404</div>
 
-        <!-- Error Illustration -->
-        <div class="error-illustration">
-          <svg width="200" height="120" viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Search icon -->
-            <circle cx="70" cy="60" r="30" stroke="currentColor" stroke-width="3" class="illustration-stroke"/>
-            <line x1="92" y1="82" x2="110" y2="100" stroke="currentColor" stroke-width="3" stroke-linecap="round" class="illustration-stroke"/>
-            <!-- Question mark -->
-            <path d="M140 45C140 38 135 32 128 32C120 32 115 38 115 45" stroke="currentColor" stroke-width="3" stroke-linecap="round" class="illustration-stroke"/>
-            <circle cx="128" cy="58" r="3" fill="currentColor" class="illustration-fill"/>
-            <!-- Dotted line trail -->
-            <circle cx="150" cy="35" r="2" fill="currentColor" class="illustration-fill" opacity="0.4"/>
-            <circle cx="160" cy="30" r="2" fill="currentColor" class="illustration-fill" opacity="0.3"/>
-            <circle cx="170" cy="25" r="2" fill="currentColor" class="illustration-fill" opacity="0.2"/>
-          </svg>
-        </div>
-
         <!-- Error Message -->
         <h1 class="error-title">页面未找到</h1>
         <p class="error-description">
@@ -102,23 +86,9 @@ import Footer from '../components/Footer.astro';
       font-family: var(--font-family-display);
       color: var(--color-accent-primary);
       line-height: 1;
-      margin-bottom: var(--spacing-6);
+      margin-bottom: var(--spacing-10);
       opacity: 0.15;
       user-select: none;
-    }
-
-    .error-illustration {
-      margin: 0 auto var(--spacing-8);
-      color: var(--color-text-muted);
-    }
-
-    .illustration-stroke {
-      stroke: var(--color-accent-primary);
-      opacity: 0.3;
-    }
-
-    .illustration-fill {
-      fill: var(--color-accent-primary);
     }
 
     .error-title {
