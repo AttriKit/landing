@@ -567,6 +567,113 @@ import Footer from '../components/Footer.astro';
     </div>
   </section>
 
+  <!-- FAQ Section -->
+  <section class="faq section-lg" id="faq">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">常见问题</h2>
+        <p class="section-subtitle">关于 AttriKit 的常见疑问解答</p>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item" data-faq-item>
+          <button class="faq-question" data-faq-toggle>
+            <span>第一方归因和第三方归因有什么区别？</span>
+            <svg class="faq-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <p>主要区别在于<strong>数据存储位置</strong>和<strong>掌控权</strong>：第三方归因将数据发送到第三方服务器处理，而第一方归因将数据存储在您自己的服务器，归因逻辑完全透明可验证。此外，第一方归因采用一次性授权模式，长期使用成本更低。</p>
+          </div>
+        </div>
+
+        <div class="faq-item" data-faq-item>
+          <button class="faq-question" data-faq-toggle>
+            <span>AttriKit 支持哪些广告平台？</span>
+            <svg class="faq-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <p>目前支持<strong>巨量广告（字节跳动）</strong>，专业版和企业版支持腾讯广告、快手广告等更多主流平台。我们持续增加对新平台的支持，如有特定需求可联系我们咨询。</p>
+          </div>
+        </div>
+
+        <div class="faq-item" data-faq-item>
+          <button class="faq-question" data-faq-toggle>
+            <span>部署需要多长时间？需要什么技术能力？</span>
+            <svg class="faq-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <p>AttriKit 以 Docker 镜像形式提供，普通运维人员即可完成部署，通常<strong>1 小时内即可上线</strong>。不需要专业的开发团队，我们提供详细的部署文档和安装指南。</p>
+          </div>
+        </div>
+
+        <div class="faq-item" data-faq-item>
+          <button class="faq-question" data-faq-toggle>
+            <span>数据安全如何保障？</span>
+            <svg class="faq-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <p>所有归因数据都存储在<strong>您自己的服务器</strong>上，数据不流转至任何第三方。这天然符合隐私保护和数据合规要求，特别适合金融、医疗等对数据安全敏感的行业。</p>
+          </div>
+        </div>
+
+        <div class="faq-item" data-faq-item>
+          <button class="faq-question" data-faq-toggle>
+            <span>可以和现有系统集成吗？</span>
+            <svg class="faq-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <p>是的，AttriKit 提供<strong>API 接口</strong>，可以方便地与您现有的系统集成。同时也提供 SDK 集成方式，只需几分钟即可完成 App 端的接入。</p>
+          </div>
+        </div>
+
+        <div class="faq-item" data-faq-item>
+          <button class="faq-question" data-faq-toggle>
+            <span>售后支持如何？</span>
+            <svg class="faq-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <p>标准版提供社区支持，专业版提供优先技术支持，企业版配备专属技术顾问和 7×24 小时技术支持。我们也提供完整的在线文档和使用指南。</p>
+          </div>
+        </div>
+
+        <div class="faq-item" data-faq-item>
+          <button class="faq-question" data-faq-toggle>
+            <span>有免费试用或免费版本吗？</span>
+            <svg class="faq-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <p>是的，我们有<strong>开源免费的标准版</strong>，包含完整的第一方归因能力，适合刚起步的广告主或预算有限的团队。当您的业务规模增长后，可以随时升级到专业版或企业版。</p>
+          </div>
+        </div>
+
+        <div class="faq-item" data-faq-item>
+          <button class="faq-question" data-faq-toggle>
+            <span>月投放预算多少适合使用 AttriKit？</span>
+            <svg class="faq-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <p>月投放预算在 5 万以下的广告主，平台归因通常已经够用。月投放 5 万-50 万是第一方归因的最佳区间，通常 1-2 年就能收回成本。月投放 50 万以上，第一方归因几乎是必选项，长期节省的费用非常可观。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA Section -->
   <section class="cta section-lg grid-background" id="contact">
     <div class="container">
@@ -1081,6 +1188,87 @@ import Footer from '../components/Footer.astro';
       margin-top: 3px;
     }
 
+    /* FAQ Section */
+    .faq {
+      background: var(--color-bg-secondary);
+    }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-4);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      background: var(--color-bg-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: all 300ms ease;
+    }
+
+    .faq-item:hover {
+      border-color: var(--color-border-hover);
+    }
+
+    .faq-question {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--spacing-4);
+      padding: var(--spacing-5) var(--spacing-6);
+      background: none;
+      border: none;
+      text-align: left;
+      cursor: pointer;
+      font-size: var(--font-size-base);
+      font-weight: 500;
+      color: var(--color-text-primary);
+      transition: color 200ms ease;
+    }
+
+    .faq-question:hover {
+      color: var(--color-accent-primary);
+    }
+
+    .faq-icon {
+      flex-shrink: 0;
+      color: var(--color-text-muted);
+      transition: transform 300ms ease;
+    }
+
+    .faq-item[data-open="true"] .faq-icon {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 300ms ease, padding 300ms ease;
+    }
+
+    .faq-item[data-open="true"] .faq-answer {
+      max-height: 500px;
+      padding-top: var(--spacing-2);
+      padding-bottom: var(--spacing-5);
+    }
+
+    .faq-answer p {
+      margin: 0;
+      padding: 0 var(--spacing-6);
+      color: var(--color-text-muted);
+      line-height: 1.7;
+      font-size: var(--font-size-sm);
+    }
+
+    .faq-answer strong {
+      color: var(--color-text-secondary);
+      font-weight: 600;
+    }
+
     /* CTA Section */
     .cta {
       text-align: center;
@@ -1360,6 +1548,24 @@ import Footer from '../components/Footer.astro';
       el.style.transform = 'translateY(20px)';
       el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
       observer.observe(el);
+    });
+
+    // FAQ Accordion
+    document.querySelectorAll('[data-faq-toggle]').forEach(button => {
+      button.addEventListener('click', () => {
+        const faqItem = button.closest('[data-faq-item]');
+        const isOpen = faqItem?.getAttribute('data-open') === 'true';
+
+        // Close all FAQ items
+        document.querySelectorAll('[data-faq-item]').forEach(item => {
+          item.setAttribute('data-open', 'false');
+        });
+
+        // Toggle current item
+        if (!isOpen && faqItem) {
+          faqItem.setAttribute('data-open', 'true');
+        }
+      });
     });
   </script>
 
