@@ -5,6 +5,7 @@
  */
 import ReadingTime from './ReadingTime.astro';
 import type { CollectionEntry } from 'astro:content';
+import { formatDate, calculateReadingTime } from '../lib/utils';
 
 interface Props {
   post: CollectionEntry<'blog'>;
@@ -13,18 +14,8 @@ interface Props {
 const { post } = Astro.props;
 const { title, description, pubDate, author } = post.data;
 
-// Calculate reading time (avg 400 chars per minute for Chinese)
-const wordCount = post.body?.split('').length || 0;
-const readTimeMinutes = Math.max(1, Math.ceil(wordCount / 400));
-
-// Format date
-const formatDate = (date: Date) => {
-  return date.toLocaleDateString('zh-CN', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
-};
+// Calculate reading time using utils
+const readTimeMinutes = calculateReadingTime(post.body || '');
 ---
 
 <article class="post-card">

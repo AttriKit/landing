@@ -1,13 +1,14 @@
 import type { CollectionEntry } from 'astro:content';
+import { calculateReadingTime, createPublisher } from '../lib/utils';
 
 // Generate TechArticle schema for documentation pages
 export function generateTechArticleSchema(doc: CollectionEntry<'docs'>) {
   const { data, slug } = doc;
   const url = `https://attrikit.com/docs/${slug}/`;
 
-  // Calculate reading time
+  // Calculate reading time using utils
   const wordCount = doc.body?.length || 0;
-  const readTimeMinutes = Math.max(1, Math.ceil(wordCount / 400));
+  const readTimeMinutes = calculateReadingTime(doc.body || '');
 
   return {
     "@context": "https://schema.org",
@@ -21,14 +22,7 @@ export function generateTechArticleSchema(doc: CollectionEntry<'docs'>) {
       "@type": "Organization",
       "name": "AttriKit"
     },
-    "publisher": {
-      "@type": "Organization",
-      "name": "AttriKit",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://attrikit.com/favicon.png"
-      }
-    },
+    "publisher": createPublisher(),
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": url
