@@ -42,12 +42,6 @@
   --color-border: #E5E7EB;
   --color-border-hover: #D1D5DB;
 
-  /* Shadows - Cool-toned for modern look */
-  --shadow-sm: 0 1px 2px rgba(10, 95, 143, 0.04);
-  --shadow-md: 0 4px 12px rgba(10, 95, 143, 0.08);
-  --shadow-lg: 0 12px 24px rgba(10, 95, 143, 0.10);
-  --shadow-subtle: 0 1px 3px rgba(10, 95, 143, 0.04);
-
   /* Typography - Plus Jakarta Sans for headings, Manrope for body */
   --font-family-display: 'Plus Jakarta Sans', sans-serif;
   --font-family-body: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;

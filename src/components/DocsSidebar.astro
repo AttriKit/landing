@@ -6,10 +6,13 @@
 import { getCollection } from 'astro:content';
 
 interface Props {
-  currentSlug?: string;
+  currentSlug?: string | string[];
 }
 
 const { currentSlug } = Astro.props;
+
+// Convert array to string for comparison
+const currentSlugStr = Array.isArray(currentSlug) ? currentSlug.join('/') : currentSlug;
 
 // Get all docs, filtered by draft status
 const allDocs = await getCollection('docs');
@@ -43,10 +46,9 @@ const categoryOrder = ['getting-started', 'guides', 'api'];
 
 // Helper to check if a doc is active
 const isActive = (slug: string) => {
-  if (!currentSlug) return false;
+  if (!currentSlugStr) return false;
   // Handle nested paths - match partial prefix
-  const currentPath = currentSlug.join('/');
-  return slug === currentPath || slug.startsWith(currentPath + '/');
+  return slug === currentSlugStr || slug.startsWith(currentSlugStr + '/');
 };
 ---
 

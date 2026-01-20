@@ -1,13 +1,14 @@
 import type { CollectionEntry } from 'astro:content';
+import { calculateReadingTime, createPublisher } from '../lib/utils';
 
 // Generate Article schema for blog posts
 export function generateArticleSchema(post: CollectionEntry<'blog'>) {
   const { data, slug } = post;
   const url = `https://attrikit.com/blog/${slug}/`;
 
-  // Calculate reading time
+  // Calculate reading time using utils
   const wordCount = post.body?.length || 0;
-  const readTimeMinutes = Math.max(1, Math.ceil(wordCount / 400));
+  const readTimeMinutes = calculateReadingTime(post.body || '');
 
   return {
     "@context": "https://schema.org",
@@ -21,14 +22,7 @@ export function generateArticleSchema(post: CollectionEntry<'blog'>) {
       "@type": "Organization",
       "name": data.author
     },
-    "publisher": {
-      "@type": "Organization",
-      "name": "AttriKit",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://attrikit.com/favicon.png"
-      }
-    },
+    "publisher": createPublisher(),
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": url
