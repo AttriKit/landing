@@ -1,0 +1,252 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>页面未找到 - AttriKit</title>
+  <meta name="description" content="抱歉，您访问的页面不存在。" />
+  <meta name="robots" content="noindex, follow" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+</head>
+<body>
+  <!-- Header -->
+  <Header />
+
+  <!-- 404 Content -->
+  <main class="not-found-page">
+    <div class="container">
+      <div class="not-found-content">
+        <!-- 404 Number -->
+        <div class="error-code">404</div>
+
+        <!-- Error Illustration -->
+        <div class="error-illustration">
+          <svg width="200" height="120" viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Search icon -->
+            <circle cx="70" cy="60" r="30" stroke="currentColor" stroke-width="3" class="illustration-stroke"/>
+            <line x1="92" y1="82" x2="110" y2="100" stroke="currentColor" stroke-width="3" stroke-linecap="round" class="illustration-stroke"/>
+            <!-- Question mark -->
+            <path d="M140 45C140 38 135 32 128 32C120 32 115 38 115 45" stroke="currentColor" stroke-width="3" stroke-linecap="round" class="illustration-stroke"/>
+            <circle cx="128" cy="58" r="3" fill="currentColor" class="illustration-fill"/>
+            <!-- Dotted line trail -->
+            <circle cx="150" cy="35" r="2" fill="currentColor" class="illustration-fill" opacity="0.4"/>
+            <circle cx="160" cy="30" r="2" fill="currentColor" class="illustration-fill" opacity="0.3"/>
+            <circle cx="170" cy="25" r="2" fill="currentColor" class="illustration-fill" opacity="0.2"/>
+          </svg>
+        </div>
+
+        <!-- Error Message -->
+        <h1 class="error-title">页面未找到</h1>
+        <p class="error-description">
+          抱歉，您访问的页面不存在。<br />
+          可能是输入了错误的网址，或者该页面已被移除。
+        </p>
+
+        <!-- Action Buttons -->
+        <div class="error-actions">
+          <a href="/" class="btn btn-primary">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+            </svg>
+            返回首页
+          </a>
+          <a href="/docs/" class="btn btn-secondary">浏览文档</a>
+        </div>
+
+        <!-- Helpful Links -->
+        <div class="helpful-links">
+          <p class="helpful-title">您可能在寻找：</p>
+          <ul class="links-list">
+            <li><a href="/#features">产品功能</a></li>
+            <li><a href="/#pricing">价格方案</a></li>
+            <li><a href="/#faq">常见问题</a></li>
+            <li><a href="/docs/">使用文档</a></li>
+            <li><a href="/blog/">技术博客</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <Footer />
+
+  <style>
+    .not-found-page {
+      min-height: calc(100vh - var(--header-height));
+      display: flex;
+      align-items: center;
+      padding: var(--spacing-16) 0;
+      background: var(--color-bg-primary);
+    }
+
+    .not-found-content {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto;
+      animation: fadeInUp 0.6s ease;
+    }
+
+    .error-code {
+      font-size: clamp(80px, 15vw, 140px);
+      font-weight: 800;
+      font-family: var(--font-family-display);
+      color: var(--color-accent-primary);
+      line-height: 1;
+      margin-bottom: var(--spacing-6);
+      opacity: 0.15;
+      user-select: none;
+    }
+
+    .error-illustration {
+      margin: 0 auto var(--spacing-8);
+      color: var(--color-text-muted);
+    }
+
+    .illustration-stroke {
+      stroke: var(--color-accent-primary);
+      opacity: 0.3;
+    }
+
+    .illustration-fill {
+      fill: var(--color-accent-primary);
+    }
+
+    .error-title {
+      font-size: clamp(24px, 5vw, 32px);
+      font-weight: 700;
+      font-family: var(--font-family-display);
+      color: var(--color-text-primary);
+      margin-bottom: var(--spacing-4);
+    }
+
+    .error-description {
+      font-size: var(--font-size-lg);
+      color: var(--color-text-muted);
+      line-height: 1.7;
+      margin-bottom: var(--spacing-10);
+    }
+
+    .error-actions {
+      display: flex;
+      gap: var(--spacing-4);
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: var(--spacing-12);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--spacing-2);
+      padding: var(--spacing-3) var(--spacing-6);
+      border-radius: var(--radius-lg);
+      font-size: var(--font-size-base);
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 200ms ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--color-accent-primary);
+      color: #FFFFFF;
+    }
+
+    .btn-primary:hover {
+      background: var(--color-accent-primary-hover);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-secondary {
+      background: var(--color-bg-surface);
+      color: var(--color-text-primary);
+      border: 2px solid var(--color-border);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--color-accent-primary);
+      color: var(--color-accent-primary);
+    }
+
+    .helpful-links {
+      text-align: center;
+    }
+
+    .helpful-title {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-muted);
+      margin-bottom: var(--spacing-4);
+    }
+
+    .links-list {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-3);
+      justify-content: center;
+    }
+
+    .links-list a {
+      color: var(--color-text-muted);
+      font-size: var(--font-size-sm);
+      text-decoration: none;
+      padding: var(--spacing-2) var(--spacing-3);
+      border-radius: var(--radius-md);
+      transition: all 200ms ease;
+    }
+
+    .links-list a:hover {
+      color: var(--color-accent-primary);
+      background: var(--color-accent-subtle);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .not-found-page {
+        padding: var(--spacing-12) 0;
+      }
+
+      .error-description {
+        font-size: var(--font-size-base);
+      }
+
+      .error-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .links-list {
+        flex-direction: column;
+      }
+    }
+  </style>
+</body>
+</html>
