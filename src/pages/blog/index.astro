@@ -6,6 +6,7 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import ConsultationModal from '../../components/ConsultationModal.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import PagefindSearch from '../../components/PagefindSearch.astro';
 
 const allPosts = await getCollection('blog');
 const posts = allPosts.sort((a, b) =>
@@ -22,7 +23,7 @@ const posts = allPosts.sort((a, b) =>
   <Header />
 
   <!-- Main Content -->
-  <main class="blog-page section-lg">
+  <main class="blog-page section-lg" data-pagefind-ignore>
     <div class="container">
       <!-- Page Header -->
       <div class="page-header">
@@ -30,22 +31,44 @@ const posts = allPosts.sort((a, b) =>
         <p class="page-subtitle">关于第一方归因、广告技术和产品更新</p>
       </div>
 
+      <!-- Search Box -->
+      <PagefindSearch type="blog" resultLabel="篇文章" />
+
       <!-- Posts Grid -->
-      {posts.length === 0 ? (
-        <div class="empty-state">
-          <svg width="64" height="64" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" class="empty-icon">
-            <path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>
-          </svg>
-          <h3>暂无文章</h3>
-          <p>敬请期待更多精彩内容...</p>
-        </div>
-      ) : (
-        <div class="posts-grid">
-          {posts.map(post => (
-            <PostCard post={post} />
-          ))}
-        </div>
-      )}
+      <div id="posts-container" class="posts-grid">
+        {posts.map(post => (
+          <article class="post-card" data-slug={post.slug}>
+            <a href={`/blog/${post.slug}/`} class="post-card-link">
+              <div class="post-card-content">
+                <h2 class="post-title">{post.data.title}</h2>
+                <p class="post-description">{post.data.description}</p>
+                <div class="post-meta">
+                  <time datetime={post.data.pubDate.toISOString()}>
+                    {post.data.pubDate.toLocaleDateString('zh-CN', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    })}
+                  </time>
+                  <span class="post-author">{post.data.author}</span>
+                </div>
+              </div>
+            </a>
+          </article>
+        ))}
+      </div>
+
+      <!-- No Results Message -->
+      <div id="no-results" class="no-results" style="display: none;">
+        <svg width="64" height="64" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" class="no-results-icon">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="M21 21l-4.35-4.35"/>
+          <line x1="8" y1="11" x2="14" y2="11"/>
+        </svg>
+        <h3>未找到匹配的文章</h3>
+        <p>尝试其他关键词或清除搜索条件</p>
+        <button id="reset-search" class="btn btn-secondary">清除搜索</button>
+      </div>
     </div>
   </main>
 
@@ -54,96 +77,195 @@ const posts = allPosts.sort((a, b) =>
 
   <!-- Consultation Modal -->
   <ConsultationModal />
+</BaseLayout>
 
-  <style>
-    /* Blog Page Styles */
-    .blog-page {
-      padding-top: calc(var(--header-height) + var(--spacing-16));
-      padding-bottom: var(--spacing-16);
-    }
+<style>
+  /* Blog Page Styles */
+  .blog-page {
+    padding-top: calc(var(--header-height) + var(--spacing-16));
+    padding-bottom: var(--spacing-16);
+  }
 
+  .page-header {
+    text-align: center;
+    margin-bottom: var(--spacing-10);
+  }
+
+  .page-title {
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 700;
+    margin-bottom: var(--spacing-4);
+    letter-spacing: -0.03em;
+    color: var(--color-text-primary);
+    animation: fadeUp var(--transition-base) ease;
+  }
+
+  .page-subtitle {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-muted);
+    margin: 0;
+    animation: fadeUp var(--transition-base) ease 0.1s both;
+  }
+
+  /* Posts Grid */
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: var(--spacing-8);
+    animation: fadeUp var(--transition-base) ease 0.3s both;
+  }
+
+  /* Post Card Styles */
+  .post-card {
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    transition: all var(--transition-base);
+    height: 100%;
+  }
+
+  .post-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-border-hover);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .post-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .post-card-content {
+    padding: var(--spacing-6);
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .post-title {
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    margin-bottom: var(--spacing-3);
+    color: var(--color-text-primary);
+    line-height: 1.4;
+    font-family: var(--font-family-display);
+  }
+
+  .post-description {
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-6);
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+    padding-top: var(--spacing-4);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .post-author::before {
+    content: '·';
+    margin-right: 4px;
+  }
+
+  /* No Results */
+  .no-results {
+    text-align: center;
+    padding: var(--spacing-16);
+    color: var(--color-text-muted);
+    animation: fadeUp var(--transition-base) ease;
+  }
+
+  .no-results-icon {
+    color: var(--color-text-light);
+    margin: 0 auto var(--spacing-6);
+    opacity: 0.5;
+  }
+
+  .no-results h3 {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-3);
+    color: var(--color-text-secondary);
+  }
+
+  .no-results p {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--spacing-6);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-3) var(--spacing-6);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    border: none;
+  }
+
+  .btn-secondary {
+    background: var(--color-bg-surface);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border);
+  }
+
+  .btn-secondary:hover {
+    background: var(--color-bg-secondary);
+    border-color: var(--color-border-hover);
+  }
+
+  /* Responsive Styles */
+  @media (max-width: 768px) {
     .page-header {
-      text-align: center;
-      margin-bottom: var(--spacing-12);
+      margin-bottom: var(--spacing-8);
     }
 
     .page-title {
-      font-size: clamp(36px, 5vw, 56px);
-      font-weight: 700;
-      margin-bottom: var(--spacing-4);
-      letter-spacing: -0.03em;
-      color: var(--color-text-primary);
-      animation: fadeUp var(--transition-base) ease;
+      font-size: var(--font-size-3xl);
     }
 
     .page-subtitle {
-      font-size: var(--font-size-lg);
-      color: var(--color-text-muted);
-      margin: 0;
-      animation: fadeUp var(--transition-base) ease 0.1s both;
-    }
-
-    /* Empty State */
-    .empty-state {
-      text-align: center;
-      padding: var(--spacing-16);
-      color: var(--color-text-muted);
-    }
-
-    .empty-icon {
-      color: var(--color-text-light);
-      margin: 0 auto var(--spacing-6);
-      opacity: 0.5;
-    }
-
-    .empty-state h3 {
-      font-size: var(--font-size-xl);
-      margin-bottom: var(--spacing-3);
-      color: var(--color-text-secondary);
-    }
-
-    .empty-state p {
       font-size: var(--font-size-base);
-      margin: 0;
     }
+  }
 
-    /* Posts Grid */
+  @media (max-width: 640px) {
     .posts-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: var(--spacing-8);
-      animation: fadeUp var(--transition-base) ease 0.2s both;
+      grid-template-columns: 1fr;
+      gap: var(--spacing-5);
     }
 
-    /* Responsive Styles */
-    @media (max-width: 640px) {
-      .posts-grid {
-        grid-template-columns: 1fr;
-        gap: var(--spacing-5);
-      }
+    .search-box {
+      padding: var(--spacing-2) var(--spacing-3);
     }
+  }
 
-    @media (max-width: 480px) {
-      .page-title {
-        font-size: var(--font-size-3xl);
-      }
-
-      .page-subtitle {
-        font-size: var(--font-size-base);
-      }
+  /* Animations */
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
     }
-
-    /* Animations */
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(16px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
-  </style>
-</BaseLayout>
-
+  }
+</style>

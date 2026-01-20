@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build && node scripts/postbuild.mjs",
-    "preview": "astro preview",
+    "preview": "npx serve dist --listen 4321",
     "astro": "astro"
   },
   "dependencies": {
@@ -15,6 +15,8 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.6",
+    "astro-pagefind": "^1.8.5",
+    "pagefind": "^1.4.0",
     "typescript": "^5.9.3"
   }
 }

@@ -8,6 +8,7 @@ import '../../styles/global.css';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import ConsultationModal from '../../components/ConsultationModal.astro';
+import PagefindSearch from '../../components/PagefindSearch.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 // Get all published docs
@@ -70,6 +71,7 @@ const categoryOrder = ['getting-started', 'guides', 'api'];
         <p class="docs-hero-description">
           快速了解 AttriKit 产品功能，掌握归因分析方法，提升广告投放 ROI
         </p>
+        <PagefindSearch type="docs" placeholder="搜索文档..." resultLabel="篇文档" />
       </div>
     </section>
 

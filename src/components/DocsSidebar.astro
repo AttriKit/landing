@@ -4,6 +4,7 @@
  * Navigation sidebar for documentation pages
  */
 import { getCollection } from 'astro:content';
+import PagefindSearch from './PagefindSearch.astro';
 
 interface Props {
   currentSlug?: string | string[];
@@ -53,6 +54,11 @@ const isActive = (slug: string) => {
 ---
 
 <aside class="docs-sidebar">
+  <!-- Search Box -->
+  <div class="docs-sidebar-search">
+    <PagefindSearch type="docs" placeholder="搜索文档..." resultLabel="篇文档" />
+  </div>
+
   <nav class="docs-nav" aria-label="Documentation navigation">
     {categoryOrder
       .filter(cat => categoryMap.has(cat))
@@ -87,6 +93,23 @@ const isActive = (slug: string) => {
     overflow-y: auto;
     padding-left: var(--spacing-3);
     padding-right: var(--spacing-4);
+  }
+
+  .docs-sidebar-search {
+    margin-bottom: var(--spacing-6);
+  }
+
+  /* Compact search trigger for sidebar */
+  .docs-sidebar-search .search-trigger {
+    padding: var(--spacing-2) var(--spacing-3);
+  }
+
+  .docs-sidebar-search .search-trigger-placeholder {
+    font-size: var(--font-size-sm);
+  }
+
+  .docs-sidebar-search .search-trigger-hint {
+    display: none;
   }
 
   .docs-nav {

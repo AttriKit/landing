@@ -2,11 +2,16 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import cloudflare from '@astrojs/cloudflare';
+import pagefind from "astro-pagefind";
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://attrikit.com',
   integrations: [
+    pagefind({
+      indexSelector: 'html',
+      verbose: true,
+    }),
     sitemap({
       // Format XML with proper indentation
       serialize(item) {
