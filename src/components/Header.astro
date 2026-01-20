@@ -179,15 +179,15 @@
 
 <script>
   // Header scroll effect
-  const header = document.querySelector('.header');
+  const header = document.querySelector<HTMLElement>('.header');
   let lastScroll = 0;
 
   window.addEventListener('scroll', () => {
     const currentScroll = window.pageYOffset;
 
-    if (currentScroll > 100) {
+    if (currentScroll > 100 && header) {
       header.classList.add('scrolled');
-    } else {
+    } else if (header) {
       header.classList.remove('scrolled');
     }
 
@@ -195,8 +195,8 @@
   });
 
   // Mobile menu toggle
-  const navToggle = document.querySelector('.nav-toggle');
-  const navMenu = document.querySelector('.nav-menu');
+  const navToggle = document.querySelector<HTMLButtonElement>('.nav-toggle');
+  const navMenu = document.querySelector<HTMLElement>('.nav-menu');
 
   if (navToggle && navMenu) {
     // Toggle menu on button click
@@ -242,7 +242,8 @@
 
     // Close menu when clicking outside
     document.addEventListener('click', (e) => {
-      if (!navToggle.contains(e.target) && !navMenu.contains(e.target)) {
+      const target = e.target as Node;
+      if (!navToggle.contains(target) && !navMenu.contains(target)) {
         if (navMenu.classList.contains('active')) {
           navToggle.classList.remove('active');
           navMenu.classList.remove('active');

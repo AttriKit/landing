@@ -319,9 +319,9 @@
 
     // Reset form after animation
     setTimeout(() => {
-      const form = document.querySelector('#consultation-form');
-      const successMessage = document.querySelector('#success-message');
-      const errorMessage = document.querySelector('#error-message');
+      const form = document.querySelector<HTMLFormElement>('#consultation-form');
+      const successMessage = document.querySelector<HTMLDivElement>('#success-message');
+      const errorMessage = document.querySelector<HTMLDivElement>('#error-message');
       if (form) {
         form.style.display = 'flex';
         form.reset();
@@ -354,11 +354,11 @@
   });
 
   // Form submission
-  const form = document.querySelector('#consultation-form');
-  const submitBtn = document.querySelector('#submit-btn');
-  const successMessage = document.querySelector('#success-message');
-  const errorMessage = document.querySelector('#error-message');
-  const retryBtn = document.querySelector('[data-retry]');
+  const form = document.querySelector<HTMLFormElement>('#consultation-form');
+  const submitBtn = document.querySelector<HTMLButtonElement>('#submit-btn');
+  const successMessage = document.querySelector<HTMLDivElement>('#success-message');
+  const errorMessage = document.querySelector<HTMLDivElement>('#error-message');
+  const retryBtn = document.querySelector<HTMLButtonElement>('[data-retry]');
 
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -404,7 +404,7 @@
 
   // Retry button
   retryBtn?.addEventListener('click', () => {
-    errorMessage!.style.display = 'none';
-    form.style.display = 'flex';
+    if (errorMessage) errorMessage.style.display = 'none';
+    if (form) form.style.display = 'flex';
   });
 </script>
