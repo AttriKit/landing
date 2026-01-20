@@ -1,10 +1,11 @@
- ---
+---
 import { getCollection } from 'astro:content';
 import '../../styles/global.css';
 import PostCard from '../../components/PostCard.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import ConsultationModal from '../../components/ConsultationModal.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const allPosts = await getCollection('blog');
 const posts = allPosts.sort((a, b) =>
@@ -12,39 +13,11 @@ const posts = allPosts.sort((a, b) =>
 );
 ---
 
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>博客 - AttriKit</title>
-  <meta name="description" content="AttriKit 博客 - 第一方广告归因系统的技术文章和产品更新" />
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="icon" type="image/png" href="/favicon.png" />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="博客 - AttriKit" />
-  <meta property="og:description" content="AttriKit 博客 - 第一方广告归因系统的技术文章和产品更新" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://attrikit.com/blog/" />
-  <meta property="og:image" content="https://attrikit.com/og.webp" />
-  <meta property="og:locale" content="zh_CN" />
-
-  <!-- Canonical URL -->
-  <link rel="canonical" href="https://attrikit.com/blog/" />
-
-  <!-- Robots meta -->
-  <meta name="robots" content="index, follow" />
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="博客 - AttriKit" />
-  <meta name="twitter:description" content="AttriKit 博客 - 第一方广告归因系统的技术文章和产品更新" />
-  <meta name="twitter:image" content="https://attrikit.com/og.webp" />
-</head>
-<body>
+<BaseLayout
+  title="博客 - AttriKit"
+  description="AttriKit 博客 - 第一方广告归因系统的技术文章和产品更新"
+  canonical="/blog/"
+>
   <!-- Header -->
   <Header />
 
@@ -172,6 +145,5 @@ const posts = allPosts.sort((a, b) =>
       }
     }
   </style>
-</body>
-</html>
+</BaseLayout>
 

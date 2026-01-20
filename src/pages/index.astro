@@ -4,51 +4,19 @@ import { organizationSchema, webSiteSchema, softwareApplicationSchema } from '..
 import ConsultationModal from '../components/ConsultationModal.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AttriKit - 私有化部署的广告归因系统</title>
-  <meta name="description" content="AttriKit 是私有化部署的广告归因系统，数据存储在您自己的服务器，完全掌控归因数据。开箱即用，1小时完成部署，相比第三方归因服务成本降低80%+。" />
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="icon" type="image/png" href="/favicon.png" />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="AttriKit - 私有化部署的广告归因系统" />
-  <meta property="og:description" content="私有化部署，数据存储在您自己的服务器。开箱即用，成本降低80%+" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://attrikit.com/" />
-  <meta property="og:image" content="https://attrikit.com/og.webp" />
-  <meta property="og:locale" content="zh_CN" />
-
-  <!-- Canonical URL -->
-  <link rel="canonical" href="https://attrikit.com/" />
-
-  <!-- Robots meta -->
-  <meta name="robots" content="index, follow" />
-  <meta name="googlebot" content="index, follow" />
-  <meta name="baiduspider" content="index, follow" />
-
-  <!-- Keywords (for Baidu SEO) -->
-  <meta name="keywords" content="第一方归因,广告归因,移动归因,attrikit,数据归因,归因系统,广告效果分析,转化追踪" />
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="AttriKit - 私有化部署的广告归因系统" />
-  <meta name="twitter:description" content="私有化部署，数据存储在您自己的服务器。开箱即用，成本降低80%+" />
-  <meta name="twitter:image" content="https://attrikit.com/og.webp" />
-
-  <!-- JSON-LD Structured Data -->
-  <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)}></script>
-  <script type="application/ld+json" set:html={JSON.stringify(webSiteSchema)}></script>
-  <script type="application/ld+json" set:html={JSON.stringify(softwareApplicationSchema)}></script>
-</head>
-<body>
+<BaseLayout
+  title="AttriKit - 私有化部署的广告归因系统"
+  description="AttriKit 是私有化部署的广告归因系统，数据存储在您自己的服务器，完全掌控归因数据。开箱即用，1小时完成部署，相比第三方归因服务成本降低80%+。"
+>
+  <fragment slot="head">
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)}></script>
+    <script type="application/ld+json" set:html={JSON.stringify(webSiteSchema)}></script>
+    <script type="application/ld+json" set:html={JSON.stringify(softwareApplicationSchema)}></script>
+  </fragment>
 
   <!-- Header -->
   <Header />
@@ -1583,5 +1551,4 @@ import Footer from '../components/Footer.astro';
 
   <!-- Consultation Modal -->
   <ConsultationModal />
-</body>
-</html>
+</BaseLayout>
