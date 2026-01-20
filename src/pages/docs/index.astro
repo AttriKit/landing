@@ -8,6 +8,7 @@ import '../../styles/global.css';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import ConsultationModal from '../../components/ConsultationModal.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 
 // Get all published docs
 const allDocs = await getCollection('docs');
@@ -52,39 +53,11 @@ const categoryInfo: Record<string, { name: string; description: string; icon: st
 const categoryOrder = ['getting-started', 'guides', 'api'];
 ---
 
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>文档 - AttriKit</title>
-  <meta name="description" content="AttriKit 产品文档，包含快速开始、使用指南和 API 参考" />
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="icon" type="image/png" href="/favicon.png" />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="文档 - AttriKit" />
-  <meta property="og:description" content="AttriKit 产品文档，包含快速开始、使用指南和 API 参考" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://attrikit.com/docs/" />
-  <meta property="og:image" content="https://attrikit.com/og.webp" />
-  <meta property="og:locale" content="zh_CN" />
-
-  <!-- Canonical URL -->
-  <link rel="canonical" href="https://attrikit.com/docs/" />
-
-  <!-- Robots meta -->
-  <meta name="robots" content="index, follow" />
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="文档 - AttriKit" />
-  <meta name="twitter:description" content="AttriKit 产品文档，包含快速开始、使用指南和 API 参考" />
-  <meta name="twitter:image" content="https://attrikit.com/og.webp" />
-</head>
-<body>
+<BaseLayout
+  title="文档 - AttriKit"
+  description="AttriKit 产品文档，包含快速开始、使用指南和 API 参考"
+  canonical="/docs/"
+>
   <!-- Header -->
   <Header />
 
@@ -287,5 +260,4 @@ const categoryOrder = ['getting-started', 'guides', 'api'];
     }
   }
 </style>
-</body>
-</html>
+</BaseLayout>

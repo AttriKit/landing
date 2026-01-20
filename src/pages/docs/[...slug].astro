@@ -13,6 +13,7 @@ import DocNavigation from '../../components/DocNavigation.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import ConsultationModal from '../../components/ConsultationModal.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 import { generateBreadcrumbSchema } from '../../data/blog-schema';
 import { generateTechArticleSchema } from '../../data/docs-schema';
 
@@ -54,43 +55,17 @@ const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbItems);
 const articleSchema = generateTechArticleSchema(doc);
 ---
 
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{doc.data.title} - AttriKit 文档</title>
-  <meta name="description" content={doc.data.description} />
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="icon" type="image/png" href="/favicon.png" />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content={doc.data.title} />
-  <meta property="og:description" content={doc.data.description} />
-  <meta property="og:type" content="article" />
-  <meta property="og:url" content={docUrl} />
-  <meta property="og:image" content="https://attrikit.com/og.webp" />
-  <meta property="og:locale" content="zh_CN" />
-
-  <!-- Canonical URL -->
-  <link rel="canonical" href={doc.data.canonical || docUrl} />
-
-  <!-- Robots meta -->
-  <meta name="robots" content="index, follow" />
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content={doc.data.title} />
-  <meta name="twitter:description" content={doc.data.description} />
-  <meta name="twitter:image" content="https://attrikit.com/og.webp" />
-
-  <!-- Structured Data (JSON-LD) -->
-  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)}></script>
-  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)}></script>
-</head>
-<body>
+<BaseLayout
+  title={`${doc.data.title} - AttriKit 文档`}
+  description={doc.data.description}
+  canonical={doc.data.canonical || docUrl}
+  type="article"
+>
+  <fragment slot="head">
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)}></script>
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)}></script>
+  </fragment>
   <!-- Header -->
   <Header />
 
@@ -454,5 +429,4 @@ const articleSchema = generateTechArticleSchema(doc);
       }
     }
   </style>
-</body>
-</html>
+</BaseLayout>
