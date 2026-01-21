@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { organizationSchema, webSiteSchema, softwareApplicationSchema } from '../data/structured-data';
+import { organizationSchema, webSiteSchema, softwareApplicationSchema, faqPageSchema } from '../data/structured-data';
 import ConsultationModal from '../components/ConsultationModal.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -8,14 +8,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout
-  title="AttriKit - 私有化部署的广告归因系统"
-  description="AttriKit 是私有化部署的广告归因系统，数据存储在您自己的服务器，完全掌控归因数据。开箱即用，1小时完成部署，相比第三方归因服务成本降低80%+。"
+  title="AttriKit - 第一方广告归因系统 | 私有化部署，1小时上线，成本降低80%+"
+  description="AttriKit 是面向中国广告主的私有化部署第一方归因系统。支持巨量广告等主流平台，数据存储在您自己的服务器，归因逻辑透明可审计。Docker一键部署，1小时内完成上线，无需专业开发团队。相比第三方归因服务，长期使用成本降低80%+，天然符合数据合规要求。"
 >
   <fragment slot="head">
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)}></script>
     <script type="application/ld+json" set:html={JSON.stringify(webSiteSchema)}></script>
     <script type="application/ld+json" set:html={JSON.stringify(softwareApplicationSchema)}></script>
+    <script type="application/ld+json" set:html={JSON.stringify(faqPageSchema)}></script>
   </fragment>
 
   <!-- Header -->
@@ -42,7 +43,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         私有化部署 · 第一方归因
       </div>
       <h1 class="hero-title">
-        私有化部署<br />
+        私有化部署的第一方广告归因系统<br />
         <span class="gradient-text">= 数据主权</span>
       </h1>
       <p class="hero-subtitle">
