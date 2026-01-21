@@ -194,11 +194,8 @@ const instanceId = scope ? `${type}-${scope}` : `${type}-${Math.random().toStrin
             <a href="${result.url}" class="search-result-item" data-index="${index}">
               <div class="search-result-item-content">
                 <h4 class="search-result-item-title">${escapeHtml(title)}</h4>
-                ${excerpt ? `<p class="search-result-item-excerpt">${escapeHtml(excerpt)}</p>` : ''}
+                ${excerpt ? `<p class="search-result-item-excerpt">${excerpt}</p>` : ''}
               </div>
-              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="search-result-arrow">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
             </a>
           `;
         }).join('');
@@ -556,75 +553,42 @@ const instanceId = scope ? `${type}-${scope}` : `${type}-${Math.random().toStrin
   }
 
   /* ============================================
-     Search Result Item - Card-style design
+     Search Result Item - Simple and clean
      ============================================ */
   .search-result-item {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--spacing-4);
-    padding: var(--spacing-5);
-    background: var(--color-bg-surface);
-    border: 1.5px solid var(--color-border);
-    border-radius: var(--radius-xl);
+    display: block;
+    padding: var(--spacing-4) 0;
     text-decoration: none;
     color: inherit;
     transition: all var(--transition-fast);
-    margin-bottom: var(--spacing-3);
-    position: relative;
-    overflow: hidden;
+    border-bottom: 1px solid var(--color-border);
   }
 
-  /* Subtle border glow on hover */
-  .search-result-item::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: var(--radius-xl);
-    padding: 1.5px;
-    background: linear-gradient(135deg,
-      var(--color-accent-primary),
-      var(--color-accent-secondary)
-    );
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    opacity: 0;
-    transition: opacity var(--transition-fast);
-  }
-
-  .search-result-item:hover::after,
-  .search-result-item.selected::after {
-    opacity: 1;
+  .search-result-item:last-child {
+    border-bottom: none;
   }
 
   .search-result-item:hover,
   .search-result-item.selected {
-    background: linear-gradient(135deg,
-      rgba(10, 95, 143, 0.02) 0%,
-      rgba(0, 180, 166, 0.02) 100%
-    );
-    border-color: transparent;
-    transform: translateX(4px);
+    background: transparent;
   }
 
-  .search-result-item:last-child {
-    margin-bottom: 0;
+  .search-result-item:hover .search-result-item-title,
+  .search-result-item.selected .search-result-item-title {
+    color: var(--color-accent-primary);
   }
 
   .search-result-item-content {
-    flex: 1;
     min-width: 0;
   }
 
   .search-result-item-title {
     font-size: var(--font-size-base);
-    font-weight: 700;
-    font-family: var(--font-family-display);
+    font-weight: 600;
+    font-family: var(--font-family-body);
     color: var(--color-text-primary);
     margin: 0 0 var(--spacing-2) 0;
-    line-height: 1.4;
-    letter-spacing: -0.01em;
+    line-height: 1.5;
   }
 
   .search-result-item-excerpt {
@@ -638,21 +602,12 @@ const instanceId = scope ? `${type}-${scope}` : `${type}-${Math.random().toStrin
     overflow: hidden;
   }
 
-  .search-result-arrow {
-    flex-shrink: 0;
-    width: 20px;
-    height: 20px;
-    color: var(--color-text-light);
-    margin-top: 2px;
-    transition: all var(--transition-fast);
-    opacity: 0.5;
-  }
-
-  .search-result-item:hover .search-result-arrow,
-  .search-result-item.selected .search-result-arrow {
-    transform: translateX(4px);
-    color: var(--color-accent-secondary);
-    opacity: 1;
+  /* Highlight mark style */
+  .search-result-item-excerpt mark {
+    background: rgba(10, 95, 143, 0.15);
+    color: var(--color-text-primary);
+    padding: 0 2px;
+    border-radius: 2px;
   }
 
   /* Staggered animation for results */
@@ -750,17 +705,11 @@ const instanceId = scope ? `${type}-${scope}` : `${type}-${Math.random().toStrin
     }
 
     .search-results-list {
-      padding: var(--spacing-3);
+      padding: var(--spacing-4) var(--spacing-3);
     }
 
     .search-result-item {
-      padding: var(--spacing-4);
-      margin-bottom: var(--spacing-2);
-    }
-
-    .search-result-item:hover,
-    .search-result-item.selected {
-      transform: none;
+      padding: var(--spacing-3) 0;
     }
 
     .search-hints {
@@ -774,11 +723,6 @@ const instanceId = scope ? `${type}-${scope}` : `${type}-${Math.random().toStrin
     .search-modal-header {
       gap: var(--spacing-2);
     }
-
-    .search-result-item {
-      gap: var(--spacing-3);
-      padding: var(--spacing-3) var(--spacing-4);
-    }
   }
 
   /* ============================================
@@ -787,11 +731,11 @@ const instanceId = scope ? `${type}-${scope}` : `${type}-${Math.random().toStrin
   @keyframes resultSlideIn {
     from {
       opacity: 0;
-      transform: translateX(-12px);
+      transform: translateY(-4px);
     }
     to {
       opacity: 1;
-      transform: translateX(0);
+      transform: translateY(0);
     }
   }
 </style>
