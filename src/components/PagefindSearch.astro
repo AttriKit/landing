@@ -22,7 +22,7 @@ const instanceId = scope ? `${type}-${scope}` : `${type}-${Math.random().toStrin
 ---
 
 <!-- Search Trigger -->
-<div class="search-trigger-container">
+<div class="search-trigger-container" data-pagefind-ignore>
   <div class="search-trigger" id={`search-trigger-${instanceId}`} role="button" tabIndex={0} aria-label="打开搜索">
     <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="search-icon">
       <circle cx="11" cy="11" r="8"/>
@@ -34,7 +34,7 @@ const instanceId = scope ? `${type}-${scope}` : `${type}-${Math.random().toStrin
 </div>
 
 <!-- Search Modal -->
-<div id={`search-modal-${instanceId}`} class="search-modal" aria-hidden="true">
+<div id={`search-modal-${instanceId}`} class="search-modal" aria-hidden="true" data-pagefind-ignore>
   <div class="search-modal-overlay" id={`search-modal-overlay-${instanceId}`} aria-hidden="true" style="position: fixed; inset: 0; z-index: 1299;"></div>
   <div class="search-modal-content" role="dialog" aria-modal="true">
     <div class="search-modal-header">
@@ -59,7 +59,7 @@ const instanceId = scope ? `${type}-${scope}` : `${type}-${Math.random().toStrin
       </div>
     </div>
     <div id={`search-results-${instanceId}`} class="search-results-list"></div>
-    <div class="search-modal-footer">
+    <div class="search-modal-footer" data-pagefind-ignore>
       <span class="search-hints">
         <span class="search-hint"><kbd>↑↓</kbd> 导航</span>
         <span class="search-hint"><kbd>↵</kbd> 选择</span>
@@ -424,6 +424,7 @@ const instanceId = scope ? `${type}-${scope}` : `${type}-${Math.random().toStrin
                 0 0 0 1px rgba(255, 255, 255, 0.5) inset;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
     transform: scale(0.96) translateY(8px);
     opacity: 0;
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -568,9 +569,21 @@ const instanceId = scope ? `${type}-${scope}` : `${type}-${Math.random().toStrin
     border-bottom: none;
   }
 
-  .search-result-item:hover,
+  .search-result-item:hover {
+    background: rgba(10, 95, 143, 0.04);
+    border-radius: var(--radius-md);
+    margin: 0 calc(var(--spacing-6) * -1);
+    padding: var(--spacing-4) var(--spacing-6);
+    border-bottom: 1px solid transparent;
+  }
+
   .search-result-item.selected {
-    background: transparent;
+    background: rgba(10, 95, 143, 0.08);
+    border-radius: var(--radius-md);
+    margin: 0 calc(var(--spacing-6) * -1);
+    padding: var(--spacing-4) var(--spacing-6);
+    border-bottom: 1px solid transparent;
+    box-shadow: 0 0 0 1px var(--color-accent-primary);
   }
 
   .search-result-item:hover .search-result-item-title,
@@ -583,7 +596,7 @@ const instanceId = scope ? `${type}-${scope}` : `${type}-${Math.random().toStrin
   }
 
   .search-result-item-title {
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-sm);
     font-weight: 600;
     font-family: var(--font-family-body);
     color: var(--color-text-primary);
