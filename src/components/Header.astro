@@ -4,9 +4,9 @@
 <header class="header">
   <nav class="nav container">
     <a href="/" class="nav-brand">
-      <img src="/logo_banner.svg" alt="AttriKit" class="logo" />
+      <img src="/logo_banner.svg" alt="AttriKit" class="logo" width="120" height="32" />
     </a>
-    <ul class="nav-menu">
+    <ul class="nav-menu" id="nav-menu">
       <li><a href="/docs/">文档</a></li>
       <li><a href="/blog/">博客</a></li>
       <li><a href="/#features">产品功能</a></li>
@@ -15,7 +15,7 @@
       <li><a href="/#faq">常见问题</a></li>
       <li><button class="btn btn-primary btn-sm" data-open-modal>立即咨询</button></li>
     </ul>
-    <button class="nav-toggle" aria-label="Toggle menu">
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu">
       <span></span>
       <span></span>
       <span></span>
@@ -88,6 +88,12 @@
     color: var(--color-accent-primary);
   }
 
+  .nav-menu a:focus-visible {
+    outline: 2px solid var(--color-accent-primary);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
   .nav-toggle {
     display: none;
     flex-direction: column;
@@ -103,7 +109,13 @@
     height: 1.5px;
     background: var(--color-text-primary);
     border-radius: 2px;
-    transition: all 300ms ease;
+    transition: transform 300ms ease, opacity 300ms ease;
+  }
+
+  .nav-toggle:focus-visible {
+    outline: 2px solid var(--color-accent-primary);
+    outline-offset: 2px;
+    border-radius: 4px;
   }
 
   /* Responsive */
@@ -159,7 +171,7 @@
     }
 
     .nav-toggle span {
-      transition: all var(--transition-base);
+      transition: transform var(--transition-base), opacity var(--transition-base);
       transform-origin: center;
     }
 
@@ -198,12 +210,22 @@
   const navToggle = document.querySelector<HTMLButtonElement>('.nav-toggle');
   const navMenu = document.querySelector<HTMLElement>('.nav-menu');
 
+  // Helper function to update aria-expanded
+  const updateAriaExpanded = (isOpen: boolean) => {
+    if (navToggle) {
+      navToggle.setAttribute('aria-expanded', isOpen.toString());
+    }
+  };
+
   if (navToggle && navMenu) {
     // Toggle menu on button click
     navToggle.addEventListener('click', () => {
       const isActive = navToggle.classList.contains('active');
       navToggle.classList.toggle('active');
       navMenu.classList.toggle('active');
+
+      // Update aria-expanded
+      updateAriaExpanded(!isActive);
 
       // Prevent body scroll when menu is open
       if (!isActive) {
@@ -218,6 +240,7 @@
       link.addEventListener('click', () => {
         navToggle.classList.remove('active');
         navMenu.classList.remove('active');
+        updateAriaExpanded(false);
         document.body.style.overflow = '';
       });
     });
@@ -227,6 +250,7 @@
       btn.addEventListener('click', () => {
         navToggle.classList.remove('active');
         navMenu.classList.remove('active');
+        updateAriaExpanded(false);
         document.body.style.overflow = '';
       });
     });
@@ -236,7 +260,10 @@
       if (e.key === 'Escape' && navMenu.classList.contains('active')) {
         navToggle.classList.remove('active');
         navMenu.classList.remove('active');
+        updateAriaExpanded(false);
         document.body.style.overflow = '';
+        // Return focus to toggle button
+        navToggle.focus();
       }
     });
 
@@ -247,6 +274,7 @@
         if (navMenu.classList.contains('active')) {
           navToggle.classList.remove('active');
           navMenu.classList.remove('active');
+          updateAriaExpanded(false);
           document.body.style.overflow = '';
         }
       }
