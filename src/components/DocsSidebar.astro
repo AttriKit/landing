@@ -91,6 +91,7 @@ const isActive = (slug: string) => {
     flex-shrink: 0;
     max-height: calc(100vh - var(--header-height) - var(--spacing-12));
     overflow-y: auto;
+    overflow-x: visible;
     padding-left: var(--spacing-3);
     padding-right: var(--spacing-4);
   }
@@ -100,15 +101,22 @@ const isActive = (slug: string) => {
   }
 
   /* Compact search trigger for sidebar */
-  .docs-sidebar-search .search-trigger {
-    padding: var(--spacing-2) var(--spacing-3);
+  .docs-sidebar-search :global(.search-trigger-container) {
+    max-width: none;
+    width: 100%;
+    margin: 0;
   }
 
-  .docs-sidebar-search .search-trigger-placeholder {
+  .docs-sidebar-search :global(.search-trigger) {
+    padding: var(--spacing-2) var(--spacing-3);
+    width: 100%;
+  }
+
+  .docs-sidebar-search :global(.search-trigger-placeholder) {
     font-size: var(--font-size-sm);
   }
 
-  .docs-sidebar-search .search-trigger-hint {
+  .docs-sidebar-search :global(.search-trigger-hint) {
     display: none;
   }
 
