@@ -67,10 +67,12 @@ const categoryOrder = ['getting-started', 'guides', 'api'];
     <!-- Hero Section -->
     <section class="docs-hero">
       <div class="container">
-        <h1 class="docs-hero-title">产品文档</h1>
-        <p class="docs-hero-description">
-          快速了解 AttriKit 产品功能，掌握归因分析方法，提升广告投放 ROI
-        </p>
+        <div class="docs-hero-content">
+          <h1 class="docs-hero-title">产品文档</h1>
+          <p class="docs-hero-description">
+            快速了解 AttriKit 产品功能，掌握归因分析方法，提升广告投放 ROI
+          </p>
+        </div>
         <PagefindSearch type="docs" scope="main" placeholder="搜索文档..." resultLabel="篇文档" />
       </div>
     </section>
@@ -121,28 +123,45 @@ const categoryOrder = ['getting-started', 'guides', 'api'];
     padding-top: var(--header-height);
   }
 
-  /* Hero Section */
+  /* Hero Section - Compact */
   .docs-hero {
-    padding: var(--spacing-16) 0;
-    background: linear-gradient(135deg, rgba(10, 95, 143, 0.05) 0%, rgba(0, 180, 166, 0.05) 100%);
+    padding: var(--spacing-10) 0 var(--spacing-8);
+    background: linear-gradient(135deg, rgba(10, 95, 143, 0.03) 0%, rgba(0, 180, 166, 0.03) 100%);
     border-bottom: 1px solid var(--color-border);
   }
 
+  .docs-hero-content {
+    text-align: left;
+  }
+
   .docs-hero-title {
-    font-size: 48px;
+    font-size: clamp(28px, 4vw, 40px);
     font-weight: 700;
     font-family: var(--font-family-display);
     color: var(--color-text-primary);
-    margin: 0 0 var(--spacing-4) 0;
+    margin: 0 0 var(--spacing-3) 0;
     letter-spacing: -0.02em;
   }
 
   .docs-hero-description {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-base);
     color: var(--color-text-muted);
-    max-width: 600px;
+    max-width: 500px;
     margin: 0;
     line-height: 1.6;
+  }
+
+  /* Search box alignment */
+  .docs-hero :global(.search-trigger-container) {
+    margin: var(--spacing-6) 0 0;
+    max-width: 320px;
+  }
+
+  /* Docs Grid */
+  .docs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--spacing-5);
   }
 
   /* Categories Section */
@@ -183,12 +202,6 @@ const categoryOrder = ['getting-started', 'guides', 'api'];
     margin: 0;
   }
 
-  /* Docs Grid */
-  .docs-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: var(--spacing-6);
-  }
 
   /* Doc Card */
   .doc-card {
@@ -229,12 +242,22 @@ const categoryOrder = ['getting-started', 'guides', 'api'];
 
   /* Mobile Responsive */
   @media (max-width: 768px) {
+    .docs-hero {
+      padding: var(--spacing-8) 0 var(--spacing-6);
+    }
+
     .docs-hero-title {
-      font-size: 32px;
+      font-size: var(--font-size-2xl);
     }
 
     .docs-hero-description {
-      font-size: var(--font-size-base);
+      font-size: var(--font-size-sm);
+      max-width: 100%;
+    }
+
+    .docs-hero :global(.search-trigger-container) {
+      margin: var(--spacing-5) 0 0;
+      max-width: 100%;
     }
 
     .docs-category-header {
