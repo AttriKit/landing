@@ -2,14 +2,14 @@
 // Consultation Modal Component
 ---
 
-<div id="consultation-modal" class="modal" data-open="false">
+<div id="consultation-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" data-open="false">
   <!-- Modal Overlay -->
   <div class="modal-overlay" data-close-modal></div>
 
   <!-- Modal Content -->
   <div class="modal-container">
     <div class="modal-header">
-      <h3>立即咨询</h3>
+      <h3 id="modal-title">立即咨询</h3>
       <button class="modal-close" data-close-modal aria-label="关闭">
         <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <path d="M6 18L18 6M6 6l12 12"/>
@@ -43,6 +43,7 @@
             type="text"
             id="name"
             name="name"
+            autocomplete="name"
             required
             placeholder="请输入您的姓名"
           />
@@ -55,6 +56,7 @@
             type="text"
             id="company"
             name="company"
+            autocomplete="organization"
             placeholder="请输入公司名称"
           />
         </div>
@@ -66,6 +68,8 @@
             type="email"
             id="email"
             name="email"
+            autocomplete="email"
+            spellcheck="false"
             required
             placeholder="your@email.com"
           />
@@ -78,6 +82,8 @@
             type="tel"
             id="phone"
             name="phone"
+            autocomplete="tel"
+            inputmode="numeric"
             required
             placeholder="请输入您的手机号"
             pattern="[0-9]{11}"
@@ -177,7 +183,7 @@
     cursor: pointer;
     padding: 0.5rem;
     border-radius: 8px;
-    transition: all 0.2s;
+    transition: background 0.2s ease, color 0.2s ease;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -186,6 +192,11 @@
   .modal-close:hover {
     background: var(--color-bg-secondary);
     color: var(--color-text-primary);
+  }
+
+  .modal-close:focus-visible {
+    outline: 2px solid var(--color-accent-primary);
+    outline-offset: 2px;
   }
 
   .modal-body {
@@ -224,7 +235,7 @@
     font-family: inherit;
     color: var(--color-text-primary);
     background: white;
-    transition: all 0.2s;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
     box-sizing: border-box;
   }
 
@@ -233,6 +244,12 @@
     outline: none;
     border-color: var(--color-accent-primary);
     box-shadow: 0 0 0 3px var(--color-accent-subtle);
+  }
+
+  .form-field input:focus-visible,
+  .form-field textarea:focus-visible {
+    outline: 2px solid var(--color-accent-primary);
+    outline-offset: -2px;
   }
 
   .form-field input::placeholder,
@@ -307,15 +324,66 @@
   // Modal state and functions
   const modal = document.querySelector('#consultation-modal');
   const overlay = document.querySelector('.modal-overlay');
+  let lastFocusedElement: HTMLElement | null = null;
 
-  function openModal() {
+  // Focus trap for modal
+  function getFocusableElements(container: HTMLElement): HTMLElement[] {
+    const focusableSelectors = [
+      'a[href]',
+      'button:not([disabled])',
+      'textarea:not([disabled])',
+      'input:not([disabled])',
+      'select:not([disabled])',
+      '[tabindex]:not([tabindex="-1"])'
+    ];
+    return Array.from(container.querySelectorAll<HTMLElement>(focusableSelectors.join(', ')));
+  }
+
+  function trapFocus(event: KeyboardEvent) {
+    if (!modal || event.key !== 'Tab') return;
+
+    const focusableElements = getFocusableElements(modal);
+    if (focusableElements.length === 0) return;
+
+    const firstElement = focusableElements[0];
+    const lastElement = focusableElements[focusableElements.length - 1];
+
+    if (event.shiftKey) {
+      if (document.activeElement === firstElement) {
+        event.preventDefault();
+        lastElement.focus();
+      }
+    } else {
+      if (document.activeElement === lastElement) {
+        event.preventDefault();
+        firstElement.focus();
+      }
+    }
+  }
+
+  function openModal(triggerButton?: HTMLElement) {
+    // Store the button that opened the modal
+    lastFocusedElement = triggerButton || document.activeElement as HTMLElement;
+
     modal?.setAttribute('data-open', 'true');
     document.body.style.overflow = 'hidden';
+
+    // Focus first input after animation
+    setTimeout(() => {
+      const firstInput = modal?.querySelector<HTMLInputElement>('input');
+      firstInput?.focus();
+    }, 100);
+
+    // Add focus trap
+    document.addEventListener('keydown', trapFocus);
   }
 
   function closeModal() {
     modal?.setAttribute('data-open', 'false');
     document.body.style.overflow = '';
+
+    // Remove focus trap
+    document.removeEventListener('keydown', trapFocus);
 
     // Reset form after animation
     setTimeout(() => {
@@ -328,6 +396,9 @@
       }
       if (successMessage) successMessage.style.display = 'none';
       if (errorMessage) errorMessage.style.display = 'none';
+
+      // Return focus to the button that opened the modal
+      lastFocusedElement?.focus();
     }, 300);
   }
 
@@ -335,7 +406,7 @@
   document.querySelectorAll('[data-open-modal]').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
-      openModal();
+      openModal(btn as HTMLElement);
     });
   });
 

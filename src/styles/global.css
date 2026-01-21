@@ -239,7 +239,7 @@ a:hover {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  transition: all 200ms ease;
+  transition: background 200ms ease, box-shadow 200ms ease, border-color 200ms ease, color 200ms ease;
   white-space: nowrap;
   height: 38px;
 }
@@ -492,5 +492,29 @@ a:hover {
   }
   50% {
     transform: translate(4vw, -3vh) rotate(3deg) scaleX(1.2);
+  }
+}
+
+/* Reduced motion preference support */
+@media (prefers-reduced-motion: reduce) {
+  /* Disable all animations */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  /* Disable aurora background animation */
+  .aurora-blob-wrapper {
+    animation: none !important;
+  }
+
+  /* Disable fade animations */
+  .fadeUp,
+  .fadeIn {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
