@@ -8,6 +8,7 @@ import TableOfContents from '../../components/TableOfContents.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import ConsultationModal from '../../components/ConsultationModal.astro';
+import SemanticRelatedPosts from '../../components/SemanticRelatedPosts.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import {
   generateArticleSchema,
@@ -119,6 +120,12 @@ const faqSchema = faqs.length > 0 ? generateFAQSchema(faqs) : null;
           <div class="post-content markdown-content">
             <Content />
           </div>
+
+          <!-- Semantic Related Posts -->
+          <SemanticRelatedPosts
+            currentTitle={post.data.title}
+            currentSlug={post.slug}
+            maxPosts={3} />
         </div>
 
         <!-- Sidebar -->
