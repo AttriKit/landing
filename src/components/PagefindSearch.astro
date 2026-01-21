@@ -526,7 +526,7 @@ const instanceId = scope ? `${type}-${scope}` : `${type}-${Math.random().toStrin
   }
 
   /* No results message */
-  .search-no-results {
+  :global(.search-no-results) {
     padding: var(--spacing-8) var(--spacing-6);
     text-align: center;
     color: var(--color-text-muted);
@@ -556,47 +556,34 @@ const instanceId = scope ? `${type}-${scope}` : `${type}-${Math.random().toStrin
   /* ============================================
      Search Result Item - Simple and clean
      ============================================ */
-  .search-result-item {
+  :global(.search-result-item) {
     display: block;
-    padding: var(--spacing-4) 0;
+    padding: var(--spacing-4) var(--spacing-3);
     text-decoration: none;
     color: inherit;
-    transition: all var(--transition-fast);
-    border-bottom: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
   }
 
-  .search-result-item:last-child {
-    border-bottom: none;
-  }
-
-  .search-result-item:hover {
+  :global(.search-result-item:hover) {
     background: rgba(10, 95, 143, 0.04);
-    border-radius: var(--radius-md);
-    margin: 0 calc(var(--spacing-6) * -1);
-    padding: var(--spacing-4) var(--spacing-6);
-    border-bottom: 1px solid transparent;
   }
 
-  .search-result-item.selected {
+  :global(.search-result-item.selected) {
     background: rgba(10, 95, 143, 0.08);
-    border-radius: var(--radius-md);
-    margin: 0 calc(var(--spacing-6) * -1);
-    padding: var(--spacing-4) var(--spacing-6);
-    border-bottom: 1px solid transparent;
     box-shadow: 0 0 0 1px var(--color-accent-primary);
   }
 
-  .search-result-item:hover .search-result-item-title,
-  .search-result-item.selected .search-result-item-title {
+  :global(.search-result-item:hover .search-result-item-title),
+  :global(.search-result-item.selected .search-result-item-title) {
     color: var(--color-accent-primary);
   }
 
-  .search-result-item-content {
+  :global(.search-result-item-content) {
     min-width: 0;
   }
 
-  .search-result-item-title {
-    font-size: var(--font-size-sm);
+  :global(.search-result-item-title) {
+    font-size: var(--font-size-base);
     font-weight: 600;
     font-family: var(--font-family-body);
     color: var(--color-text-primary);
@@ -604,7 +591,7 @@ const instanceId = scope ? `${type}-${scope}` : `${type}-${Math.random().toStrin
     line-height: 1.5;
   }
 
-  .search-result-item-excerpt {
+  :global(.search-result-item-excerpt) {
     font-size: var(--font-size-sm);
     color: var(--color-text-muted);
     margin: 0;
@@ -616,23 +603,12 @@ const instanceId = scope ? `${type}-${scope}` : `${type}-${Math.random().toStrin
   }
 
   /* Highlight mark style */
-  .search-result-item-excerpt mark {
+  :global(.search-result-item-excerpt mark) {
     background: rgba(10, 95, 143, 0.15);
     color: var(--color-text-primary);
     padding: 0 2px;
     border-radius: 2px;
   }
-
-  /* Staggered animation for results */
-  .search-result-item {
-    animation: resultSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
-  }
-
-  .search-result-item:nth-child(1) { animation-delay: 0.05s; }
-  .search-result-item:nth-child(2) { animation-delay: 0.08s; }
-  .search-result-item:nth-child(3) { animation-delay: 0.11s; }
-  .search-result-item:nth-child(4) { animation-delay: 0.14s; }
-  .search-result-item:nth-child(5) { animation-delay: 0.17s; }
 
   /* ============================================
      Modal Footer - Keyboard shortcuts
