@@ -63,7 +63,6 @@ const instanceId = scope ? `${type}-${scope}` : `${type}-${Math.random().toStrin
       <span class="search-hints">
         <span class="search-hint"><kbd>↑↓</kbd> 导航</span>
         <span class="search-hint"><kbd>↵</kbd> 选择</span>
-        <span class="search-hint"><kbd>/</kbd> 聚焦</span>
         <span class="search-hint"><kbd>ESC</kbd> 关闭</span>
       </span>
     </div>
@@ -282,19 +281,6 @@ const instanceId = scope ? `${type}-${scope}` : `${type}-${Math.random().toStrin
       if (e.key === 'Escape') {
         e.preventDefault();
         closeModal();
-        return;
-      }
-
-      // / to focus search input
-      if (e.key === '/' && searchInput && document.activeElement !== searchInput) {
-        e.preventDefault();
-        // Use setTimeout to ensure the key event is fully processed before focus
-        setTimeout(() => {
-          if (searchInput) {
-            searchInput.value = '';
-            searchInput.focus();
-          }
-        }, 0);
         return;
       }
 
