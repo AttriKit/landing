@@ -35,7 +35,7 @@ AttriKit 支持两种类型的监测链接：
 
 > 如果您无法看到某个应用，可能是您没有该应用的访问权限。请联系管理员授权。
 
-![应用切换](https://vcnlov4n8sa3.feishu.cn/space/api/box/stream/download/asynccode/?code=NWYyZGFiMzMwNjhjODc5YTgxYzMzM2VlMjZiMTI1NWRfRDhYOVF1c3NKMko4azFlajI4ZFRmZnhXTG5Ga0xrN05fVG9rZW46Rkgza2JJMzhKb3R2ck94ZENwMGNwYVZMblFnXzE3Njk0OTExMDE6MTc2OTQ5NDcwMV9WNA)
+![应用切换](/images/docs/attrikit-web/switch-app.webp)
 
 ### 步骤二：查看监测链接列表
 
@@ -49,7 +49,7 @@ AttriKit 支持两种类型的监测链接：
 - **创建时间** - 链接创建的日期和时间
 - **操作按钮** - 编辑和删除链接的快捷入口
 
-![监测链接列表](https://vcnlov4n8sa3.feishu.cn/space/api/box/stream/download/asynccode/?code=Y2MzNTNhZTU0ODU4NzI5NWJmZmY5ZGNmZjA4YzQzM2FfM29vVmpuRFMwbmVpREVpUVFOS1liUlBDREl3aTdxMHRfVG9rZW46SXpySWJIcWdOb3JoZjV4cEczb2NLcnA1bkZnXzE3Njk0OTExMDE6MTc2OTQ5NDcwMV9WNA)
+![监测链接列表](/images/docs/attrikit-web/tracking-links.webp)
 
 ### 步骤三：创建监测链接
 
@@ -59,7 +59,7 @@ AttriKit 支持两种类型的监测链接：
 4. 点击「保存」完成创建
 5. 创建成功后，系统会自动生成曝光链接和点击链接
 
-![新建监测链接](https://vcnlov4n8sa3.feishu.cn/space/api/box/stream/download/asynccode/?=ODhmYjE3NmVmYjkxMzQwNzA4MTFmZTQxODQ2ZTFhNzdfYjFaWDlXS1JLWThGUU1nN2NYdmVHSFR1dXFkNHBFZnpfVG9rZW46TjRxaGJWU0dBbzlGMTN4elVWaWNBNDdubnljXzE3Njk0OTExMDE6MTc2OTQ5NDcwMV9WNA)
+![新建监测链接](/images/docs/attrikit-web/add-tracking-links.webp)
 
 ### 步骤四：编辑监测链接
 

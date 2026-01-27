@@ -19,7 +19,7 @@ draft: false
 3. 在下拉菜单中选择「个人中心」
 4. 进入个人中心页面
 
-![个人中心入口](https://vcnlov4n8sa3.feishu.cn/space/api/box/stream/download/asynccode/?code=NzhkZjVjODczZDI4MDgxNGE5ZjM1NDRkYTdhOTVmM2RfRExDMmJKNzE4MEV5OGthWkNsbVV5OWRrMGJSRHdhdm9fVG9rZW46TVBaMWJEclVub0VRenR4VWdoTWNoWXVhbnpoXzE3Njk0OTExMDg6MTc2OTQ5NDcwOF9WNA)
+![个人中心入口](/images/docs/attrikit-web/profile-menu.webp)
 
 ### 步骤二：查看个人信息
 
@@ -44,7 +44,7 @@ draft: false
 4. **务必立即复制并保存新密码**
 5. 点击「确认」完成密码重置
 
-![个人中心页面](https://vcnlov4n8sa3.feishu.cn/space/api/box/stream/download/asynccode/?code=Y2I5NDdiMmMzZmU3Y2Q0MGVkZDgxOGQ3NGZkMmQyOWJfUXI4alZlbFVxVjJKTTdGMnJRelVQT0VhSDA1dlJHRFlfVG9rZW46UHVvQWJybGJCb3laaFl4VHNBeWNTNlh1bkdoXzE3Njk0OTExMDg6MTc2OTQ5NDcwOF9WNA)
+![个人中心页面](/images/docs/attrikit-web/profile.webp)
 
 > 密码重置完成后，新密码将不可再次查看。请务必在重置后立即复制保存。
 
