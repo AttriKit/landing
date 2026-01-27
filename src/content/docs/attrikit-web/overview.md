@@ -1,63 +1,15 @@
 ---
-title: "Web 管理后台概览"
-description: "了解 AttriKit Web 管理后台的核心功能和界面布局"
+title: "快速开始"
+description: "了解如何访问 AttriKit Web 后台以及基础使用说明"
 order: 1
 category: "attrikit-web"
 draft: false
 ---
 
-## Web 管理后台概览
+AttriKit Web 后台是整个 AttriKit 归因系统的一部分，为用户提供监测链接创建、广告渠道管理等功能。在完成私有化部署后，用户可以通过其自行配置的自定义域名访问 AttriKit Web 后台。
 
-AttriKit Web 管理后台是一个功能强大的数据分析和配置平台，帮助您深入了解广告投放效果并优化归因策略。
+访问 AttriKit Web 后台，用户需要登录方可使用后台功能，私有化部署会默认初始化一个 admin 用户，拥有最高权限。
 
-## 核心功能
+后续如需要添加更多用户可在「[用户管理](/docs/attrikit-web/user-management/)」页面中添加新用户。
 
-### 数据仪表板
-- 实时归因数据监控
-- 多维度数据分析
-- 可视化图表展示
-- 自定义仪表板配置
-
-### 广告账户管理
-- 账户接入与配置
-- 广告账户数据同步
-- 账户权限管理
-
-### 转化事件管理
-- 转化事件配置
-- 事件参数设置
-- 事件回传管理
-
-### 数据报表
-- 预置报表模板
-- 自定义报表生成
-- 数据导出功能
-
-## 界面布局
-
-```
-┌─────────────────────────────────────────────┐
-│  Logo    仪表板 账户 事件 报表    用户名 ▼  │
-├──────────┬──────────────────────────────────┤
-│          │                                  │
-│  侧边栏   │         主内容区                │
-│          │                                  │
-│  - 总览   │    数据卡片                      │
-│  - 分析   │    图表展示                      │
-│  - 设置   │    数据表格                      │
-│          │                                  │
-└──────────┴──────────────────────────────────┘
-```
-
-## 快速开始
-
-1. 访问管理后台：https://admin.attrikit.com
-2. 使用注册账号登录
-3. 按照引导向导完成初始配置
-4. 开始探索各项功能
-
-## 权限说明
-
-管理后台支持两种角色：
-- **管理员**：完整访问权限，可管理账户和配置
-- **分析师**：只读权限，仅可查看数据和报表
+![登录页面](https://vcnlov4n8sa3.feishu.cn/space/api/box/stream/download/asynccode/?code=N2I2MmU5NDQ1MmFiOGI5MmFjZDMzYzU0N2M5OTIyY2VfOGdEOUY3c2ZJS2RtM2c5QVpKTXFEOHRVZ085QUoxTnVfVG9rZW46UW41cWJVWWI3b2l3MFd4WkxsSGNidFh4bmtlXzE3Njk0OTEwNjI6MTc2OTQ5NDY2Ml9WNA)
