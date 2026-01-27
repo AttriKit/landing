@@ -17,7 +17,7 @@ const publishedDocs = allDocs
   .filter(doc => !doc.data.draft)
   .sort((a, b) => {
     // First sort by category order
-    const categoryOrder = ['getting-started', 'guides', 'api', 'attrikit-web'];
+    const categoryOrder = ['getting-started', 'attrikit-web', 'guides', 'api'];
     const aCategoryIndex = categoryOrder.indexOf(a.data.category);
     const bCategoryIndex = categoryOrder.indexOf(b.data.category);
     const categoryDiff = (aCategoryIndex === -1 ? 99 : aCategoryIndex) -
