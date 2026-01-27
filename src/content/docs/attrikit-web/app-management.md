@@ -29,7 +29,7 @@ draft: false
 
 > 如果未看到「应用管理」选项，可能是当前登录用户没有应用管理权限，请联系管理员处理。
 
-![应用管理入口](https://vcnlov4n8sa3.feishu.cn/space/api/box/stream/download/asynccode/?code=YWQyNGM3MDgwZTcwMWFkNWM3MDFiYzFiMzRmM2ZlZWJfaXBTclluSWpXVjFKZExtTlF6N21hcVFxMFluYk5iNmZfVG9rZW46VFZ4Z2IzOVI3b01JTlV4UEJURWNkTFR2bmxjXzE3Njk0OTEwOTM6MTc2OTQ5NDY5M19WNA)
+![应用管理入口](/images/docs/attrikit-web/profile-menu.webp)
 
 ### 步骤二：查看应用列表
 
@@ -41,7 +41,7 @@ draft: false
 - **创建时间** - 应用添加的日期
 - **操作按钮** - 编辑和删除应用的快捷入口
 
-![应用管理页面](https://vcnlov4n8sa3.feishu.cn/space/api/box/stream/download/asynccode/?code=NTA1NDM0NzQyNzhkMWQ2NzBjZGM2YTIwNWU0NjFiYTRfTDFtdm9HT2k1eDVtWGZTWEZKTmJyZWltS3ZjWGdzME9fVG9rZW46VGhHVmJpU3I5b1k0RWJ4bTFiTGNUc0tFbnNpXzE3Njk0OTEwOTM6MTc2OTQ5NDY5M19WNA)
+![应用管理页面](/images/docs/attrikit-web/app-management.webp)
 
 ### 步骤三：添加新应用
 
@@ -50,7 +50,7 @@ draft: false
 3. 确认信息无误后点击「保存」
 4. 保存成功后，应用将出现在应用列表中
 
-![新建应用](https://vcnlov4n8sa3.feishu.cn/space/api/box/stream/download/asynccode/?code=NmFkNjU2OGU0OGQwZjhkYmU0NTg1Mzc4MmM2YzkxOThfMlUySlIxaU9aNHAzTFBPWG1kcENYRHVJdmVXUGVaY2VfVG9rZW46TXBhNmJkZHlpbzhHYnh4WkRnQmNWMEtubnFjXzE3Njk0OTEwOTM6MTc2OTQ5NDY5M19WNA)
+![新建应用](/images/docs/attrikit-web/add-app.webp)
 
 ### 步骤四：编辑应用信息
 

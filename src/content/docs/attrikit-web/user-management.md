@@ -48,7 +48,7 @@ AttriKit 采用基于角色的访问控制（Role-Based Access Control，RBAC）
 
 > 如果未看到「用户管理」选项，可能是当前登录用户没有用户管理权限，请联系管理员处理。
 
-![用户管理入口](https://vcnlov4n8sa3.feishu.cn/space/api/box/stream/download/asynccode/?code=NjI1MGJkNDgyZjk5ODkyNGZkNjc4NThkMWQ1OGRlMmNfZ3k3NWhUTGxnR2o4SWE0NWlXRWhOTzdsMXdaQUlBNmNfVG9rZW46R0pBWWJSTXJKb1hpamN4a2FlSGNkQkp2bkpiXzE3Njk0OTEwODY6MTc2OTQ5NDY4Nl9WNA)
+![用户管理入口](/images/docs/attrikit-web/profile-menu.webp)
 
 ### 步骤二：查看用户列表
 
@@ -59,7 +59,7 @@ AttriKit 采用基于角色的访问控制（Role-Based Access Control，RBAC）
 - **角色** - 用户拥有的角色（Admin/User）
 - **操作按钮** - 编辑、重置密码、删除用户的快捷入口
 
-![用户管理页面](https://vcnlov4n8sa3.feishu.cn/space/api/box/stream/download/asynccode/?code=NWI0OWQ2YmUyYjVlNTVkNzJiMTU0N2ZkYjNmZjg3ODNfVXV3MG9jTTlGVUIzMzQ0ODE0YlQzdVlhczVpSnVKeHZfVG9rZW46REZ2VWJtT0NnbzFma1N4WGRoeGNNTHJLbkhDXzE3Njk0OTEwODY6MTc2OTQ5NDY4Nl9WNA)
+![用户管理页面](/images/docs/attrikit-web/user-management.webp)
 
 ### 步骤三：添加新用户
 
@@ -69,7 +69,7 @@ AttriKit 采用基于角色的访问控制（Role-Based Access Control，RBAC）
 4. 设置初始密码（可选择随机生成或自定义）
 5. 点击「保存」完成创建
 
-![新建用户](https://vcnlov4n8sa3.feishu.cn/space/api/box/stream/download/asynccode/?code=NGNkMjk3OTI0ZTM2ZDk0Zjg2ZTIwY2ZjNTMwMjYxNjdfUXVHcnp0bk0yZGJZNkc4THNyMmZQRWh1R1RYUW5KM2NfVG9rZW46VVQ4S2JUdXJqb1NETGl4U1RyY2NuZzdnblNmXzE3Njk0OTEwODY6MTc2OTQ5NDY4Nl9WNA)
+![新建用户](/images/docs/attrikit-web/add-user.webp)
 
 ### 步骤四：编辑用户信息
 

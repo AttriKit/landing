@@ -30,7 +30,7 @@ AttriKit Web 后台提供了一站式的广告归因管理能力，帮助您高�
 - 输入用户账号和密码
 - 点击「登录」按钮
 
-![登录页面](https://vcnlov4n8sa3.feishu.cn/space/api/box/stream/download/asynccode/?code=N2I2MmU5NDQ1MmFiOGI5MmFjZDMzYzU0N2M5OTIyY2VfOGdEOUY3c2ZJS2RtM2c5QVpKTXFEOHRVZ085QUoxTnVfVG9rZW46UW41cWJVWWI3b2l3MFd4WkxsSGNidFh4bmtlXzE3Njk0OTEwNjI6MTc2OTQ5NDY2Ml9WNA)
+![登录页面](/images/docs/attrikit-web/login.webp)
 
 ### 步骤二：添加应用
 
