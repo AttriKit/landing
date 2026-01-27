@@ -1,15 +1,20 @@
 ---
 /**
  * TableOfContents Component
- * Auto-generated table of contents with scroll spy
+ * Auto-generated table of contents with scroll spy and collapse functionality
  */
 ---
 
-<aside class="toc-container">
+<aside class="toc-container" id="toc-container">
   <div class="toc-header">
     <h3>目录</h3>
+    <button class="toc-toggle" id="toc-toggle" aria-label="收起目录" aria-expanded="true">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+        <polyline points="9 18 15 12 9 6"/>
+      </svg>
+    </button>
   </div>
-  <nav class="toc-nav">
+  <nav class="toc-nav" id="toc-nav">
     <ul id="toc-list" class="toc-list"></ul>
   </nav>
 </aside>
@@ -24,9 +29,35 @@
     padding: var(--spacing-6);
     max-height: calc(100vh - var(--header-height) - var(--spacing-12));
     overflow-y: auto;
+    transition: all var(--transition-normal);
+  }
+
+  /* Collapsed state - minimal width for toggle button only */
+  .toc-container.collapsed {
+    width: 48px;
+    min-width: 48px;
+    padding: 0;
+  }
+
+  .toc-container.collapsed .toc-nav {
+    display: none;
+  }
+
+  .toc-container.collapsed .toc-header h3 {
+    display: none;
+  }
+
+  .toc-container.collapsed .toc-header {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    justify-content: center;
   }
 
   .toc-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin-bottom: var(--spacing-4);
     padding-bottom: var(--spacing-3);
     border-bottom: 1px solid var(--color-border);
@@ -39,6 +70,43 @@
     margin: 0;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+  }
+
+  /* Toggle button */
+  .toc-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    background: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    color: var(--color-text-muted);
+    transition: all var(--transition-fast);
+    flex-shrink: 0;
+  }
+
+  .toc-toggle:hover {
+    background: var(--color-bg-hover);
+    color: var(--color-text-primary);
+    border-color: var(--color-accent-primary);
+  }
+
+  .toc-toggle:focus-visible {
+    outline: 2px solid var(--color-accent-primary);
+    outline-offset: 2px;
+  }
+
+  /* Rotate icon when collapsed - points left when collapsed */
+  .toc-toggle svg {
+    transition: transform var(--transition-normal);
+  }
+
+  .toc-container.collapsed .toc-toggle svg {
+    transform: rotate(180deg);
   }
 
   .toc-list {
@@ -111,6 +179,11 @@
     border-radius: 2px;
   }
 
+  /* Hide TOC when no headings */
+  .toc-container.hidden {
+    display: none;
+  }
+
   /* Responsive */
   @media (max-width: 1024px) {
     .toc-container {
@@ -123,8 +196,13 @@
   // Generate TOC from headings
   const tocList = document.querySelector('#toc-list');
   const headings = document.querySelectorAll('.doc-content h2, .doc-content h3, .post-content h2, .post-content h3');
+  const tocContainer = document.querySelector('#toc-container');
+  const tocToggle = document.querySelector('#toc-toggle');
+  const hasHeadings = headings.length > 0;
 
-  if (tocList && headings.length > 0) {
+  let isCollapsed = false;
+
+  if (tocList && hasHeadings) {
     // Add IDs to headings and create TOC links
     headings.forEach((heading, index) => {
       if (!heading.id) {
@@ -213,11 +291,31 @@
         }
       });
     });
-  } else if (tocList && headings.length === 0) {
+
+    // Toggle collapse/expand
+    tocToggle?.addEventListener('click', () => {
+      isCollapsed = !isCollapsed;
+      tocContainer?.classList.toggle('collapsed', isCollapsed);
+      tocToggle?.setAttribute('aria-expanded', String(!isCollapsed));
+      tocToggle?.setAttribute('aria-label', isCollapsed ? '展开目录' : '收起目录');
+
+      // Dispatch event for parent components to update layout
+      window.dispatchEvent(new CustomEvent('toc-collapse-change', {
+        detail: { isCollapsed }
+      }));
+    });
+
+    // Dispatch initial state event
+    window.dispatchEvent(new CustomEvent('toc-state-change', {
+      detail: { hasHeadings, isCollapsed }
+    }));
+  } else {
     // Hide TOC container if no headings
-    const tocContainer = document.querySelector('.toc-container');
-    if (tocContainer) {
-      (tocContainer as HTMLElement).style.display = 'none';
-    }
+    tocContainer?.classList.add('hidden');
+
+    // Dispatch event to notify parent that TOC has no headings
+    window.dispatchEvent(new CustomEvent('toc-state-change', {
+      detail: { hasHeadings: false, isCollapsed: false }
+    }));
   }
 </script>

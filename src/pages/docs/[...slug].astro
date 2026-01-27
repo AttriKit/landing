@@ -119,6 +119,42 @@ const articleSchema = generateTechArticleSchema(doc);
   <!-- Image Lightbox Script -->
   <script src="../../scripts/image-lightbox.js"></script>
 
+  <!-- TOC Layout Script -->
+  <script>
+    const docsLayout = document.querySelector('.docs-layout');
+    const tocContainer = document.querySelector('#toc-container');
+
+    // Check initial TOC state
+    function checkTocState() {
+      const hasHeadings = document.querySelectorAll('.doc-content h2, .doc-content h3').length > 0;
+      if (!hasHeadings) {
+        docsLayout?.classList.add('no-toc');
+      } else if (tocContainer?.classList.contains('collapsed')) {
+        docsLayout?.classList.add('collapsed');
+      }
+    }
+
+    // Check immediately
+    checkTocState();
+
+    // Handle TOC state changes
+    window.addEventListener('toc-state-change', ((e: CustomEvent) => {
+      const { hasHeadings } = e.detail;
+      if (!hasHeadings) {
+        docsLayout?.classList.add('no-toc');
+      }
+    }) as EventListener);
+
+    window.addEventListener('toc-collapse-change', ((e: CustomEvent) => {
+      const { isCollapsed } = e.detail;
+      if (isCollapsed) {
+        docsLayout?.classList.add('collapsed');
+      } else {
+        docsLayout?.classList.remove('collapsed');
+      }
+    }) as EventListener);
+  </script>
+
   <style>
     /* Docs Page Layout */
     .docs-page {
@@ -128,9 +164,23 @@ const articleSchema = generateTechArticleSchema(doc);
 
     .docs-layout {
       display: grid;
-      grid-template-columns: 260px 1fr 280px;
       gap: var(--spacing-10);
       position: relative;
+    }
+
+    /* Default: has TOC, expanded */
+    .docs-layout {
+      grid-template-columns: 260px 1fr 280px;
+    }
+
+    /* Has TOC, collapsed - narrower TOC column */
+    .docs-layout.collapsed {
+      grid-template-columns: 260px 1fr 48px;
+    }
+
+    /* No TOC - remove right column */
+    .docs-layout.no-toc {
+      grid-template-columns: 260px 1fr;
     }
 
     .docs-main {
@@ -139,6 +189,11 @@ const articleSchema = generateTechArticleSchema(doc);
 
     .docs-toc {
       position: relative;
+    }
+
+    /* Hide TOC sidebar when no headings */
+    .docs-layout.no-toc .docs-toc {
+      display: none;
     }
 
     /* Doc Header */
@@ -175,6 +230,10 @@ const articleSchema = generateTechArticleSchema(doc);
       .docs-layout {
         grid-template-columns: 240px 1fr 260px;
         gap: var(--spacing-8);
+      }
+
+      .docs-layout.collapsed {
+        grid-template-columns: 240px 1fr 48px;
       }
     }
 
