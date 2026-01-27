@@ -148,6 +148,42 @@ const faqSchema = faqs.length > 0 ? generateFAQSchema(faqs) : null;
   <!-- Image Lightbox Script -->
   <script src="../../scripts/image-lightbox.js"></script>
 
+  <!-- TOC Layout Script -->
+  <script>
+    const blogLayout = document.querySelector('.blog-layout');
+    const tocContainer = document.querySelector('#toc-container');
+
+    // Check initial TOC state
+    function checkTocState() {
+      const hasHeadings = document.querySelectorAll('.post-content h2, .post-content h3').length > 0;
+      if (!hasHeadings) {
+        blogLayout?.classList.add('no-toc');
+      } else if (tocContainer?.classList.contains('collapsed')) {
+        blogLayout?.classList.add('collapsed');
+      }
+    }
+
+    // Check immediately and also on TOC state changes
+    checkTocState();
+
+    // Handle TOC state changes
+    window.addEventListener('toc-state-change', ((e: CustomEvent) => {
+      const { hasHeadings } = e.detail;
+      if (!hasHeadings) {
+        blogLayout?.classList.add('no-toc');
+      }
+    }) as EventListener);
+
+    window.addEventListener('toc-collapse-change', ((e: CustomEvent) => {
+      const { isCollapsed } = e.detail;
+      if (isCollapsed) {
+        blogLayout?.classList.add('collapsed');
+      } else {
+        blogLayout?.classList.remove('collapsed');
+      }
+    }) as EventListener);
+  </script>
+
   <style>
     /* Blog Post Layout */
     .blog-post {
@@ -157,9 +193,23 @@ const faqSchema = faqs.length > 0 ? generateFAQSchema(faqs) : null;
 
     .blog-layout {
       display: grid;
-      grid-template-columns: 1fr 280px;
       gap: var(--spacing-12);
       position: relative;
+    }
+
+    /* Default: has TOC, expanded */
+    .blog-layout {
+      grid-template-columns: 1fr 280px;
+    }
+
+    /* Has TOC, collapsed - narrower sidebar */
+    .blog-layout.collapsed {
+      grid-template-columns: 1fr 48px;
+    }
+
+    /* No TOC - single column */
+    .blog-layout.no-toc {
+      grid-template-columns: 1fr;
     }
 
     .blog-main {
@@ -168,6 +218,11 @@ const faqSchema = faqs.length > 0 ? generateFAQSchema(faqs) : null;
 
     .blog-sidebar {
       position: relative;
+    }
+
+    /* Hide TOC sidebar when no headings */
+    .blog-layout.no-toc .blog-sidebar {
+      display: none;
     }
 
     /* Post Header */
