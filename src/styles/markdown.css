@@ -167,9 +167,14 @@
 .markdown-content img {
   max-width: 100%;
   height: auto;
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-sm);
   margin: 1.5em 0;
-  box-shadow: var(--shadow-md);
+  cursor: zoom-in;
+  transition: transform var(--transition-fast);
+}
+
+.markdown-content img:hover {
+  transform: scale(1.01);
 }
 
 /* Horizontal rule */
