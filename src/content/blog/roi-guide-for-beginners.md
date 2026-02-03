@@ -1,7 +1,7 @@
 ---
 title: "ROI 1.5 和 ROI 3.0 之间差了什么？深入理解广告投放的「北极星指标」"
 description: "深入解析 ROI 的计算方式、ROIn 概念、三层分析框架，以及五个实用的 ROI 提升方法，帮助广告新手建立完整的 ROI 知识体系。"
-pubDate: 2026-01-27
+pubDate: 2026-01-25
 author: "AttriKit Team"
 ---
 
