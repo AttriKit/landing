@@ -13,7 +13,10 @@
       <li><a href="/#comparison">对比优势</a></li>
       <li><a href="/#pricing">价格方案</a></li>
       <li><a href="/#faq">常见问题</a></li>
-      <li><button class="btn btn-primary btn-sm" data-open-modal>立即咨询</button></li>
+      <li class="nav-cta-group">
+        <button class="btn btn-secondary btn-sm">体验 Demo</button>
+        <button class="btn btn-primary btn-sm" data-open-modal>立即咨询</button>
+      </li>
     </ul>
     <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu">
       <span></span>
@@ -94,6 +97,24 @@
     border-radius: 2px;
   }
 
+  .nav-cta-group {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+  }
+
+  .nav-cta-group .btn {
+    height: 32px;
+  }
+
+  .nav-cta-group .btn-primary {
+    border: 1.5px solid var(--color-accent-primary);
+  }
+
+  .nav-cta-group .btn-secondary {
+    height: 34px;
+  }
+
   .nav-toggle {
     display: none;
     flex-direction: column;
@@ -164,6 +185,19 @@
       margin: var(--spacing-3) var(--spacing-6);
       width: calc(100% - var(--spacing-12));
       text-align: center;
+    }
+
+    /* Button group in mobile menu */
+    .nav-cta-group {
+      flex-direction: column;
+      gap: var(--spacing-2);
+      padding: 0;
+      margin: var(--spacing-3) 0;
+    }
+
+    .nav-cta-group button {
+      margin: 0;
+      width: 100%;
     }
 
     .nav-toggle {
