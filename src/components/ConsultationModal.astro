@@ -8,14 +8,11 @@
 
   <!-- Modal Content -->
   <div class="modal-container">
-    <div class="modal-header">
-      <h3 id="modal-title">立即咨询</h3>
-      <button class="modal-close" data-close-modal aria-label="关闭">
-        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path d="M6 18L18 6M6 6l12 12"/>
-        </svg>
-      </button>
-    </div>
+    <button class="modal-close-icon" data-close-modal aria-label="关闭">
+      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
 
     <div class="modal-body">
       <!-- Success Message -->
@@ -162,22 +159,11 @@
     transform: scale(1);
   }
 
-  .modal-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.5rem;
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .modal-header h3 {
-    margin: 0;
-    font-size: 1.5rem;
-    color: var(--color-text-primary);
-  }
-
-  .modal-close {
-    background: none;
+  .modal-close-icon {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: white;
     border: none;
     color: var(--color-text-muted);
     cursor: pointer;
@@ -187,20 +173,21 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 10;
   }
 
-  .modal-close:hover {
+  .modal-close-icon:hover {
     background: var(--color-bg-secondary);
     color: var(--color-text-primary);
   }
 
-  .modal-close:focus-visible {
+  .modal-close-icon:focus-visible {
     outline: 2px solid var(--color-accent-primary);
     outline-offset: 2px;
   }
 
   .modal-body {
-    padding: 1.5rem;
+    padding: 2.5rem 1.5rem 1.5rem;
   }
 
   /* Form styles */
@@ -220,6 +207,7 @@
     font-weight: 600;
     color: var(--color-text-primary);
     font-size: 0.875rem;
+    text-align: left;
   }
 
   .form-field .required {
@@ -313,9 +301,13 @@
       max-height: 95vh;
     }
 
-    .modal-header,
     .modal-body {
       padding: 1rem;
+    }
+
+    .modal-close-icon {
+      top: 0.75rem;
+      right: 0.75rem;
     }
   }
 </style>
