@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import { organizationSchema, webSiteSchema, softwareApplicationSchema, faqPageSchema } from '../data/structured-data';
 import ConsultationModal from '../components/ConsultationModal.astro';
+import DemoModal from '../components/DemoModal.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -708,6 +709,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   <!-- Footer -->
   <Footer />
+
+  <!-- Consultation Modal -->
+  <ConsultationModal />
+
+  <!-- Demo Modal -->
+  <DemoModal />
 
   <style>
     /* Hero Section */
@@ -1602,7 +1609,4 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       });
     });
   </script>
-
-  <!-- Consultation Modal -->
-  <ConsultationModal />
 </BaseLayout>
