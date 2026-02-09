@@ -23,8 +23,8 @@
   --color-text-light: #9CA3AF;
 
   /* Accents - Deep sea blue to teal gradient system */
-  --color-accent-primary: #0A5F8F;
-  --color-accent-primary-hover: #084D73;
+  --color-accent-primary: #0A6A9F;
+  --color-accent-primary-hover: #087AB5;
   --color-accent-secondary: #00B4A6;
   --color-accent-secondary-hover: #009689;
   --color-accent-subtle: #E8F4F8;
@@ -88,7 +88,7 @@
   --shadow-lg: 0 12px 24px -4px rgba(58, 66, 82, 0.1), 0 6px 12px -2px rgba(58, 66, 82, 0.06);
   --shadow-xl: 0 20px 40px -6px rgba(58, 66, 82, 0.12), 0 8px 16px -4px rgba(58, 66, 82, 0.06);
   --shadow-2xl: 0 25px 50px -12px rgba(58, 66, 82, 0.15);
-  --shadow-glow: 0 0 40px rgba(0, 145, 168, 0.15);
+  --shadow-glow: 0 0 40px rgba(10, 106, 159, 0.18);
   --shadow-glow-purple: 0 0 40px rgba(168, 85, 247, 0.12);
 
   /* Transitions */
@@ -292,8 +292,8 @@ a:hover {
   right: 0;
   bottom: 0;
   background-image:
-    linear-gradient(rgba(0, 145, 168, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 145, 168, 0.04) 1px, transparent 1px);
+    linear-gradient(rgba(10, 106, 159, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(10, 106, 159, 0.05) 1px, transparent 1px);
   background-size: 60px 60px;
   pointer-events: none;
   z-index: 0;
@@ -311,7 +311,7 @@ a:hover {
   left: 50%;
   width: 120%;
   height: 120%;
-  background: radial-gradient(circle, rgba(0, 145, 168, 0.1), transparent 60%);
+  background: radial-gradient(circle, rgba(10, 106, 159, 0.12), transparent 60%);
   transform: translate(-50%, -50%);
   pointer-events: none;
   z-index: -1;
@@ -424,9 +424,9 @@ a:hover {
   background: linear-gradient(
     135deg,
     transparent 0%,
-    rgba(10, 95, 143, 0.4) 20%,
-    rgba(10, 95, 143, 0.25) 50%,
-    rgba(10, 95, 143, 0.4) 80%,
+    rgba(10, 106, 159, 0.4) 20%,
+    rgba(10, 106, 159, 0.25) 50%,
+    rgba(10, 106, 159, 0.4) 80%,
     transparent 100%
   );
   animation: aurora-wave-1 20s ease-in-out infinite;
@@ -454,9 +454,9 @@ a:hover {
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(10, 95, 143, 0.35) 25%,
+    rgba(10, 106, 159, 0.35) 25%,
     rgba(0, 180, 166, 0.2) 50%,
-    rgba(10, 95, 143, 0.35) 75%,
+    rgba(10, 106, 159, 0.35) 75%,
     transparent 100%
   );
   animation: aurora-wave-3 18s ease-in-out infinite;
