@@ -9,8 +9,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout
-  title="AttriKit - 第一方广告归因系统 | 私有化部署，1小时上线，成本降低80%+"
-  description="AttriKit 是面向中国广告主的私有化部署第一方归因系统。支持巨量广告等主流平台，数据存储在您自己的服务器，归因逻辑透明可审计。Docker一键部署，1小时内完成上线，无需专业开发团队。相比第三方归因服务，长期使用成本降低80%+，天然符合数据合规要求。"
+  title="AttriKit - 广告归因，数据由你掌控 | 私有化部署，成本节约80%+"
+  description="AttriKit 是私有化部署的第一方归因系统，支持巨量、腾讯、快手等广告平台。数据存储在你的服务器，归因逻辑透明可审计。Docker一键部署，1小时完成上线，无需专业开发团队。告别第三方按量付费，长期使用成本节约80%+。"
 >
   <fragment slot="head">
     <!-- JSON-LD Structured Data -->
@@ -377,9 +377,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
             </svg>
           </div>
-          <h3 class="use-case-title">希望获得数据掌控权</h3>
+          <h3 class="use-case-title">希望数据掌控</h3>
           <p class="use-case-description">
-            不满足广告平台归因的透明度，担心第三方归因的数据安全问题
+            不满足平台归因透明度，想要自己掌控数据
           </p>
         </div>
         <div class="use-case-card">
@@ -388,9 +388,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               <path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
           </div>
-          <h3 class="use-case-title">追求成本优化</h3>
+          <h3 class="use-case-title">追求成本节约</h3>
           <p class="use-case-description">
-            第三方归因服务费用高昂，希望一次性投入长期受益
+            第三方归因费用高，希望一次投入长期受益
           </p>
         </div>
         <div class="use-case-card">
@@ -399,9 +399,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               <path d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
             </svg>
           </div>
-          <h3 class="use-case-title">需要多渠道归因</h3>
+          <h3 class="use-case-title">多平台投放</h3>
           <p class="use-case-description">
-            在多个广告平台投放广告，希望统一管理和分析归因数据
+            在多个广告平台投放，需要统一归因管理
           </p>
         </div>
         <div class="use-case-card">
@@ -410,9 +410,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               <path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
             </svg>
           </div>
-          <h3 class="use-case-title">对数据合规敏感</h3>
+          <h3 class="use-case-title">合规要求高</h3>
           <p class="use-case-description">
-            金融、医疗等对数据安全要求高的行业，需要符合严格数据合规要求
+            需要满足严格数据合规要求，数据不能流出服务器
           </p>
         </div>
       </div>
@@ -423,8 +423,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <section class="pricing section-lg" id="pricing">
     <div class="container">
       <div class="section-header">
-        <h2 class="section-title">价格方案</h2>
-        <p class="section-subtitle">选择最适合您的方案</p>
+        <h2 class="section-title">方案与定价</h2>
       </div>
       <div class="pricing-grid">
         <!-- Standard Plan -->
@@ -562,7 +561,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <div class="container">
       <div class="section-header">
         <h2 class="section-title">常见问题</h2>
-        <p class="section-subtitle">关于 AttriKit 的常见疑问解答</p>
       </div>
       <div class="faq-list">
         <div class="faq-item" data-faq-item>
@@ -573,7 +571,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             </svg>
           </button>
           <div class="faq-answer">
-            <p><strong>私有化部署</strong>是指将 AttriKit 系统部署在您自己的服务器上，所有归因数据都存储在您的服务器中，您拥有完全的数据掌控权。而第三方归因服务需要将数据发送到他们的服务器处理，数据不在您的掌控范围内。私有化部署也称为第一方归因，归因逻辑透明可验证，长期使用成本更低。</p>
+            <p><strong>私有化部署</strong>是指系统部署在你的服务器，数据由你掌控。第三方归因需要将数据发送到他们的服务器，数据不在你掌控范围内。</p>
           </div>
         </div>
 
@@ -585,7 +583,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             </svg>
           </button>
           <div class="faq-answer">
-            <p>目前支持<strong>巨量广告（字节跳动）</strong>，专业版和企业版支持腾讯广告、快手广告等更多主流平台。我们持续增加对新平台的支持，如有特定需求可联系我们咨询。</p>
+            <p>目前支持<strong>巨量广告</strong>，专业版支持腾讯广告、快手广告等更多平台。</p>
           </div>
         </div>
 
@@ -597,7 +595,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             </svg>
           </button>
           <div class="faq-answer">
-            <p>AttriKit 以 Docker 镜像形式提供，普通运维人员即可完成部署，通常<strong>1 小时内即可上线</strong>。不需要专业的开发团队，我们提供详细的部署文档和安装指南。</p>
+            <p>Docker 一键部署，普通运维人员即可完成，通常<strong>1 小时内上线</strong>。</p>
           </div>
         </div>
 
@@ -609,7 +607,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             </svg>
           </button>
           <div class="faq-answer">
-            <p>所有归因数据都存储在<strong>您自己的服务器</strong>上，数据不流转至任何第三方。这天然符合隐私保护和数据合规要求，特别适合金融、医疗等对数据安全敏感的行业。</p>
+            <p>数据存储在你自己的服务器，不流转至任何第三方。</p>
           </div>
         </div>
 
@@ -621,7 +619,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             </svg>
           </button>
           <div class="faq-answer">
-            <p>是的，AttriKit 提供<strong>API 接口</strong>，可以方便地与您现有的系统集成。同时也提供 SDK 集成方式，只需几分钟即可完成 App 端的接入。</p>
+            <p>提供 <strong>API 接口</strong>与现有系统集成，同时支持 SDK 集成，几分钟完成接入。</p>
           </div>
         </div>
 
@@ -633,7 +631,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             </svg>
           </button>
           <div class="faq-answer">
-            <p>标准版提供社区支持，专业版提供优先技术支持，企业版配备专属技术顾问和 7×24 小时技术支持。我们也提供完整的在线文档和使用指南。</p>
+            <p>标准版社区支持，专业版优先技术支持，企业版 7×24 技术支持。</p>
           </div>
         </div>
 
@@ -645,7 +643,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             </svg>
           </button>
           <div class="faq-answer">
-            <p>是的，我们有<strong>开源免费的标准版</strong>，包含完整的第一方归因能力，适合刚起步的广告主或预算有限的团队。当您的业务规模增长后，可以随时升级到专业版或企业版。</p>
+            <p>标准版<strong>开源免费</strong>，包含完整的第一方归因能力。业务增长后可升级到专业版或企业版。</p>
           </div>
         </div>
 
@@ -657,7 +655,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             </svg>
           </button>
           <div class="faq-answer">
-            <p>月投放预算在 5 万以下的广告主，平台归因通常已经够用。月投放 5 万-50 万是第一方归因的最佳区间，通常 1-2 年就能收回成本。月投放 50 万以上，第一方归因几乎是必选项，长期节省的费用非常可观。</p>
+            <p>月投放 5 万以下平台归因够用。5 万-50 万是第一方归因最佳区间，1-2 年收回成本。50 万以上几乎是必选项。</p>
           </div>
         </div>
       </div>
@@ -668,10 +666,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <section class="cta section-lg grid-background" id="contact">
     <div class="container">
       <div class="cta-content">
-        <h2 class="cta-title">准备好开始了吗？</h2>
+        <h2 class="cta-title">开始构建你的归因系统</h2>
         <p class="cta-subtitle">
-          1 小时内完成私有化部署，开始构建属于您自己的归因系统<br />
-          数据掌控，从选择私有化部署开始
+          1 小时完成私有化部署，数据完全掌控
         </p>
         <div class="cta-actions">
           <button data-open-modal class="btn btn-primary btn-lg">
