@@ -38,6 +38,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </div>
     </div>
 
+    <!-- Chuichui Mascot - Positioned relative to Hero section -->
+    <div class="hero-mascot" data-hero-mascot>
+      <div class="mascot-wrapper">
+        <div class="mascot-glow"></div>
+        <img src="/Chuichui.webp" alt="Chuichui - AttriKit 吉祥物" class="mascot-image" width="400" height="400" loading="eager" />
+        <div class="mascot-shadow"></div>
+      </div>
+    </div>
+
     <div class="hero-content container">
       <div class="hero-badge">
         <span class="badge-dot"></span>
@@ -724,6 +733,104 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       animation: fadeUp 0.8s ease;
     }
 
+    .hero-title {
+      font-size: clamp(40px, 5vw, 64px);
+      margin-bottom: var(--spacing-6);
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+      animation: fadeUp 0.8s ease 0.2s backwards;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Chuichui Mascot Styles - Absolute positioned within Hero section only */
+    .hero-mascot {
+      position: absolute;
+      right: 40px;
+      bottom: 20%;
+      z-index: 0;
+      animation: fadeUp 1s ease 0.3s backwards;
+      pointer-events: auto;
+    }
+
+    .mascot-wrapper {
+      position: relative;
+      width: 260px;
+      height: 260px;
+      animation: mascotFloat 6s ease-in-out infinite;
+    }
+
+    .mascot-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(10, 106, 159, 0.15) 0%, rgba(0, 180, 166, 0.08) 50%, transparent 70%);
+      border-radius: 50%;
+      animation: glowPulse 4s ease-in-out infinite;
+    }
+
+    .mascot-image {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 20px 60px rgba(10, 106, 159, 0.25));
+      transition: transform 0.4s ease, filter 0.4s ease;
+    }
+
+    .mascot-wrapper:hover .mascot-image {
+      transform: scale(1.05) translateY(-8px);
+      filter: drop-shadow(0 30px 80px rgba(10, 106, 159, 0.35));
+    }
+
+    .mascot-shadow {
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200px;
+      height: 20px;
+      background: radial-gradient(ellipse, rgba(10, 106, 159, 0.2) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: shadowPulse 6s ease-in-out infinite;
+    }
+
+    /* Mascot Animations */
+    @keyframes mascotFloat {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    @keyframes glowPulse {
+      0%, 100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+      50% {
+        opacity: 0.7;
+        transform: translate(-50%, -50%) scale(1.1);
+      }
+    }
+
+    @keyframes shadowPulse {
+      0%, 100% {
+        opacity: 1;
+        transform: translateX(-50%) scale(1);
+      }
+      50% {
+        opacity: 0.6;
+        transform: translateX(-50%) scale(0.85);
+      }
+    }
+
     .hero-badge {
       display: inline-flex;
       align-items: center;
@@ -752,6 +859,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       line-height: 1.1;
       letter-spacing: -0.04em;
       animation: fadeUp 0.8s ease 0.2s backwards;
+      position: relative;
+      z-index: 2;
     }
 
     .gradient-text {
@@ -1362,6 +1471,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         grid-template-columns: 1fr;
         gap: var(--spacing-8);
       }
+
+      /* Hide mascot on tablet and mobile */
+      .hero-mascot {
+        display: none;
+      }
     }
 
     @media (max-width: 768px) {
@@ -1536,6 +1650,36 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       }
 
       animateAurora();
+    }
+
+    // Chuichui mascot parallax effect (desktop only, >1024px)
+    const mascot = document.querySelector('[data-hero-mascot]');
+    if (mascot && window.innerWidth > 1024) {
+      let mascotMouseX = 0, mascotMouseY = 0;
+      let mascotCurrentX = 0, mascotCurrentY = 0;
+
+      document.addEventListener('mousemove', (e) => {
+        const rect = mascot.getBoundingClientRect();
+        const mascotCenterX = rect.left + rect.width / 2;
+        const mascotCenterY = rect.top + rect.height / 2;
+
+        // Calculate distance from mascot center with reduced sensitivity
+        mascotMouseX = (e.clientX - mascotCenterX) * 0.03;
+        mascotMouseY = (e.clientY - mascotCenterY) * 0.03;
+      });
+
+      function animateMascot() {
+        // Smooth interpolation
+        mascotCurrentX += (mascotMouseX - mascotCurrentX) * 0.08;
+        mascotCurrentY += (mascotMouseY - mascotCurrentY) * 0.08;
+
+        // Apply parallax effect
+        mascot.style.transform = `translate(${mascotCurrentX}px, ${mascotCurrentY}px)`;
+
+        requestAnimationFrame(animateMascot);
+      }
+
+      animateMascot();
     }
 
     // Smooth scroll for anchor links
