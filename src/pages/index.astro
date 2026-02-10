@@ -40,6 +40,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     <!-- Chuichui Mascot - Positioned relative to Hero section -->
     <div class="hero-mascot" data-hero-mascot>
+      <!-- Speech Bubble -->
+      <div class="mascot-bubble" data-mascot-bubble style="display: none;">
+        <div class="bubble-content">
+          <p class="bubble-text" data-bubble-text></p>
+          <div class="bubble-actions">
+            <button class="bubble-btn bubble-btn-primary" data-bubble-action="consult">立即咨询</button>
+            <button class="bubble-btn bubble-btn-secondary" data-bubble-action="demo">体验 Demo</button>
+          </div>
+        </div>
+        <div class="bubble-close" data-bubble-close aria-label="关闭">✕</div>
+        <!-- Bubble arrow pointing to mascot -->
+        <div class="bubble-arrow"></div>
+      </div>
+
       <div class="mascot-wrapper">
         <div class="mascot-glow"></div>
         <img src="/Chuichui.webp" alt="Chuichui - AttriKit 吉祥物" class="mascot-image" width="400" height="400" loading="eager" />
@@ -797,6 +811,144 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       background: radial-gradient(ellipse, rgba(10, 106, 159, 0.2) 0%, transparent 70%);
       border-radius: 50%;
       animation: shadowPulse 6s ease-in-out infinite;
+    }
+
+    /* Speech Bubble Styles */
+    .mascot-bubble {
+      position: absolute;
+      bottom: 100%;
+      right: 0;
+      margin-bottom: 20px;
+      width: 280px;
+      background: #FFFFFF;
+      border-radius: var(--radius-xl);
+      box-shadow: 0 12px 40px rgba(10, 106, 159, 0.15), 0 4px 12px rgba(10, 106, 159, 0.08);
+      border: 1px solid var(--color-border);
+      z-index: 10;
+      animation: bubblePopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .bubble-content {
+      padding: var(--spacing-5);
+    }
+
+    .bubble-text {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-primary);
+      line-height: 1.6;
+      margin: 0 0 var(--spacing-4) 0;
+    }
+
+    .bubble-actions {
+      display: flex;
+      gap: var(--spacing-2);
+      flex-wrap: wrap;
+    }
+
+    .bubble-btn {
+      padding: var(--spacing-2) var(--spacing-3);
+      font-size: var(--font-size-xs);
+      font-weight: 600;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+    }
+
+    .bubble-btn-primary {
+      background: var(--color-accent-primary);
+      color: #FFFFFF;
+    }
+
+    .bubble-btn-primary:hover {
+      background: var(--color-accent-primary-hover);
+      box-shadow: 0 4px 12px rgba(10, 106, 159, 0.25);
+    }
+
+    .bubble-btn-secondary {
+      background: var(--color-accent-subtle);
+      color: var(--color-accent-primary);
+    }
+
+    .bubble-btn-secondary:hover {
+      background: var(--color-accent-bg);
+    }
+
+    .bubble-close {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: var(--color-bg-secondary);
+      color: var(--color-text-muted);
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+    }
+
+    .bubble-close:hover {
+      background: var(--color-bg-surface);
+      color: var(--color-text-primary);
+      transform: scale(1.1);
+    }
+
+    .bubble-arrow {
+      position: absolute;
+      bottom: -8px;
+      right: 40px;
+      width: 0;
+      height: 0;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-top: 8px solid #FFFFFF;
+    }
+
+    /* Bubble animation */
+    @keyframes bubblePopIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.8) translateY(10px);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    @keyframes bubblePopOut {
+      0% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(0.8) translateY(10px);
+      }
+    }
+
+    .mascot-bubble.closing {
+      animation: bubblePopOut 0.3s ease forwards;
+    }
+
+    /* Mascot hover hint */
+    .hero-mascot:hover .mascot-wrapper::after {
+      content: '点我聊天~';
+      position: absolute;
+      bottom: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      font-size: var(--font-size-xs);
+      color: var(--color-accent-primary);
+      font-weight: 600;
+      opacity: 0;
+      animation: fadeIn 0.3s ease forwards;
     }
 
     /* Mascot Animations */
@@ -1681,6 +1833,101 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
       animateMascot();
     }
+
+    // Chuichui mascot bubble interaction
+    const mascotElement = document.querySelector('[data-hero-mascot]');
+    const bubble = document.querySelector('[data-mascot-bubble]');
+    const bubbleText = document.querySelector('[data-bubble-text]');
+    const bubbleClose = document.querySelector('[data-bubble-close]');
+
+    // Random greeting messages
+    const greetingMessages = [
+      "你好！我是 Chuichui，想了解 AttriKit 吗？",
+      "想知道如何节省 80% 归因成本吗？",
+      "要不要先体验一下 Demo？",
+      "有疑问？点击'立即咨询'，我们帮你解答！",
+      "私有化部署，数据完全由你掌控哦~",
+      "1小时就能完成部署，超简单的！"
+    ];
+
+    let currentMessageIndex = -1;
+    let isBubbleOpen = false;
+
+    // Get random message (different from current)
+    function getRandomMessage() {
+      let newIndex;
+      do {
+        newIndex = Math.floor(Math.random() * greetingMessages.length);
+      } while (newIndex === currentMessageIndex && greetingMessages.length > 1);
+      currentMessageIndex = newIndex;
+      return greetingMessages[newIndex];
+    }
+
+    // Show bubble with animation
+    function showBubble() {
+      if (isBubbleOpen) return;
+      isBubbleOpen = true;
+
+      bubbleText.textContent = getRandomMessage();
+      bubble.style.display = 'block';
+      bubble.classList.remove('closing');
+    }
+
+    // Hide bubble with animation
+    function hideBubble() {
+      if (!isBubbleOpen) return;
+
+      bubble.classList.add('closing');
+      setTimeout(() => {
+        bubble.style.display = 'none';
+        isBubbleOpen = false;
+      }, 300);
+    }
+
+    // Toggle bubble on mascot click
+    mascotElement?.addEventListener('click', (e) => {
+      // Don't trigger if clicking on bubble
+      if (e.target.closest('.mascot-bubble')) return;
+
+      if (isBubbleOpen) {
+        hideBubble();
+      } else {
+        showBubble();
+      }
+    });
+
+    // Close button
+    bubbleClose?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      hideBubble();
+    });
+
+    // Bubble action buttons
+    document.querySelectorAll('[data-bubble-action]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const action = btn.dataset.bubbleAction;
+
+        if (action === 'consult') {
+          // Open consultation modal
+          const modalTrigger = document.querySelector('[data-open-modal]');
+          modalTrigger?.click();
+        } else if (action === 'demo') {
+          // Open demo modal
+          const demoTrigger = document.querySelector('[data-open-demo-modal]');
+          demoTrigger?.click();
+        }
+
+        hideBubble();
+      });
+    });
+
+    // Close bubble when clicking outside
+    document.addEventListener('click', (e) => {
+      if (isBubbleOpen && !e.target.closest('[data-hero-mascot]')) {
+        hideBubble();
+      }
+    });
 
     // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
