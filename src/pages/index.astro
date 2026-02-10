@@ -757,20 +757,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       z-index: 2;
     }
 
-    /* Chuichui Mascot Styles - Absolute positioned within Hero section only */
+    /* Chuichui Mascot Styles - Fixed to screen bottom right */
     .hero-mascot {
-      position: absolute;
+      position: fixed;
       right: 40px;
-      bottom: 20%;
-      z-index: 0;
+      bottom: 40px;
+      z-index: 100;
       animation: fadeUp 1s ease 0.3s backwards;
       pointer-events: auto;
     }
 
     .mascot-wrapper {
       position: relative;
-      width: 260px;
-      height: 260px;
+      width: 200px;
+      height: 200px;
       animation: mascotFloat 6s ease-in-out infinite;
     }
 
@@ -779,8 +779,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 180px;
-      height: 180px;
+      width: 140px;
+      height: 140px;
       background: radial-gradient(circle, rgba(10, 106, 159, 0.15) 0%, rgba(0, 180, 166, 0.08) 50%, transparent 70%);
       border-radius: 50%;
       animation: glowPulse 4s ease-in-out infinite;
@@ -934,21 +934,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     .mascot-bubble.closing {
       animation: bubblePopOut 0.3s ease forwards;
-    }
-
-    /* Mascot hover hint */
-    .hero-mascot:hover .mascot-wrapper::after {
-      content: '点我聊天~';
-      position: absolute;
-      bottom: -30px;
-      left: 50%;
-      transform: translateX(-50%);
-      white-space: nowrap;
-      font-size: var(--font-size-xs);
-      color: var(--color-accent-primary);
-      font-weight: 600;
-      opacity: 0;
-      animation: fadeIn 0.3s ease forwards;
     }
 
     /* Mascot Animations */
