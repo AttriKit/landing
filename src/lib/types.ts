@@ -6,6 +6,7 @@ export interface ConsultationData {
   company?: string;
   email: string;
   phone: string;
+  wechat?: string;
   message?: string;
 }
 

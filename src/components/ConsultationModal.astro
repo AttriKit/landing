@@ -87,6 +87,18 @@
           />
         </div>
 
+        <!-- WeChat Field -->
+        <div class="form-field">
+          <label for="wechat">微信号</label>
+          <input
+            type="text"
+            id="wechat"
+            name="wechat"
+            autocomplete="off"
+            placeholder="请输入您的微信号"
+          />
+        </div>
+
         <!-- Message Field -->
         <div class="form-field">
           <label for="message">咨询内容</label>
@@ -432,6 +444,7 @@
       company: formData.get('company'),
       email: formData.get('email'),
       phone: formData.get('phone'),
+      wechat: formData.get('wechat'),
       message: formData.get('message')
     };
 

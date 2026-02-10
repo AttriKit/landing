@@ -68,7 +68,8 @@ function formatMessage(data: ConsultationData): string {
 🏢 公司名称：${data.company || "未填写"}
 📧 邮箱：${data.email}
 📱 联系电话：${data.phone}
-💬 咨询内容：
+💬 微信号：${data.wechat || "未填写"}
+📝 咨询内容：
 ${data.message || "无"}
 
 ---
