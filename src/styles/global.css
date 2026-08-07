@@ -292,8 +292,8 @@ a:hover {
   right: 0;
   bottom: 0;
   background-image:
-    linear-gradient(rgba(10, 106, 159, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(10, 106, 159, 0.05) 1px, transparent 1px);
+    linear-gradient(rgba(220, 53, 69, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(220, 53, 69, 0.05) 1px, transparent 1px);
   background-size: 60px 60px;
   pointer-events: none;
   z-index: 0;
@@ -424,9 +424,9 @@ a:hover {
   background: linear-gradient(
     135deg,
     transparent 0%,
-    rgba(10, 106, 159, 0.4) 20%,
-    rgba(10, 106, 159, 0.25) 50%,
-    rgba(10, 106, 159, 0.4) 80%,
+    rgba(220, 53, 69, 0.4) 20%,
+    rgba(220, 53, 69, 0.25) 50%,
+    rgba(220, 53, 69, 0.4) 80%,
     transparent 100%
   );
   animation: aurora-wave-1 20s ease-in-out infinite;
@@ -439,9 +439,9 @@ a:hover {
   background: linear-gradient(
     -45deg,
     transparent 0%,
-    rgba(0, 180, 166, 0.3) 15%,
-    rgba(0, 180, 166, 0.15) 50%,
-    rgba(0, 180, 166, 0.3) 85%,
+    rgba(255, 99, 71, 0.3) 15%,
+    rgba(255, 99, 71, 0.15) 50%,
+    rgba(255, 99, 71, 0.3) 85%,
     transparent 100%
   );
   animation: aurora-wave-2 24s ease-in-out infinite;
@@ -454,9 +454,9 @@ a:hover {
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(10, 106, 159, 0.35) 25%,
-    rgba(0, 180, 166, 0.2) 50%,
-    rgba(10, 106, 159, 0.35) 75%,
+    rgba(220, 53, 69, 0.35) 25%,
+    rgba(255, 99, 71, 0.2) 50%,
+    rgba(220, 53, 69, 0.35) 75%,
     transparent 100%
   );
   animation: aurora-wave-3 18s ease-in-out infinite;
